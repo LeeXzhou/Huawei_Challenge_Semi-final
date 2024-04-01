@@ -7,11 +7,27 @@
 using namespace std;
 class Boat {
 public:
-	int boat_id = -1, x = -1, y = -1, dir = -1;
-	int goods_num = 0, status = -1;
-	Boat() { };
+	enum direction {
+		north = 0,
+		south = 2,
+		west = 3,
+		east = 1
+	};
+	Boat(int id = -1, int X = -1, int Y = -1, direction Dir = east/*east as default*/, int Status = -1, int Num_goods = 0) { };
+	bool Clockwise();
+	bool AntiClock();
+	bool Forward();
 	void Boat_control();
+	int GetId();
+	static bool sea_check_valid(int x, int y);
+	static bool init_check_valid(int x, int y);
+	static void init_boat_loc();
+	//private:
+	int boat_id, x, y, dir, status, goods_num;
+	static int boat_num;
+	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked 1
+	static int projection_x[4];
+	static int projection_y[4];
 };
 
-extern Boat boat[20];
 #endif // !boat_h
