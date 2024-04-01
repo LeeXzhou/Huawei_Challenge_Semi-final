@@ -1,7 +1,18 @@
 #include <iostream>
 #include "record.h"
 using namespace std;
-
+int robot_num, boat_num, berth_num, goods_num;
+int frame_id;
+int money, boat_capacity;
+int dis[200][200][10];
+char grid[N][N];
+MyPair goods_map[N][N];
+vector<pair<int, int>> robot_purchase_point;
+vector<pair<int, int>> boat_purchase_point;
+vector<pair<int, int>> delivery_point;
+Berth berth[10];
+Robot robot[20];
+Boat boat[20];
 void ProcessMap()
 {
     for (int i = 0; i < N; i++) {
@@ -26,7 +37,7 @@ void Init()
     cin >> berth_num;
     for (int i = 0; i < berth_num; i++)
     {
-        int id;
+        int id = -1;
         cin >> id >> berth[id].x >> berth[id].y >> berth[id].loading_speed;
     }
     cin >> boat_capacity;
@@ -37,7 +48,7 @@ void Init()
 }
 
 
-int Input()
+void Input()
 {
     cin >> money >> goods_num;
     for (int i = 0; i < goods_num; i++)

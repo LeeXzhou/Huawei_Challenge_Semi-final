@@ -19,40 +19,16 @@ std::ostream& operator<<(std::ostream& os, const MyPair& p) {
     os << "(" << p.first << ", " << p.second << ")";
     return os;
 }
-
-Plan::Plan(int v, int t, int i, MyPair g)
+MyTuple::MyTuple() : x(-1), y(-1), status(-1) {}
+MyTuple::MyTuple(int a, int b, int c) : x(a), y(b), status(c) {}
+bool MyTuple::operator<(const MyTuple& tmp) const 
 {
-    value = v, time = t, robot_id = i, target = g;
+    return status < tmp.status;
 }
 
-Record::Record(int t, int x, int y)
-{
-    time = t;
-    cur_x = x;
-    cur_y = y;
+bool MyTuple::operator>(const MyTuple& tmp) const {
+    return status > tmp.status;
 }
-bool Record::operator < (const Record& tmp) const
-{
-    if (time != tmp.time)
-    {
-        return time < tmp.time;
-    }
-    else if(cur_x != tmp.cur_x)
-    {
-        return cur_x < tmp.cur_x;
-    }
-    else
-    {
-        return cur_y < tmp.cur_y;
-    }
-    
-}
-
-bool Plan::operator < (const Plan& tmp) const
-{
-    return value * tmp.time < time * tmp.value;
-}
-
 int my_abs(const int& a, const int& b)
 {
     if (a > b)
@@ -64,5 +40,3 @@ int my_abs(const int& a, const int& b)
         return b - a;
     }
 }
-// 随机数生成器
-

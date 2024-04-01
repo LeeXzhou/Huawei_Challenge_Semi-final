@@ -21,16 +21,12 @@ const MyPair operator-(const MyPair& a, const MyPair& b);
 // ÖØÔØÊä³öÔËËã·û
 std::ostream& operator<<(std::ostream& os, const MyPair& p);
 
-struct Plan {
-	int value = 0, time = 0, robot_id;
-	MyPair target;
-	Plan(int v, int t, int i, MyPair g);
-	bool operator < (const Plan& tmp) const;
-};
-struct Record {
-	int time = -1, cur_x = -1, cur_y = -1;
-	Record(int t, int x, int y);
-	bool operator < (const Record& tmp) const;
+struct MyTuple {
+	int x, y, status;
+	MyTuple();
+	MyTuple(int a = -1, int b = -1, int c = -1);
+	bool operator<(const MyTuple& tmp) const;
+	bool operator>(const MyTuple& tmp) const;
 };
 
 int my_abs(const int& a, const int& b);

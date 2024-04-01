@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\files\main.cpp" />
+    <ClCompile Include="..\files\my_algorithm.cpp" />
     <ClCompile Include="..\files\my_data_structure.cpp" />
     <ClCompile Include="..\files\record.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\files\my_algorithm.h" />
     <ClInclude Include="..\files\my_data_structure.h" />
     <ClInclude Include="..\files\record.h" />
   </ItemGroup>
