@@ -11,7 +11,7 @@ vector<pair<int, int>> robot_purchase_point;
 vector<pair<int, int>> boat_purchase_point;
 vector<pair<int, int>> delivery_point;
 Berth berth[10];
-Robot robot[20];
+Robot robot[30];
 Boat boat[20];
 void ProcessMap()
 {
