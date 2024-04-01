@@ -1,5 +1,5 @@
 #include <iostream>
-#include "record.h"
+#include "my_algorithm.h"
 using namespace std;
 int robot_num, boat_num, berth_num, goods_num;
 int frame_id;

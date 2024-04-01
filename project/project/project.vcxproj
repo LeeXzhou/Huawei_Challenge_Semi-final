@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9555d714-f8ac-4dc2-aca2-ab4ca4347af9}</ProjectGuid>
+    <ProjectGuid>{7abde50e-b36f-44c4-bac6-dc0eaf104470}</ProjectGuid>
     <RootNamespace>project</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -127,15 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\files\berth.cpp" />
+    <ClCompile Include="..\files\boat.cpp" />
     <ClCompile Include="..\files\main.cpp" />
     <ClCompile Include="..\files\my_algorithm.cpp" />
     <ClCompile Include="..\files\my_data_structure.cpp" />
-    <ClCompile Include="..\files\record.cpp" />
+    <ClCompile Include="..\files\robot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\files\berth.h" />
+    <ClInclude Include="..\files\boat.h" />
     <ClInclude Include="..\files\my_algorithm.h" />
     <ClInclude Include="..\files\my_data_structure.h" />
-    <ClInclude Include="..\files\record.h" />
+    <ClInclude Include="..\files\robot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

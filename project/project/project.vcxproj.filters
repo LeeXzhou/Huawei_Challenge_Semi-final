@@ -15,27 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\files\berth.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="..\files\main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\files\my_data_structure.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\files\record.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\files\my_algorithm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\files\my_data_structure.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\files\boat.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\files\robot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\files\my_data_structure.h">
+    <ClInclude Include="..\files\berth.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\files\record.h">
+    <ClInclude Include="..\files\boat.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\files\my_algorithm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\files\my_data_structure.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\files\robot.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
