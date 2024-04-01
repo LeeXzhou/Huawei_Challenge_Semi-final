@@ -6,6 +6,9 @@
 
 using namespace std;
 
+bool check_valid(const int& x, const int& y);
+bool check_valid(const MyPair& x);
+
 class Berth {
 public:
 	int x = -1, y = -1, loading_speed = -1;
