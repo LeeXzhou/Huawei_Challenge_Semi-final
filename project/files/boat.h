@@ -10,6 +10,7 @@ public:
 	int boat_id = -1, x = -1, y = -1, dir = -1;
 	int goods_num = 0, status = -1;
 	Boat() { };
+	void Boat_control();
 };
 
 #endif // !boat_h
