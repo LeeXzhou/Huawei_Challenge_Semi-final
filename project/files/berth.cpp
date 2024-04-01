@@ -53,5 +53,4 @@ MyPair Berth::find_goods_from_berth()
 	{
 		return make_pair(-1, -1);
 	}
-
 }
