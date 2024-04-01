@@ -35,9 +35,9 @@ void Init()
     }
     ProcessMap();
     cin >> berth_num;
+    int id = -1;
     for (int i = 0; i < berth_num; i++)
-    {
-        int id = -1;
+    {        
         cin >> id >> berth[id].x >> berth[id].y >> berth[id].loading_speed;
     }
     cin >> boat_capacity;
@@ -55,6 +55,14 @@ void Input()
     {
         int x, y, val;
         cin >> x >> y >> val;
+        for (int j = 0; j < berth_num; j++)
+        {
+            if (dis[x][y][j] != -1)
+            {
+                berth[j].goods_info.insert(MyTuple(x, y, frame_id));
+            }
+        }
+        goods_map[x][y] = { val, frame_id + 1000 };
     }
 
     cin >> robot_num;

@@ -13,4 +13,5 @@ public:
 	void Boat_control();
 };
 
+extern Boat boat[20];
 #endif // !boat_h

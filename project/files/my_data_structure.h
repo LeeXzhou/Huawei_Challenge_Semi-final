@@ -29,5 +29,12 @@ struct MyTuple {
 	bool operator>(const MyTuple& tmp) const;
 };
 
+struct Plan {
+	int value = 0, time = 0;
+	MyPair target;
+	Plan(int v, int t, MyPair g);
+	bool operator < (const Plan& tmp) const;
+};
+
 int my_abs(const int& a, const int& b);
 #endif // !my_data_structure_h

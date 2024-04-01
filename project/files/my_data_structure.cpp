@@ -23,12 +23,45 @@ MyTuple::MyTuple() : x(-1), y(-1), status(-1) {}
 MyTuple::MyTuple(int a, int b, int c) : x(a), y(b), status(c) {}
 bool MyTuple::operator<(const MyTuple& tmp) const 
 {
-    return status < tmp.status;
+    if (status != tmp.status)
+    {
+        return status < tmp.status;
+    }
+    else if (x != tmp.x)
+    {
+        return x < tmp.x;
+    }
+    else
+    {
+        return y < tmp.y;
+    }
 }
 
 bool MyTuple::operator>(const MyTuple& tmp) const {
-    return status > tmp.status;
+    if (status != tmp.status)
+    {
+        return status > tmp.status;
+    }
+    else if (x != tmp.x)
+    {
+        return x < tmp.x;
+    }
+    else
+    {
+        return y < tmp.y;
+    }
 }
+
+Plan::Plan(int v, int t, MyPair g)
+{
+    value = v, time = t, target = g;
+}
+
+bool Plan::operator < (const Plan& tmp) const
+{
+    return value * tmp.time < time * tmp.value;
+}
+
 int my_abs(const int& a, const int& b)
 {
     if (a > b)

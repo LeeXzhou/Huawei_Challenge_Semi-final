@@ -6,8 +6,8 @@
 
 using namespace std;
 
-bool check_valid(const int& x, const int& y);
-bool check_valid(const MyPair& x);
+bool land_check_valid(const int& x, const int& y);
+bool land_check_valid(const MyPair& x);
 
 class Berth {
 public:
@@ -16,6 +16,8 @@ public:
 	int num = 0, berth_id = -1;
 	Berth() { };
 	Berth(int x, int y, int loading_speed);
+	MyPair find_goods_from_berth();
+	set<MyTuple> goods_info;	//存储该泊位到每个货物的时间，货物x，y坐标，默认time从小到大
 };
 
 const int N = 200, boat_price = 8000, robot_price = 2000;
