@@ -18,15 +18,47 @@ Boat::Boat(int id, int X, int Y, direction Dir, int Status, int Num_goods) :
 	}
 }
 
-// repeat this function check
+// repeat this function check before and after move, which can be improved
 bool Boat::slow_or_not(const MyPair& t) {
 	int x = t.first, y = t.second;
-	return false;
+	char tmp = grid[x][y];
+	return tmp == '~' || tmp == 'S' || tmp == 'c' || tmp == 'B' || tmp == 'K' || tmp == 'T';
 }
 
 bool Boat::slow_or_not(const MyTuple& t) {
 	int x = t.x, y = t.y, dir = t.status;
-	return false;
+	if (dir == 0) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (!slow_or_not(make_pair(x - j, y + i)))
+					return false;
+			}
+		}
+	}
+	else if (dir == 2) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (!slow_or_not(make_pair(x + j, y - i)))
+					return false;
+			}
+		}
+	}
+	else if (dir == 3) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (!slow_or_not(make_pair(x - i, y - j)))
+					return false;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (!slow_or_not(make_pair(x + i, y + j)))
+					return false;
+			}
+		}
+	}
 }
 
 

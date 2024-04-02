@@ -2,4 +2,5 @@
   main.cpp
   my_algorithm.cpp
   正在生成代码...
+D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\boat.cpp(62,1): warning C4715: “Boat::slow_or_not”: 不是所有的控件路径都返回值
   project.vcxproj -> D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
