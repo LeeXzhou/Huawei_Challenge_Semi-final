@@ -12,7 +12,7 @@ public:
 	static bool AntiClock(MyTuple& k);
 	static bool Forward(MyTuple& k);
 	static bool operate(MyTuple &t, int op);//0: clockwise, 1: anti, 2:forward
-	static bool check_valid(const MyTuple& t);//ÊÇ·ñ¿ÉÐÐ
+	static bool check_valid(const MyTuple& t);//if this point is valid
 	static bool slow_or_not(const MyTuple& t);
 	static bool slow_or_not(const MyPair& t);
 	void Boat_control();
