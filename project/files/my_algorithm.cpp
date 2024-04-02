@@ -36,14 +36,21 @@ namespace my_alg {
 						dis[cur.first][cur.second][i] = dis[tmp.first][tmp.second][i] + 1;
 						q.push(cur);
 					}
-					else if(Boat::sea_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
-					{
-						vis[cur.first][cur.second][i] = true;
-						dis[cur.first][cur.second][i] = dis[tmp.first][tmp.second][i] + 1;
-						q.push(cur);
-					}
 				}
 			}
 		}
+	}
+	void test_robot()
+	{
+		if (money >= 2000)
+		{
+			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
+		}
+		for (int i = 0; i < robot_num; i++)
+		{
+			robot[i].robot_control();
+			//cerr << i;
+		}
+		//cerr << "I am out" << endl;
 	}
 }

@@ -26,9 +26,7 @@ extern int money, boat_capacity;
 
 extern char grid[N][N];
 extern MyPair goods_map[N][N];
-extern vector<pair<int, int>> robot_purchase_point;
-extern vector<pair<int, int>> boat_purchase_point;
-extern vector<pair<int, int>> delivery_point;
+extern vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 extern Berth berth[10];
 
 extern int dis[200][200][10];	//若干个泊位到地图上每个点的距离，有船从海洋走的距离也有机器人从陆地走的距离

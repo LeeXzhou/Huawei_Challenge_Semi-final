@@ -7,9 +7,7 @@ int money, boat_capacity;
 int dis[200][200][10];
 char grid[N][N];
 MyPair goods_map[N][N];
-vector<pair<int, int>> robot_purchase_point;
-vector<pair<int, int>> boat_purchase_point;
-vector<pair<int, int>> delivery_point;
+vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 Berth berth[10];
 Robot robot[30];
 Boat boat[20];
@@ -38,11 +36,21 @@ void Init()
     int id = -1;
     for (int i = 0; i < berth_num; i++)
     {        
-        cin >> id >> berth[id].x >> berth[id].y >> berth[id].loading_speed;
+        cin >> id;
+        cin >> berth[id].x >> berth[id].y >> berth[id].loading_speed;
     }
     cin >> boat_capacity;
+    my_alg::init_dis();
+    for (int i = 0; i < 200; i++)
+    {
+        for (int j = 0; j < 200; j++)
+        {
+            cerr << dis[i][j][0] << " ";
+            
+        }cerr << endl;
+    }
     char okk[100];
-    cin >> okk;
+    cin >> okk;   
     cout << "OK\n";
     fflush(stdout);
 }
@@ -59,7 +67,7 @@ void Input()
         {
             if (dis[x][y][j] != -1)
             {
-                berth[j].goods_info.insert(MyTuple(x, y, frame_id));
+                berth[j].goods_info.insert(MyTuple(x, y, frame_id + 1000 - dis[x][y][j]));
             }
         }
         goods_map[x][y] = { val, frame_id + 1000 };
@@ -69,6 +77,7 @@ void Input()
     for (int i = 0; i < robot_num; i++)
     {
         cin >> robot[i].robot_id >> robot[i].goods_num >> robot[i].x >> robot[i].y;
+        robot[i].move_or_not = false;
     }
 
     cin >> boat_num;
@@ -87,12 +96,13 @@ int main()
     Init();
     while (cin >> frame_id)
     {
+        //cerr << frame_id << endl;
         if (cin.fail())
         {
             break;
         }
         Input();        
-
+        my_alg::test_robot();
         puts("OK");
         fflush(stdout);
     }

@@ -45,15 +45,17 @@ void Robot::robot_control()
 		//修改目标地
 		if (goods_num == 1)	//身上有货物，判断当前位置是不是泊位
 		{
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < berth_num; i++)
 			{
 				if (x >= berth[i].x && x <= berth[i].x + 3 && y <= berth[i].y + 3 && y >= berth[i].y)
 				{
+					cerr << "in berth " << i << endl;
 					cout << "pull " << robot_id << endl;
 					berth[i].num += 1;
 					target_x = -1;
 					target_y = -1;
 					MyPair target = berth[i].find_goods_from_berth();
+					cerr << target << endl;
 					if (target.first == -1)
 					{
 						find_goods();
@@ -71,7 +73,7 @@ void Robot::robot_control()
 		}
 		else    //身上没有货物，判断当前位置是不是泊位
 		{
-			for (int i = 0; i < 10; i++)	//
+			for (int i = 0; i < berth_num; i++)	//
 			{
 				if (x >= berth[i].x && x <= berth[i].x + 3 && y <= berth[i].y + 3 && y >= berth[i].y)
 				{
@@ -90,6 +92,11 @@ void Robot::robot_control()
 
 void Robot::find_goods()	//只有起始和目的地找货物
 {
+	if (goods_map[x][y].first > 0 && goods_map[x][y].second > frame_id)
+	{
+		target_x = x; target_y = y;
+		return;
+	}
 	int cnt = 0;
 	memset(pre, 0, sizeof(pre));
 	memset(visited, false, sizeof(visited));
@@ -109,8 +116,8 @@ void Robot::find_goods()	//只有起始和目的地找货物
 			q.pop();
 			if (goods_map[u.x][u.y].first > 0 && goods_map[u.x][u.y].second - frame_id > step + 1)	//给一点容错
 			{
-				int good_to_berth_dis = 30000;
-				for (int i = 0; i < 10; i++)
+				int good_to_berth_dis = 300000;
+				for (int i = 0; i < berth_num; i++)
 				{
 					if (dis[u.x][u.y][i] > 0)
 					{
@@ -135,11 +142,17 @@ void Robot::find_goods()	//只有起始和目的地找货物
 		}
 		step++;
 	}
-	if (cnt)
+	if (!choice.empty())
 	{
-		Plan tmp = choice.top();
-		target_x = tmp.target.first, target_y = tmp.target.second;
+		MyPair now = choice.top().target, tmp = { -1, -1 };
+		target_x = now.first, target_y = now.second;
 		goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
+		while (tmp.first != x || tmp.second != y)
+		{
+			tmp = pre[now.first][now.second];
+			nxt[tmp.first][tmp.second] = now;
+			now = tmp;
+		}
 	}
 	return;
 }
@@ -147,8 +160,8 @@ void Robot::find_goods()	//只有起始和目的地找货物
 void Robot::find_berth() //找泊位
 {
 	int aim_num = -1;
-	int min_dis = 30000;
-	for (int i = 0; i < 10; i++)
+	int min_dis = 300000;
+	for (int i = 0; i < berth_num; i++)
 	{
 		if (dis[x][y][i] > 0 && dis[x][y][i] < min_dis)
 		{
@@ -165,6 +178,10 @@ void Robot::find_berth() //找泊位
 
 void Robot::find_road(const int& min_dis)	//给定target下去找路
 {
+	if (x == target_x && y == target_y)
+	{
+		return;
+	}
 	memset(pre, 0, sizeof(pre));
 	memset(visited, false, sizeof(visited));
 	memset(nxt, 0, sizeof(nxt));
@@ -184,7 +201,7 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 			if (u.x == target.first && u.y == target.second)
 			{
 				found = true;
-				MyPair now = target, tmp = {0, 0};
+				MyPair now = target, tmp = {-1, -1};
 				while (tmp.first != x || tmp.second != y)
 				{
 					tmp = pre[now.first][now.second];
@@ -216,7 +233,7 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 
 bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 {
-	if (robot[move_num].move_or_not)return 0;
+	if (robot[move_num].move_or_not)return false;
 	for (int i = 0; i < 4; i++)
 	{
 		int ran_i = (i + frame_id) % 4;
@@ -274,7 +291,7 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 	{
 		int ran_i = (i + frame_id) % 4;
 		if (!land_check_valid(dx_dy[ran_i] + make_pair(robot[move_num].x, robot[move_num].y)))continue;
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < robot_num; j++)
 		{
 			if (dx_dy[ran_i] + make_pair(robot[move_num].x, robot[move_num].y) == make_pair(robot[j].x, robot[j].y))
 			{
@@ -308,7 +325,6 @@ void Robot::clash_solve()
 			if (now + dx_dy[i] == nxt[x][y])
 			{
 				cout << "move " << robot_id << " " << i << endl;
-
 				x = nxt[now.first][now.second].first;
 				y = nxt[now.first][now.second].second;
 				move_or_not = true;

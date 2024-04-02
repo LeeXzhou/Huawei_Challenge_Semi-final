@@ -2,7 +2,7 @@ import subprocess
 
 # 地图文件路径
 maps = ['1','2', '3']
-
+maps = ['2']
 # 要分析的程序路径
 projects = ['x64\Debug\project.exe']
 
