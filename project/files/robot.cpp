@@ -2,7 +2,7 @@
 using namespace std;
 bool Robot::land_check_valid(const int& x, const int& y)
 {
-	if (x < 200 && x >= 0 && y < 200 && y >= 0)
+	if (check_boundary(x, y))
 	{
 		if (grid[x][y] == '.' || grid[x][y] == '>' || grid[x][y] == 'R' || grid[x][y] == 'B' || grid[x][y] == 'C' || grid[x][y] == 'c')
 		{

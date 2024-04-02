@@ -1,7 +1,14 @@
 #include "berth.h"
 using namespace std;
 
-
+bool check_boundary(int x, int y)
+{
+	if (x < 0 || x >= 200 || y < 0 || y >= 200)
+	{
+		return false;
+	}
+	return true;
+}
 Berth::Berth(int x, int y, int loading_speed) {
 	this->x = x;
 	this->y = y;

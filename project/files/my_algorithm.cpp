@@ -35,13 +35,13 @@ namespace my_alg {
 						vis[cur.first][cur.second][i] = true;
 						dis[cur.first][cur.second][i] = dis[tmp.first][tmp.second][i] + 1;
 						q.push(cur);
-					}/*
+					}
 					else if(Boat::sea_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
 					{
 						vis[cur.first][cur.second][i] = true;
 						dis[cur.first][cur.second][i] = dis[tmp.first][tmp.second][i] + 1;
 						q.push(cur);
-					}*/
+					}
 				}
 			}
 		}

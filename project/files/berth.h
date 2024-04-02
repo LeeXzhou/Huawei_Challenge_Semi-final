@@ -5,7 +5,7 @@
 #include "my_data_structure.h"
 
 using namespace std;
-
+bool check_boundary(int x, int y);
 class Berth {
 public:
 	int x = -1, y = -1, loading_speed = -1;
