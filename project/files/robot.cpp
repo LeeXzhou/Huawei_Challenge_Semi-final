@@ -27,7 +27,7 @@ void Robot::robot_control()
 	{
 		return;
 	}
-	if (target_x == -1)
+	if (target_x == -1 && !no_goods)
 	{
 		//定个目标地，货物地
 		if (goods_num == 0)
@@ -39,7 +39,34 @@ void Robot::robot_control()
 			find_berth();
 		}
 	}
-	clash_solve();
+	if (!no_goods)
+	{
+		clash_solve();
+	}
+	else
+	{
+		for (int i = 0; i < berth_num; i++)
+		{
+			if (x == berth[i].x && y == berth[i].y)
+			{
+				MyPair target = berth[i].find_goods_from_berth();
+				target_x = -1; target_y = -1;
+				if (target.first == -1)
+				{
+					no_goods = true;
+				}
+				else
+				{
+					target_x = target.first, target_y = target.second;
+					goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
+					find_road(dis[target_x][target_y][i]);
+					no_goods = false;
+				}
+				return;
+			}
+		}
+		find_goods();
+	}
 	if (target_x == x && target_y == y)
 	{
 		//修改目标地
@@ -49,22 +76,24 @@ void Robot::robot_control()
 			{
 				if (x >= berth[i].x && x <= berth[i].x + 3 && y <= berth[i].y + 3 && y >= berth[i].y)
 				{
-					cerr << "in berth " << i << endl;
+					//cerr << "in berth " << i << endl;
 					cout << "pull " << robot_id << endl;
 					berth[i].num += 1;
 					target_x = -1;
 					target_y = -1;
 					MyPair target = berth[i].find_goods_from_berth();
-					cerr << target << endl;
+					//cerr << target << endl;
 					if (target.first == -1)
 					{
-						find_goods();
+						no_goods = true;
+						target_x = -1; target_y = -1;
 					}
 					else
 					{
 						target_x = target.first, target_y = target.second;
 						goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
 						find_road(dis[target_x][target_y][i]);
+						no_goods = false;
 					}
 					return;
 				}
@@ -143,6 +172,7 @@ void Robot::find_goods()	//只有起始和目的地找货物
 	}
 	if (!choice.empty())
 	{
+		no_goods = false;
 		MyPair now = choice.top().target, tmp = { 0, 0 };
 		target_x = now.first, target_y = now.second;
 		goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;

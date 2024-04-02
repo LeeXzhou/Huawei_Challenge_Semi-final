@@ -12,7 +12,7 @@ public:
 	int target_x = -1, target_y = -1;
 	MyPair pre[200][200], nxt[200][200];
 	bool visited[200][200] = { false };
-	bool move_or_not = false;
+	bool move_or_not = false, no_goods = false;
 	Robot() { };
 	Robot(int startX, int startY);
 	void find_goods();

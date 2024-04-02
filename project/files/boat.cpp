@@ -83,6 +83,7 @@ bool Boat::init_check_valid(int x, int y) {
 
 void Boat::find_road()
 {
+	cerr << "I am finding\n";
 	if (x == target_x && y == target_y) return;
 	memset(pre, 0, sizeof(pre));
 	memset(nxt, 0, sizeof(nxt));
@@ -336,7 +337,72 @@ bool Boat::check_valid(const MyTuple& t) {
 
 void Boat::Boat_control()
 {
-
+	if(status == 1)return;
+	if (status == 2)
+	{
+		if (berth[0].num > 0 && goods_num < boat_capacity)
+		{
+			int add = min(berth[0].loading_speed, min(boat_capacity - goods_num, berth[0].num));
+			goods_num += add;
+			berth[0].num -= add;
+		}
+		else
+		{
+			target_x = delivery_point[0].first;
+			target_y = delivery_point[0].second;
+			//left_time = berth[aim_berth].transport_time;
+			leave_flag = true;
+			cout << "dept " << boat_id << endl;
+		}
+		return;
+	}
+	if (target_x == -1)
+	{
+		target_x = berth[0].x;
+		target_y = berth[0].y;
+		find_road();
+	}
+	else
+	{
+		if (target_x == x && target_y == y)
+		{
+			if (x == berth[0].x && y == berth[0].y)
+			{
+				cout << "berth 0\n";
+			}
+			else
+			{
+				target_x = berth[0].x; target_y = berth[0].y;
+				find_road();
+			}
+			return;
+		}
+		if (target_x == delivery_point[0].first && leave_flag==true)
+		{
+			find_road();
+			leave_flag = false;
+			return;
+		}
+		for (int j = 0; j <= 2; j++)
+		{
+			cerr << "see see\n";
+			cerr << nxt[x][y][dir].x << nxt[x][y][dir].y << nxt[x][y][dir].status << endl;
+			MyTuple tmp = MyTuple(x, y, dir);
+			if (operate(tmp, j)) {
+				
+				if (tmp == nxt[x][y][dir]) {
+					if (j <= 1) {
+						cout << "rot 0 " << j << endl;
+					}
+					else {
+						cout << "ship 0\n";
+					}
+					return;
+				}
+			}
+		}
+	}
+	
 }
 
 int Boat::GetId() {

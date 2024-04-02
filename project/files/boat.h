@@ -24,8 +24,8 @@ public:
 	//private:
 	int boat_id, x, y, dir, status, goods_num;
 
-	int target_x, target_y;
-
+	int target_x = -1, target_y = -1;
+	bool leave_flag = false;//лч
 	static int boat_num;
 	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked true
 	static int projection_x[4];
@@ -35,5 +35,5 @@ public:
 	MyTuple pre[200][200][4], nxt[200][200][4];
 
 };
-
+extern Boat boat[20];
 #endif // !boat_h

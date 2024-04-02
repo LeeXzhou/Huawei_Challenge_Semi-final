@@ -30,8 +30,8 @@ std::ostream& operator<<(std::ostream& os, const MyPair& p);
 
 struct MyTuple {
 	int x, y, status;
-
 	MyTuple(int a = -1, int b = -1, int c = -1);
+	bool operator==(const MyTuple& tmp) const;
 	bool operator<(const MyTuple& tmp) const;
 	bool operator>(const MyTuple& tmp) const;
 };
