@@ -13,7 +13,7 @@ public:
 		west = 3,
 		east = 1
 	};
-	Boat(int id = -1, int X = -1, int Y = -1, direction Dir = east/*east as default*/, int Status = -1, int Num_goods = 0) { };
+	Boat(int id = -1, int X = -1, int Y = -1, direction Dir = east/*east as default*/, int Status = -1, int Num_goods = 0);
 	bool Clockwise();
 	bool AntiClock();
 	bool Forward();
@@ -25,7 +25,7 @@ public:
 	//private:
 	int boat_id, x, y, dir, status, goods_num;
 	static int boat_num;
-	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked 1
+	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked true
 	static int projection_x[4];
 	static int projection_y[4];
 };

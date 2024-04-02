@@ -4,7 +4,7 @@ using namespace std;
 int Boat::boat_num = 0;
 int Boat::projection_x[4] = { -1, 0, 1, 0 };
 int Boat::projection_y[4] = { 0, 1, 0, -1 };
-
+bool Boat::boat_loc[200][200] = { false };
 // first and foremost, init the boat loc!
 void Boat::init_boat_loc() {
 	for (int i = 0; i < 200; i++) {
