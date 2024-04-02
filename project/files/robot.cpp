@@ -1,5 +1,21 @@
 #include "robot.h"
 using namespace std;
+bool Robot::land_check_valid(const int& x, const int& y)
+{
+	if (x < 200 && x >= 0 && y < 200 && y >= 0)
+	{
+		if (grid[x][y] == '.' || grid[x][y] == '>' || grid[x][y] == 'R' || grid[x][y] == 'B' || grid[x][y] == 'C' || grid[x][y] == 'c')
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Robot::land_check_valid(const MyPair& x)
+{
+	return land_check_valid(x.first, x.second);
+}
 Robot::Robot(int startX, int startY) {
 	x = startX;
 	y = startY;

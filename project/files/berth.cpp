@@ -1,23 +1,6 @@
 #include "berth.h"
 using namespace std;
 
-bool land_check_valid(const int& x, const int& y)
-{
-	if (x < 200 && x >= 0 && y < 200 && y >= 0)
-	{
-		if (grid[x][y] == '.' || grid[x][y] == '>' || grid[x][y] == 'R' || grid[x][y] == 'B' || grid[x][y] == 'C' || grid[x][y] == 'c')
-		{
-			return true;
-		}		
-	}
-	return false;
-}
-
-bool land_check_valid(const MyPair& x)
-{
-	return land_check_valid(x.first, x.second);
-}
-
 
 Berth::Berth(int x, int y, int loading_speed) {
 	this->x = x;

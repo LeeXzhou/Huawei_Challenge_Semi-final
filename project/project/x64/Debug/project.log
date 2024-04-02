@@ -1,8 +1,7 @@
-﻿  berth.cpp
-  main.cpp
-  my_algorithm.cpp
+﻿  my_algorithm.cpp
+  my_data_structure.cpp
   robot.cpp
-C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\robot.cpp(89,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\robot.cpp(163,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\robot.cpp(105,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\robot.cpp(179,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
   正在生成代码...
   project.vcxproj -> C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe

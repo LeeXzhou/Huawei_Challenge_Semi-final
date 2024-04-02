@@ -21,6 +21,9 @@ public:
 	void clash_solve();
 	bool robot_dfs(const int& move_num, stack<MyPair>move_order);
 	void robot_control();
+
+	static bool land_check_valid(const int& x, const int& y);
+	static bool land_check_valid(const MyPair& x);
 };
 extern Robot robot[30];
 #endif // !berth_h

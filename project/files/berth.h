@@ -6,9 +6,6 @@
 
 using namespace std;
 
-bool land_check_valid(const int& x, const int& y);
-bool land_check_valid(const MyPair& x);
-
 class Berth {
 public:
 	int x = -1, y = -1, loading_speed = -1;

@@ -30,13 +30,13 @@ namespace my_alg {
 				for (int j = 0; j < 4; j++)
 				{
 					MyPair cur = tmp + dx_dy[j];
-					if (land_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
+					if (Robot::land_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
 					{
 						vis[cur.first][cur.second][i] = true;
 						dis[cur.first][cur.second][i] = dis[tmp.first][tmp.second][i] + 1;
 						q.push(cur);
 					}/*
-					else if(sea_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
+					else if(Boat::sea_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
 					{
 						vis[cur.first][cur.second][i] = true;
 						dis[cur.first][cur.second][i] = dis[tmp.first][tmp.second][i] + 1;
