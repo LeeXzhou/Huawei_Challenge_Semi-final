@@ -12,6 +12,13 @@
 using namespace std;
 using MyPair = std::pair<int, int>;
 
+enum direction {
+	north = 0,
+	south = 2,
+	west = 3,
+	east = 1
+};
+
 // 重载 pair 的加法运算符
 const MyPair operator+(const MyPair& a, const MyPair& b);
 
