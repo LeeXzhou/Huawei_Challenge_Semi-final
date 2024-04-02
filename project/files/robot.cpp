@@ -102,8 +102,8 @@ void Robot::find_goods()	//只有起始和目的地找货物
 	memset(visited, false, sizeof(visited));
 	memset(nxt, 0, sizeof(nxt));
 	visited[x][y] = true;
-	priority_queue<MyTuple> q;
-	q.push(MyTuple(x, y, (grid[x][y] == '.' || grid[x][y] == 'C') ? 0 : 1));
+	queue<MyPair> q;
+	q.push({ x, y });
 	bool found = false;
 	int step = 0;
 	priority_queue<Plan> choice;
@@ -112,31 +112,30 @@ void Robot::find_goods()	//只有起始和目的地找货物
 		int q_size = q.size();
 		for (int j = 1; j <= q_size; j++)
 		{
-			MyTuple u = q.top();
+			MyPair u = q.front();
 			q.pop();
-			if (goods_map[u.x][u.y].first > 0 && goods_map[u.x][u.y].second - frame_id > step + 1)	//给一点容错
+			if (goods_map[u.first][u.second].first > 0 && goods_map[u.first][u.second].second - frame_id > step + 1)	//给一点容错
 			{
 				int good_to_berth_dis = 300000;
 				for (int i = 0; i < berth_num; i++)
 				{
-					if (dis[u.x][u.y][i] > 0)
+					if (dis[u.first][u.second][i] > 0)
 					{
-						good_to_berth_dis = min(good_to_berth_dis, dis[u.x][u.y][i]);
+						good_to_berth_dis = min(good_to_berth_dis, dis[u.first][u.second][i]);
 					}
 				}
-				choice.push(Plan(goods_map[u.x][u.y].first, step + good_to_berth_dis, {u.x, u.y}));
+				choice.push(Plan(goods_map[u.first][u.second].first, step + good_to_berth_dis, {u.first, u.second}));
 				cnt += 1;
 			}
 
 			for (int i = 0; i < 4; i++)
 			{
-				MyPair cur = { u.x, u.y };
-				MyPair tmp = cur + dx_dy[i];
+				MyPair tmp = u + dx_dy[i];
 				if (land_check_valid(tmp.first, tmp.second) && (!visited[tmp.first][tmp.second]))
 				{
 					visited[tmp.first][tmp.second] = true;
-					pre[tmp.first][tmp.second] = cur;
-					q.push(MyTuple(tmp.first, tmp.second, (grid[tmp.first][tmp.second] == '.' || grid[tmp.first][tmp.second] == 'C') ? 0 : 1));
+					pre[tmp.first][tmp.second] = u;
+					q.push(tmp);
 				}
 			}
 		}
@@ -186,8 +185,8 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 	memset(visited, false, sizeof(visited));
 	memset(nxt, 0, sizeof(nxt));
 	visited[x][y] = true;
-	priority_queue<MyTuple> q;
-	q.push(MyTuple(x, y, (grid[x][y] == '.' || grid[x][y] == 'C') ? 0 : 1));
+	queue<MyPair> q;
+	q.push({ x, y });
 	bool found = false;
 	int step = 0;
 	MyPair target = { target_x, target_y };
@@ -196,12 +195,12 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 		int q_size = q.size();
 		for (int j = 1; j <= q_size; j++)
 		{
-			MyTuple u = q.top();
+			MyPair u = q.front();
 			q.pop();
-			if (u.x == target.first && u.y == target.second)
+			if (u == target)
 			{
 				found = true;
-				MyPair now = target, tmp = {0, 0};
+				MyPair now = u, tmp = { 0, 0 };
 				while (tmp.first != x || tmp.second != y)
 				{
 					tmp = pre[now.first][now.second];
@@ -212,17 +211,16 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 			}
 			for (int i = 0; i < 4; i++)
 			{
-				MyPair cur = { u.x, u.y };
-				MyPair tmp = cur + dx_dy[i];
-				if (my_abs(tmp.first, target_x) + my_abs(tmp.second, target_y) > min_dis + 1)
+				MyPair tmp = u + dx_dy[i];
+				if (my_abs(tmp.first, target_x) + my_abs(tmp.second, target_y) > min_dis + 1 - step)
 				{
 					continue;
 				}
-				if (land_check_valid(tmp) && (!visited[tmp.first][tmp.second]))
+				if (land_check_valid(tmp.first, tmp.second) && (!visited[tmp.first][tmp.second]))
 				{
 					visited[tmp.first][tmp.second] = true;
-					pre[tmp.first][tmp.second] = cur;
-					q.push(MyTuple(tmp.first, tmp.second, (grid[x][y] == '.' || grid[x][y] == 'C') ? 0 : 1));
+					pre[tmp.first][tmp.second] = u;
+					q.push(tmp);
 				}
 			}
 		}
@@ -314,7 +312,7 @@ void Robot::clash_solve()
 	for (int i = 0; i < robot_num; i++)
 	{
 		if (i == robot_id)continue;
-		if (nxt[x][y] == make_pair(robot[i].x, robot[i].y) && (grid[x][y] == 'C' || grid[x][y] == '.')) { flag = 0; break; }
+		if (nxt[x][y] == make_pair(robot[i].x, robot[i].y) && (grid[robot[i].x][robot[i].y] == 'C' || grid[robot[i].x][robot[i].y] == '.' || grid[robot[i].x][robot[i].y] == 'B')) { flag = 0; break; }
 	}
 
 	if (flag)//若下一步没有机器人
