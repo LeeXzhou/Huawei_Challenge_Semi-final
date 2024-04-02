@@ -19,8 +19,12 @@ std::ostream& operator<<(std::ostream& os, const MyPair& p) {
     os << "(" << p.first << ", " << p.second << ")";
     return os;
 }
-MyTuple::MyTuple() : x(-1), y(-1), status(-1) {}
+
 MyTuple::MyTuple(int a, int b, int c) : x(a), y(b), status(c) {}
+
+
+Foursome::Foursome(int a, int b, int c, int d) :x(a), y(b), dir(c), flag(d){}
+
 bool MyTuple::operator<(const MyTuple& tmp) const 
 {
     if (status != tmp.status)

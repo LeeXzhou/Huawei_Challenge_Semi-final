@@ -30,12 +30,17 @@ std::ostream& operator<<(std::ostream& os, const MyPair& p);
 
 struct MyTuple {
 	int x, y, status;
-	MyTuple();
+
 	MyTuple(int a = -1, int b = -1, int c = -1);
 	bool operator<(const MyTuple& tmp) const;
 	bool operator>(const MyTuple& tmp) const;
 };
 
+struct Foursome {
+	int x, y, dir, flag;
+	
+	Foursome(int a=-1, int b=-1, int c=-1, int d=-1);
+};
 struct Plan {
 	int value = 0, time = 0;
 	MyPair target;

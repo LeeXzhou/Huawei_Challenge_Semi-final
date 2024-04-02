@@ -1,2 +1,263 @@
-﻿  boat.cpp
-  project.vcxproj -> C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
+﻿  berth.cpp
+  boat.cpp
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(59,24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(104,12): error C2511: “bool Boat::Forward(void)”:“Boat”中没有找到重载的成员函数
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(8,7): message : 参见“Boat”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,10): error C2677: 二进制“==”: 没有找到接受“direction”类型的全局运算符(或没有可接受的转换)
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\set(423,17): message : 可能是“bool std::operator ==(const std::multiset<_Kty,_Pr,_Alloc> &,const std::multiset<_Kty,_Pr,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::multiset<_Kty,_Pr,_Alloc> &,const std::multiset<_Kty,_Pr,_Alloc> &)”: 无法从“unknown”推导出“const std::multiset<_Kty,_Pr,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\set(208,17): message : 或    “bool std::operator ==(const std::set<_Kty,_Pr,_Alloc> &,const std::set<_Kty,_Pr,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::set<_Kty,_Pr,_Alloc> &,const std::set<_Kty,_Pr,_Alloc> &)”: 无法从“unknown”推导出“const std::set<_Kty,_Pr,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\stack(172,17): message : 或    “bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)”: 无法从“unknown”推导出“const std::stack<_Ty,_Container> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3523,17): message : 或    “bool std::operator ==(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &) noexcept”: 无法从“direction”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3517,30): message : 或    “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept”: 无法从“unknown”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3469,30): message : 或    “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)”: 无法从“unknown”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1859,17): message : 或    “bool std::operator ==(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept”: 无法从“direction”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1848,17): message : 或    “bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept”: 无法从“unknown”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1811,17): message : 或    “bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept”: 无法从“unknown”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5209,17): message : 或    “bool std::operator ==(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)”: 无法从“unknown”推导出“const _Elem *const ”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5190,30): message : 或    “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )”: 无法从“unknown”推导出“const std::basic_string<_Elem,_Traits,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5184,30): message : 或    “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept”: 无法从“unknown”推导出“const std::basic_string<_Elem,_Traits,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\iterator(474,17): message : 或    “bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)”: 无法从“unknown”推导出“const std::istreambuf_iterator<_Elem,_Traits> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\iterator(292,17): message : 或    “bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept”: 无法从“unknown”推导出“const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\queue(181,17): message : 或    “bool std::operator ==(const std::queue<_Ty,_Container> &,const std::queue<_Ty,_Container> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::queue<_Ty,_Container> &,const std::queue<_Ty,_Container> &)”: 无法从“unknown”推导出“const std::queue<_Ty,_Container> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(2284,30): message : 或    “bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)”: 无法从“unknown”推导出“const std::vector<_Ty,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\deque(1705,17): message : 或    “bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)”: 无法从“unknown”推导出“const std::deque<_Ty,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(895,30): message : 或    “bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept”: 无法从“unknown”推导出“const std::allocator<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(3578,5): message : 或    “bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)”: 无法从“unknown”推导出“const std::move_iterator<_Iter> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(1396,5): message : 或    “bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)”: 无法从“unknown”推导出“const std::reverse_iterator<_BidIt> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(365,27): message : 或    “bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(105,6): message : “bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)”: 无法从“unknown”推导出“const std::pair<_Ty1,_Ty2> &”的 模板 参数
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(106,17): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(106,17): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(106,17): error C2568: “-”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(106,29): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(106,29): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(106,29): error C2568: “+”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(107,28): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,12): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,13): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,13): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,13): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,15): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,29): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,30): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,30): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(109,30): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(110,16): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(110,17): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(110,17): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(110,17): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(111,4): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(111,4): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(111,4): error C2568: “--”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,15): error C2677: 二进制“==”: 没有找到接受“direction”类型的全局运算符(或没有可接受的转换)
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\set(423,17): message : 可能是“bool std::operator ==(const std::multiset<_Kty,_Pr,_Alloc> &,const std::multiset<_Kty,_Pr,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::multiset<_Kty,_Pr,_Alloc> &,const std::multiset<_Kty,_Pr,_Alloc> &)”: 无法从“unknown”推导出“const std::multiset<_Kty,_Pr,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\set(208,17): message : 或    “bool std::operator ==(const std::set<_Kty,_Pr,_Alloc> &,const std::set<_Kty,_Pr,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::set<_Kty,_Pr,_Alloc> &,const std::set<_Kty,_Pr,_Alloc> &)”: 无法从“unknown”推导出“const std::set<_Kty,_Pr,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\stack(172,17): message : 或    “bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)”: 无法从“unknown”推导出“const std::stack<_Ty,_Container> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3523,17): message : 或    “bool std::operator ==(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &) noexcept”: 无法从“direction”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3517,30): message : 或    “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept”: 无法从“unknown”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3469,30): message : 或    “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)”: 无法从“unknown”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1859,17): message : 或    “bool std::operator ==(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept”: 无法从“direction”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1848,17): message : 或    “bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept”: 无法从“unknown”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1811,17): message : 或    “bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept”: 无法从“unknown”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5209,17): message : 或    “bool std::operator ==(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)”: 无法从“unknown”推导出“const _Elem *const ”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5190,30): message : 或    “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )”: 无法从“unknown”推导出“const std::basic_string<_Elem,_Traits,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5184,30): message : 或    “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept”: 无法从“unknown”推导出“const std::basic_string<_Elem,_Traits,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\iterator(474,17): message : 或    “bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)”: 无法从“unknown”推导出“const std::istreambuf_iterator<_Elem,_Traits> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\iterator(292,17): message : 或    “bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept”: 无法从“unknown”推导出“const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\queue(181,17): message : 或    “bool std::operator ==(const std::queue<_Ty,_Container> &,const std::queue<_Ty,_Container> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::queue<_Ty,_Container> &,const std::queue<_Ty,_Container> &)”: 无法从“unknown”推导出“const std::queue<_Ty,_Container> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(2284,30): message : 或    “bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)”: 无法从“unknown”推导出“const std::vector<_Ty,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\deque(1705,17): message : 或    “bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)”: 无法从“unknown”推导出“const std::deque<_Ty,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(895,30): message : 或    “bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept”: 无法从“unknown”推导出“const std::allocator<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(3578,5): message : 或    “bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)”: 无法从“unknown”推导出“const std::move_iterator<_Iter> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(1396,5): message : 或    “bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)”: 无法从“unknown”推导出“const std::reverse_iterator<_BidIt> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(365,27): message : 或    “bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(113,11): message : “bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)”: 无法从“unknown”推导出“const std::pair<_Ty1,_Ty2> &”的 模板 参数
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(114,17): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(114,17): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(114,17): error C2568: “+”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(114,29): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(114,29): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(114,29): error C2568: “-”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(115,56): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,12): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,13): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,13): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,13): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,15): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,29): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,30): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,30): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(117,30): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(118,16): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(118,17): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(118,17): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(118,17): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(119,4): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(119,4): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(119,4): error C2568: “++”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,15): error C2677: 二进制“==”: 没有找到接受“direction”类型的全局运算符(或没有可接受的转换)
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\set(423,17): message : 可能是“bool std::operator ==(const std::multiset<_Kty,_Pr,_Alloc> &,const std::multiset<_Kty,_Pr,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::multiset<_Kty,_Pr,_Alloc> &,const std::multiset<_Kty,_Pr,_Alloc> &)”: 无法从“unknown”推导出“const std::multiset<_Kty,_Pr,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\set(208,17): message : 或    “bool std::operator ==(const std::set<_Kty,_Pr,_Alloc> &,const std::set<_Kty,_Pr,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::set<_Kty,_Pr,_Alloc> &,const std::set<_Kty,_Pr,_Alloc> &)”: 无法从“unknown”推导出“const std::set<_Kty,_Pr,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\stack(172,17): message : 或    “bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)”: 无法从“unknown”推导出“const std::stack<_Ty,_Container> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3523,17): message : 或    “bool std::operator ==(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(std::nullptr_t,const std::unique_ptr<_Ty,_Dx> &) noexcept”: 无法从“direction”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3517,30): message : 或    “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept”: 无法从“unknown”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(3469,30): message : 或    “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)”: 无法从“unknown”推导出“const std::unique_ptr<_Ty,_Dx> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1859,17): message : 或    “bool std::operator ==(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(std::nullptr_t,const std::shared_ptr<_Ty> &) noexcept”: 无法从“direction”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1848,17): message : 或    “bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept”: 无法从“unknown”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(1811,17): message : 或    “bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept”: 无法从“unknown”推导出“const std::shared_ptr<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5209,17): message : 或    “bool std::operator ==(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const _Elem *const ,const std::basic_string<_Elem,_Traits,_Alloc> &)”: 无法从“unknown”推导出“const _Elem *const ”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5190,30): message : 或    “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const )”: 无法从“unknown”推导出“const std::basic_string<_Elem,_Traits,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5184,30): message : 或    “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept”: 无法从“unknown”推导出“const std::basic_string<_Elem,_Traits,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\iterator(474,17): message : 或    “bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)”: 无法从“unknown”推导出“const std::istreambuf_iterator<_Elem,_Traits> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\iterator(292,17): message : 或    “bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept”: 无法从“unknown”推导出“const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\queue(181,17): message : 或    “bool std::operator ==(const std::queue<_Ty,_Container> &,const std::queue<_Ty,_Container> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::queue<_Ty,_Container> &,const std::queue<_Ty,_Container> &)”: 无法从“unknown”推导出“const std::queue<_Ty,_Container> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\vector(2284,30): message : 或    “bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)”: 无法从“unknown”推导出“const std::vector<_Ty,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\deque(1705,17): message : 或    “bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)”: 无法从“unknown”推导出“const std::deque<_Ty,_Alloc> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xmemory(895,30): message : 或    “bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept”: 无法从“unknown”推导出“const std::allocator<_Ty> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(3578,5): message : 或    “bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)”: 无法从“unknown”推导出“const std::move_iterator<_Iter> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(1396,5): message : 或    “bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)”: 无法从“unknown”推导出“const std::reverse_iterator<_BidIt> &”的 模板 参数
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(365,27): message : 或    “bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(121,11): message : “bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Ty1,_Ty2> &)”: 无法从“unknown”推导出“const std::pair<_Ty1,_Ty2> &”的 模板 参数
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(122,17): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(122,17): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(122,17): error C2568: “-”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(122,29): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(122,29): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(122,29): error C2568: “-”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(123,56): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,12): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,13): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,13): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,13): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,15): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,29): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,30): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,30): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(125,30): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(126,16): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(126,17): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(126,17): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(126,17): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(127,4): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(127,4): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(127,4): error C2568: “--”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(130,17): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(130,17): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(130,17): error C2568: “+”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(130,29): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(130,29): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(130,29): error C2568: “+”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(131,56): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,12): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,13): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,13): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,13): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,15): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,29): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,30): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,30): error C3867: “Boat::x”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(133,30): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(134,16): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(134,17): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(134,17): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(134,17): error C2568: “[”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(135,4): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(135,4): error C3867: “Boat::y”: 非标准语法；请使用 "&" 来创建指向成员的指针
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(135,4): error C2568: “++”: 无法解析函数重载
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(139,12): error C2511: “bool Boat::AntiClock(void)”:“Boat”中没有找到重载的成员函数
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(8,7): message : 参见“Boat”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(140,11): error C2597: 对非静态成员“Boat::x”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,15): message : 参见“Boat::x”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(140,9): error C2440: “初始化”: 无法从“unknown”转换为“int”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(140,9): message : 没有使该转换得以执行的上下文
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(140,19): error C2597: 对非静态成员“Boat::y”的非法引用
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.h(28,18): message : 参见“Boat::y”的声明
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(140,17): error C2440: “初始化”: 无法从“unknown”转换为“int”
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\boat.cpp(140,20): fatal  error C1003: 错误计数超过 100；正在停止编译
+  main.cpp
+  my_algorithm.cpp
+  my_data_structure.cpp
+  robot.cpp
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\robot.cpp(105,24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\huawei_semi\Huawei_Challenge_Semi-final\project\files\robot.cpp(179,24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  正在生成代码...

@@ -36,6 +36,71 @@ bool Boat::init_check_valid(int x, int y) {
 	return true;
 }
 
+void Boat::find_road()
+{
+	if (x == target_x && y == target_y) return;
+	memset(pre, 0, sizeof(pre));
+	memset(nxt, 0, sizeof(nxt));
+	memset(visited, false, sizeof(visited));
+	visited[x][y][dir] = true;
+	queue<Foursome>q;
+	if (slow_or_not(MyTuple(x,y,dir)))//如果初始点包含主航道
+	{
+		q.push(Foursome(x, y, dir, 0));
+	}
+	else
+	{
+		q.push(Foursome(x, y, dir, 1));
+	}
+	bool found = false;
+	int step = 0;
+	while (!found && !q.empty())
+	{
+		int q_size = q.size();
+		for (int i = 1; i <= q_size; i++)
+		{
+			Foursome u = Foursome(q.front().x,q.front().y,q.front().dir,q.front().flag);
+			q.pop();
+			if (u.x == target_x && u.y == target_y)
+			{
+				found = true;
+				MyTuple now = MyTuple(u.x,u.y,u.dir), tmp = MyTuple(0, 0, 0);
+				while (tmp.x != x || tmp.y != y || tmp.status != dir)
+				{
+					tmp = pre[now.x][now.y][now.status];
+					nxt[tmp.x][tmp.y][tmp.status] = now;
+					now = tmp;
+				}
+				break;
+			}
+			if (u.flag == 0)
+			{
+				u.flag = 1;
+				q.push(u);
+			}
+			else
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					MyTuple tmp = MyTuple(u.x, u.y, u.dir);
+					if (Boat::operate(tmp, j))
+					{
+						if (slow_or_not(tmp))//如果下一步减速了，则推入0
+						{
+							q.push(Foursome(tmp.x, tmp.y, tmp.status, 0));
+						}
+						else
+						{
+							q.push(Foursome(tmp.x, tmp.y, tmp.status, 1));
+						}
+					}
+				}
+			}
+		}
+		step++;
+	}
+}
+
 bool Boat::Forward() {
 	if (dir == north) { //north
 		int _x = x - 3, _y = y + 1;
