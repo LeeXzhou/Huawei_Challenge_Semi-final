@@ -4,15 +4,7 @@ using namespace std;
 int Boat::boat_num = 0;
 int Boat::projection_x[4] = { -1, 0, 1, 0 };
 int Boat::projection_y[4] = { 0, 1, 0, -1 };
-bool Boat::boat_loc[200][200] = { };
-// first and foremost, init the boat loc!
-void Boat::init_boat_loc() {
-	for (int i = 0; i < 200; i++) {
-		for (int j = 0; j < 200; j++) {
-			Boat::boat_loc[i][j] = false;
-		}
-	}
-}
+bool Boat::boat_loc[200][200] = { false }; // all the origin loc is false
 
 // Before create one boat, check if it's valid
 Boat::Boat(int id, int X, int Y, direction Dir, int Status, int Num_goods) :
