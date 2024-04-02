@@ -31,7 +31,7 @@ bool Boat::sea_check_valid(int x, int y) {//yes if valid
 	char tmp = grid[x][y];
 	if (boat_loc[x][y]) // there is a ship
 		return tmp == '~' || tmp == 'S' || tmp == 'c';
-	return tmp == '*' || tmp == '~' || tmp == 'S' || tmp == 'c' || tmp == 'B' || tmp == 'K' || tmp == 'T' || tmp == 'C;
+	return tmp == '*' || tmp == '~' || tmp == 'S' || tmp == 'c' || tmp == 'B' || tmp == 'K' || tmp == 'T' || tmp == 'C';
 }
 
 bool Boat::init_check_valid(int x, int y) {
