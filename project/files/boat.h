@@ -21,7 +21,6 @@ public:
 	int GetId();
 	static bool sea_check_valid(int x, int y);
 	static bool init_check_valid(int x, int y);
-	static void init_boat_loc();
 	//private:
 	int boat_id, x, y, dir, status, goods_num;
 	static int boat_num;
