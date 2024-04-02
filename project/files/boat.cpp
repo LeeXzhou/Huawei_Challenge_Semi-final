@@ -18,6 +18,19 @@ Boat::Boat(int id, int X, int Y, direction Dir, int Status, int Num_goods) :
 	}
 }
 
+// repeat this function check
+bool Boat::slow_or_not(const MyPair& t) {
+	int x = t.first, y = t.second;
+	return false;
+}
+
+bool Boat::slow_or_not(const MyTuple& t) {
+	int x = t.x, y = t.y, dir = t.status;
+	return false;
+}
+
+
+
 bool Boat::sea_check_valid(int x, int y) {//yes if valid
 	if (!check_boundary(x, y)) return false;
 	char tmp = grid[x][y];
@@ -36,7 +49,8 @@ bool Boat::init_check_valid(int x, int y) {
 	return true;
 }
 
-bool Boat::Forward() {
+bool Boat::Forward(MyTuple& k) {
+	int& x = k.x, & y = k.y, & dir = k.status;
 	if (dir == north) { //north
 		int _x = x - 3, _y = y + 1;
 		if (!sea_check_valid(_x, y) || !sea_check_valid(_x, _y))
@@ -71,7 +85,8 @@ bool Boat::Forward() {
 	}
 	return true;
 }
-bool Boat::AntiClock() {
+bool Boat::AntiClock(MyTuple& k) {
+	int& x = k.x, & y = k.y, & dir = k.status;
 	int kx = x, ky = y;
 	int kdir = dir;
 	x += projection_x[dir];
@@ -119,7 +134,8 @@ bool Boat::AntiClock() {
 	return true;
 }
 
-bool Boat::Clockwise() {
+bool Boat::Clockwise(MyTuple& k) {
+	int& x = k.x, & y = k.y, & dir = k.status;
 	int kx = x, ky = y;
 	int kdir = dir;
 
@@ -164,6 +180,60 @@ bool Boat::Clockwise() {
 		boat_loc[kx][ky] = boat_loc[kx + 1][ky] = false;
 	}
 
+	return true;
+}
+
+
+bool Boat::operate(MyTuple& t, int op) {
+	if (op == 2) {
+		if (!Forward(t))
+			return false;
+	}
+	else if (op == 1) {
+		if(!AntiClock(t))
+			return false;
+	}
+	else {
+		if (!Clockwise(t))
+			return false;
+	}
+	return true;
+}
+
+bool Boat::check_valid(const MyTuple& t) {
+	int x = t.x, y = t.y, dir = t.status;
+	if (dir == 0) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if(!sea_check_valid(x - j, y + i))
+					return false;
+			}
+		}
+	}
+	else if (dir == 2) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (!sea_check_valid(x + j, y - i))
+					return false;
+			}
+		}
+	}
+	else if (dir == 3) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (!sea_check_valid(x - i, y - j))
+					return false;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (!sea_check_valid(x + i, y + j))
+					return false;
+			}
+		}
+	}
 	return true;
 }
 

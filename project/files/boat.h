@@ -8,16 +8,17 @@ using namespace std;
 class Boat {
 public:
 	Boat(int id = -1, int X = -1, int Y = -1, direction Dir = east/*east as default*/, int Status = -1, int Num_goods = 0);
-	static bool Clockwise(int x, int y, direction dir);
-	static bool AntiClock(int x, int y, direction dir);
-	static bool Forward(int x, int y, direction dir);
-	static MyTuple operate(int x, int y, direction dir, int op);//0: clockwise, 1: anti, 2:forward
-	static bool check_valid(int x, int y, direction dir);//是否可行
+	static bool Clockwise(MyTuple& k);
+	static bool AntiClock(MyTuple& k);
+	static bool Forward(MyTuple& k);
+	static bool operate(MyTuple &t, int op);//0: clockwise, 1: anti, 2:forward
+	static bool check_valid(const MyTuple& t);//是否可行
+	static bool slow_or_not(const MyTuple& t);
+	static bool slow_or_not(const MyPair& t);
 	void Boat_control();
 	int GetId();
 	static bool sea_check_valid(int x, int y);
 	static bool init_check_valid(int x, int y);
-	static void init_boat_loc();
 	//private:
 	int boat_id, x, y, dir, status, goods_num;
 	static int boat_num;
