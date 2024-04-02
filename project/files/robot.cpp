@@ -144,7 +144,7 @@ void Robot::find_goods()	//只有起始和目的地找货物
 	}
 	if (!choice.empty())
 	{
-		MyPair now = choice.top().target, tmp = { -1, -1 };
+		MyPair now = choice.top().target, tmp = { 0, 0 };
 		target_x = now.first, target_y = now.second;
 		goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
 		while (tmp.first != x || tmp.second != y)
@@ -201,14 +201,14 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 			if (u.x == target.first && u.y == target.second)
 			{
 				found = true;
-				MyPair now = target, tmp = {-1, -1};
+				MyPair now = target, tmp = {0, 0};
 				while (tmp.first != x || tmp.second != y)
 				{
 					tmp = pre[now.first][now.second];
 					nxt[tmp.first][tmp.second] = now;
 					now = tmp;
 				}
-				return;
+				break;
 			}
 			for (int i = 0; i < 4; i++)
 			{
@@ -218,7 +218,7 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 				{
 					continue;
 				}
-				if (land_check_valid(tmp.first, tmp.second) && (!visited[tmp.first][tmp.second]))
+				if (land_check_valid(tmp) && (!visited[tmp.first][tmp.second]))
 				{
 					visited[tmp.first][tmp.second] = true;
 					pre[tmp.first][tmp.second] = cur;

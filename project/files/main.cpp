@@ -37,18 +37,19 @@ void Init()
     for (int i = 0; i < berth_num; i++)
     {        
         cin >> id;
+        berth[i].berth_id = i;
         cin >> berth[id].x >> berth[id].y >> berth[id].loading_speed;
     }
     cin >> boat_capacity;
     my_alg::init_dis();
-    for (int i = 0; i < 200; i++)
+    /*for (int i = 0; i < 200; i++)
     {
         for (int j = 0; j < 200; j++)
         {
             cerr << dis[i][j][0] << " ";
             
         }cerr << endl;
-    }
+    }*/
     char okk[100];
     cin >> okk;   
     cout << "OK\n";
