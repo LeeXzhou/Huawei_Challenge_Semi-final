@@ -7,16 +7,12 @@
 using namespace std;
 class Boat {
 public:
-	enum direction {
-		north = 0,
-		south = 2,
-		west = 3,
-		east = 1
-	};
 	Boat(int id = -1, int X = -1, int Y = -1, direction Dir = east/*east as default*/, int Status = -1, int Num_goods = 0);
-	bool Clockwise();
-	bool AntiClock();
-	bool Forward();
+	static bool Clockwise(int x, int y, direction dir);
+	static bool AntiClock(int x, int y, direction dir);
+	static bool Forward(int x, int y, direction dir);
+	static MyTuple operate(int x, int y, direction dir, int op);//0: clockwise, 1: anti, 2:forward
+	static bool check_valid(int x, int y, direction dir);//ÊÇ·ñ¿ÉÐÐ
 	void Boat_control();
 	int GetId();
 	static bool sea_check_valid(int x, int y);
