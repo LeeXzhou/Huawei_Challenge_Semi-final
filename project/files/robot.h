@@ -16,6 +16,7 @@ public:
 	Robot() { };
 	Robot(int startX, int startY);
 	void find_goods();
+	void get_nxt(MyPair & target);
 	void find_berth();
 	void find_road(const int& min_dis);
 	void clash_solve();
