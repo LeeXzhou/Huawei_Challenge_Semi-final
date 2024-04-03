@@ -202,9 +202,9 @@ void Robot::find_road(const int& min_dis)	//给定target下去找路
 	{
 		return;
 	}
-	memset(pre, 0, sizeof(pre));memset(visited, false, sizeof(visited));memset(nxt, 0, sizeof(nxt));
+	memset(pre, 0, sizeof(pre)); memset(visited, false, sizeof(visited)); memset(nxt, 0, sizeof(nxt));
 	visited[x][y] = true;
-	queue<MyPair> q;q.push({ x, y });
+	queue<MyPair> q; q.push({ x, y });
 	bool found = false;
 	int step = 0;
 	MyPair target = { target_x, target_y };
@@ -329,14 +329,14 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 			{
 				MyPair u = move_order.top();
 				move_order.pop();
-				int u_id = u.first,u_op = u.second;
+				int u_id = u.first, u_op = u.second;
 				robot[u_id].move_or_not = true;
 
 				if (robot[u_id].goods_num == 0)	//存在隐患
 				{
 					goods_map[robot[u_id].target_x][robot[u_id].target_y].first = -goods_map[robot[u_id].target_x][robot[u_id].target_y].first;
 				}
-				robot[u_id].target_x = -1;robot[u_id].target_y = -1;
+				robot[u_id].target_x = -1; robot[u_id].target_y = -1;
 				cout << "move " << u_id << " " << u_op << endl;
 
 				robot[u_id].x += dx_dy[u_op].first;
@@ -377,7 +377,7 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 	return false;
 }
 
-void Robot::get_nxt(MyPair & target)
+void Robot::get_nxt(MyPair& target)
 {
 	MyPair tmp = { 0, 0 };
 	while (tmp.first != x || tmp.second != y)
