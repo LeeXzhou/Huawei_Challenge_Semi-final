@@ -87,3 +87,13 @@ int my_abs(const int& a, const int& b)
         return b - a;
     }
 }
+
+BoatRout::BoatRout(int X, int Y, int Dir, int G_val, int H_val) : x(X), y(Y), dir(Dir), g_val(G_val), h_val(H_val) {};
+
+bool BoatRout::operator < (const BoatRout& tmp) const {
+    return g_val + h_val > tmp.g_val + tmp.h_val;
+}
+
+int Manhattan(const MyPair & a, const MyPair & b) {
+    return my_abs(a.first, b.first) + my_abs(a.second, b.second);
+}

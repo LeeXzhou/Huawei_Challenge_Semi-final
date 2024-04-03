@@ -147,6 +147,59 @@ void Boat::find_road()
 	}
 }
 
+<<<<<<< Updated upstream
+=======
+int Boat::cal_manhattan(MyTuple k) {
+	return Manhattan(make_pair(k.x, k.y), make_pair(target_x, target_y));
+}
+
+void Boat::find_road2() {
+	if (x == target_x && y == target_y) {
+		return;
+	}
+	// def of dis, vis
+	bool vis[200][200][4] = {false};
+	int dis[200][200][4];
+	memset(dis, 0x3f, sizeof dis);
+	priority_queue<BoatRout> q;
+	MyTuple begin = MyTuple(x, y, dir);
+	dis[begin.x][begin.y][begin.status] = 0;
+	BoatRout st = BoatRout(x, y, dir, 0, Manhattan(make_pair(x, y), make_pair(target_x, target_y)));
+	q.push(st);
+	while (q.size()) {
+		BoatRout tp = q.top(); q.pop();
+		if (tp.x == target_x && tp.y == target_y) {
+			MyTuple now = MyTuple(tp.x, tp.y, tp.dir), tmp = MyTuple(0, 0, 0);
+			while (tmp.x != x || tmp.y != y || tmp.status != dir)
+			{
+				tmp = pre[now.x][now.y][now.status];
+				//if(frame_id>=70&&frame_id<=120)cerr << tmp.x << " " << tmp.y <<' '<<tmp.status << endl;
+				nxt[tmp.x][tmp.y][tmp.status] = now;
+				now = tmp;
+			}
+			return;
+		}
+		if (vis[tp.x][tp.y][tp.dir]) continue;
+		vis[tp.x][tp.y][tp.dir] = true;
+		MyTuple copy = MyTuple(tp.x, tp.y, tp.dir);
+		for (int i = 0; i < 3; i++) {
+			MyTuple tmp = copy;
+			if (operate(tmp, i)) {
+				int len = dis[copy.x][copy.y][copy.status] + (slow_or_not(tmp) ? 2 : 1);
+				if (dis[tmp.x][tmp.y][tmp.status] > len) {
+					dis[tmp.x][tmp.y][tmp.status] = len;
+					pre[tmp.x][tmp.y][tmp.status] = MyTuple(tp.x, tp.y, tp.dir);
+					BoatRout nw = BoatRout(tmp.x, tmp.y, tmp.status, len, cal_manhattan(tmp));
+					q.push(nw);
+				}
+			}
+		}
+	}
+}
+
+#if(0)
+
+>>>>>>> Stashed changes
 bool Boat::Forward(MyTuple& k) {
 	int& x = k.x, & y = k.y, & dir = k.status;
 	if (dir == north) { //north
@@ -280,7 +333,11 @@ bool Boat::Clockwise(MyTuple& k) {
 
 	return true;
 }
+<<<<<<< Updated upstream
 
+=======
+#endif
+>>>>>>> Stashed changes
 
 bool Boat::operate(MyTuple& t, int op) {
 	if (op == 2) {
@@ -360,7 +417,7 @@ void Boat::Boat_control()
 	{
 		target_x = berth[0].x;
 		target_y = berth[0].y;
-		find_road();
+		find_road2();
 	}
 	else
 	{
@@ -373,13 +430,13 @@ void Boat::Boat_control()
 			else
 			{
 				target_x = berth[0].x; target_y = berth[0].y;
-				find_road();
+				find_road2();
 			}
 			return;
 		}
 		if (target_x == delivery_point[0].first && leave_flag==true)
 		{
-			find_road();
+			find_road2();
 			leave_flag = false;
 			return;
 		}

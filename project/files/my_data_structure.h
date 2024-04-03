@@ -9,6 +9,7 @@
 #include <set>
 #include <algorithm>
 #include <vector>
+#include <map>
 using namespace std;
 using MyPair = std::pair<int, int>;
 
@@ -49,4 +50,12 @@ struct Plan {
 };
 
 int my_abs(const int& a, const int& b);
+
+int Manhattan(const MyPair & a, const MyPair & b);
+
+struct BoatRout {
+	int x, y, dir, g_val, h_val;
+	BoatRout(int X = -1, int Y = -1, int Dir = -1, int G_val = 0, int H_val = 0);
+	bool operator < (const BoatRout& tmp) const;
+};
 #endif // !my_data_structure_h
