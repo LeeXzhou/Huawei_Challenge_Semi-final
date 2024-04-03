@@ -90,7 +90,7 @@ bool Boat::init_check_valid(int x, int y) {
 
 void Boat::find_road()
 {
-	cerr << "in!" << endl;
+	//cerr << "in!" << endl;
 	if (x == target_x && y == target_y) return;
 	memset(pre, 0, sizeof(pre));memset(nxt, 0, sizeof(nxt));memset(visited, false, sizeof(visited));
 	
@@ -114,6 +114,7 @@ void Boat::find_road()
 		int q_size = q.size();
 		for (int i = 1; i <= q_size; i++)
 		{
+			if (frame_id >= 70 && frame_id <= 120)cerr << step << endl;
 			//cerr << step << '\n';
 			Foursome u = q.front();
 			
@@ -130,12 +131,12 @@ void Boat::find_road()
 				{
 					
 					tmp = pre[now.x][now.y][now.status];
-					//cerr << tmp.x << " " << tmp.y <<' '<<tmp.status << endl;
+					//if(frame_id>=70&&frame_id<=120)cerr << tmp.x << " " << tmp.y <<' '<<tmp.status << endl;
 					nxt[tmp.x][tmp.y][tmp.status] = now;
 					now = tmp;
 				}
 				
-				break;
+				return;
 			}
 			if (u.flag == 0)
 			{
@@ -177,7 +178,7 @@ void Boat::find_road()
 		}
 		step++;
 	}
-	cerr << "out" << endl;
+	//cerr << "out" << endl;
 }
 /*
 bool Boat::Forward(MyTuple& k) {
