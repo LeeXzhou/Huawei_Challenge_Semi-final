@@ -39,11 +39,11 @@ void Robot::robot_control()
 			find_berth();
 		}
 	}
-	if (!no_goods)
+	if (!no_goods)	//地图上有货物
 	{
 		clash_solve();
 	}
-	else
+	else  //没货物，所以需要找货物
 	{
 		for (int i = 0; i < berth_num; i++)
 		{
@@ -53,14 +53,14 @@ void Robot::robot_control()
 				target_x = -1; target_y = -1;
 				if (target.first == -1)
 				{
-					no_goods = true;
+					no_goods = true;	//标记地图暂时没货物，让它停留在泊位不动
 				}
 				else
 				{
 					target_x = target.first, target_y = target.second;
 					goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
 					find_road(dis[target_x][target_y][i]);
-					no_goods = false;
+					no_goods = false;	//地图上有货物
 				}
 				return;
 			}
@@ -76,15 +76,14 @@ void Robot::robot_control()
 			{
 				if (x >= berth[i].x && x <= berth[i].x + 3 && y <= berth[i].y + 3 && y >= berth[i].y)
 				{
-					//cerr << "in berth " << i << endl;
 					cout << "pull " << robot_id << endl;
 					goods_num = 0;
 					berth[i].num += 1;
 					MyPair target = berth[i].find_goods_from_berth();
-					//cerr << target << endl;
+
 					if (target.first == -1)
 					{
-						no_goods = true;
+						no_goods = true;	//标记地图暂时没货物，让它停留在泊位不动
 						target_x = -1; target_y = -1;
 					}
 					else
@@ -92,7 +91,7 @@ void Robot::robot_control()
 						target_x = target.first, target_y = target.second;
 						goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
 						find_road(dis[target_x][target_y][i]);
-						no_goods = false;
+						no_goods = false;	//地图上有货物
 					}
 					return;
 				}
@@ -118,7 +117,7 @@ void Robot::robot_control()
 	}
 }
 
-void Robot::find_goods()	//只有起始和目的地找货物
+void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 {
 	if (goods_map[x][y].first > 0 && goods_map[x][y].second > frame_id)
 	{
@@ -177,7 +176,7 @@ void Robot::find_goods()	//只有起始和目的地找货物
 	return;
 }
 
-void Robot::find_berth() //找泊位
+void Robot::find_berth() //找最近泊位
 {
 	int aim_num = -1;
 	int min_dis = 300000;
@@ -196,7 +195,7 @@ void Robot::find_berth() //找泊位
 	find_road(min_dis);
 }
 
-void Robot::find_road(const int& min_dis)	//给定target下去找路
+void Robot::find_road(const int& min_dis)	//给定target下去找路，有剪枝，效率高
 {
 	if (x == target_x && y == target_y)
 	{
@@ -305,7 +304,7 @@ void Robot::clash_solve()
 
 bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 {
-	if (robot[move_num].move_or_not)return false;
+	if (robot[move_num].move_or_not)return false;	//这机器人动过了，不能再动了
 	for (int i = 0; i < 4; i++)
 	{
 		int ran_i = (i + frame_id) % 4;
@@ -341,8 +340,8 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 
 				robot[u_id].x += dx_dy[u_op].first;
 				robot[u_id].y += dx_dy[u_op].second;
-				robot[u_id].move_or_not = true;
-				if (robot[u_id].goods_num == 0)
+				robot[u_id].move_or_not = true;				
+				if (robot[u_id].goods_num == 0)	//重新规划路线
 				{
 					robot[u_id].find_goods();
 				}
@@ -350,7 +349,6 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 				{
 					robot[u_id].find_berth();
 				}
-
 			}
 			return true;
 		}
