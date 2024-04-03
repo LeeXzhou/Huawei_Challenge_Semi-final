@@ -42,7 +42,7 @@ namespace my_alg {
 	}
 	void test_robot()
 	{
-		if (money >= 2000)
+		if (money >= 2000 && robot_num < 20)
 		{
 			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
 		}

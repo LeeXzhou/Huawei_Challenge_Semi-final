@@ -9,7 +9,7 @@ class Boat {
 public:
 	Boat(int id = -1, int X = -1, int Y = -1, direction Dir = east/*east as default*/, int Status = -1, int Num_goods = 0);
 	void find_road();
-
+	void find_road2();
 	static bool Clockwise(MyTuple& k);
 	static bool AntiClock(MyTuple& k);
 	static bool Forward(MyTuple& k);
@@ -21,6 +21,7 @@ public:
 	int GetId();
 	static bool sea_check_valid(int x, int y);
 	static bool init_check_valid(int x, int y);
+	int cal_manhattan(MyTuple k);
 	//private:
 	int boat_id, x, y, dir, status, goods_num;
 
