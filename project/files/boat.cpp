@@ -83,7 +83,7 @@ bool Boat::init_check_valid(int x, int y) {
 
 void Boat::find_road()
 {
-	cerr << "I am finding\n";
+	cerr << "in!" << endl;
 	if (x == target_x && y == target_y) return;
 	memset(pre, 0, sizeof(pre));
 	memset(nxt, 0, sizeof(nxt));
@@ -92,6 +92,7 @@ void Boat::find_road()
 	queue<Foursome>q;
 	if (slow_or_not(MyTuple(x,y,dir)))//如果初始点包含主航道
 	{
+
 		q.push(Foursome(x, y, dir, 0));
 	}
 	else
@@ -100,27 +101,41 @@ void Boat::find_road()
 	}
 	bool found = false;
 	int step = 0;
+	//cerr << target_x << " " << target_y << endl;
 	while (!found && !q.empty())
 	{
+		//cerr << "see see\n";
+		//cerr << frame_id << endl;
 		int q_size = q.size();
 		for (int i = 1; i <= q_size; i++)
 		{
-			Foursome u = Foursome(q.front().x,q.front().y,q.front().dir,q.front().flag);
+			//cerr << step << '\n';
+			Foursome u = q.front();
+			
+			
 			q.pop();
+			//cerr << u.x << " " << u.y << endl;
 			if (u.x == target_x && u.y == target_y)
 			{
 				found = true;
+				//cerr << "GFUcsggfjszfdss" << endl;
+
 				MyTuple now = MyTuple(u.x,u.y,u.dir), tmp = MyTuple(0, 0, 0);
 				while (tmp.x != x || tmp.y != y || tmp.status != dir)
 				{
+					
 					tmp = pre[now.x][now.y][now.status];
+					//cerr << tmp.x << " " << tmp.y <<' '<<tmp.status << endl;
 					nxt[tmp.x][tmp.y][tmp.status] = now;
 					now = tmp;
 				}
+				
 				break;
 			}
 			if (u.flag == 0)
 			{
+				visited[u.x][u.y][u.dir] = 1;
+
 				u.flag = 1;
 				q.push(u);
 			}
@@ -129,14 +144,23 @@ void Boat::find_road()
 				for (int j = 0; j < 3; j++)
 				{
 					MyTuple tmp = MyTuple(u.x, u.y, u.dir);
+					
 					if (Boat::operate(tmp, j))
 					{
+						if (visited[tmp.x][tmp.y][tmp.status])continue;
+						//cerr << "aaaaa" << endl;
+						//cerr << tmp.x << ' ' << tmp.y << ' ' << tmp.status << endl;
+
 						if (slow_or_not(tmp))//如果下一步减速了，则推入0
 						{
+							//visited[tmp.x][tmp.y][tmp.status] = 1;
 							q.push(Foursome(tmp.x, tmp.y, tmp.status, 0));
+							pre[tmp.x][tmp.y][tmp.status] = MyTuple(u.x, u.y, u.dir);
 						}
 						else
 						{
+							visited[tmp.x][tmp.y][tmp.status] = 1;
+							pre[tmp.x][tmp.y][tmp.status] = MyTuple(u.x, u.y, u.dir);
 							q.push(Foursome(tmp.x, tmp.y, tmp.status, 1));
 						}
 					}
@@ -145,6 +169,7 @@ void Boat::find_road()
 		}
 		step++;
 	}
+	cerr << "out" << endl;
 }
 
 bool Boat::Forward(MyTuple& k) {
@@ -337,7 +362,10 @@ bool Boat::check_valid(const MyTuple& t) {
 
 void Boat::Boat_control()
 {
+	
 	if(status == 1)return;
+	//cerr << frame_id << endl;
+	//cerr << nxt[x][y][dir].x << ' ' << nxt[x][y][dir].y << ' ' << nxt[x][y][dir].status << endl;
 	if (status == 2)
 	{
 		if (berth[0].num > 0 && goods_num < boat_capacity)
@@ -383,19 +411,27 @@ void Boat::Boat_control()
 			leave_flag = false;
 			return;
 		}
+		cerr << frame_id << endl;
+		cerr << x << ' ' << y << ' ' << status << endl;
+
 		for (int j = 0; j <= 2; j++)
 		{
-			cerr << "see see\n";
-			cerr << nxt[x][y][dir].x << nxt[x][y][dir].y << nxt[x][y][dir].status << endl;
+			//cerr << "see see\n";
+			cerr << "j = " << j << endl;
 			MyTuple tmp = MyTuple(x, y, dir);
-			if (operate(tmp, j)) {
-				
+			//if(frame_id<10)cerr << nxt[x][y][dir].x << nxt[x][y][dir].y << nxt[x][y][dir].status << endl;
+			if (operate(tmp, j)) {	
+				//cerr << 111111 << endl;
+				cerr << j<<' '<<tmp.x << ' ' << tmp.y << ' ' << tmp.status << endl;
 				if (tmp == nxt[x][y][dir]) {
 					if (j <= 1) {
 						cout << "rot 0 " << j << endl;
+						cerr << "rot 0 " << j << endl;
+
 					}
 					else {
 						cout << "ship 0\n";
+						cerr << "ship 0\n";
 					}
 					return;
 				}

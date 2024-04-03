@@ -47,6 +47,7 @@ namespace my_alg {
 			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
 		}
 		boat[0].Boat_control();
+		
 		for (int i = 0; i < robot_num; i++)
 		{
 			robot[i].robot_control();

@@ -6,6 +6,7 @@ int frame_id;
 int money, boat_capacity;
 int dis[200][200][10];
 char grid[N][N];
+int  to_dir[] = { 1, 3, 0, 2 };
 MyPair goods_map[N][N];
 vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 Berth berth[10];
@@ -84,7 +85,10 @@ void Input()
     cin >> boat_num;
     for (int i = 0; i < boat_num; i++)
     {
-        cin >> boat[i].boat_id >> boat[i].goods_num >> boat[i].x >> boat[i].y >> boat[i].dir >> boat[i].status;
+        int _dir;
+        cin >> boat[i].boat_id >> boat[i].goods_num >> boat[i].x >> boat[i].y >> _dir >> boat[i].status;
+        boat[i].dir = to_dir[_dir];
+        //cerr << boat[i].boat_id << boat[i].goods_num << boat[i].x << boat[i].y << boat[i].dir << boat[i].status << endl;
     }
     char okk[100];
     cin >> okk;
@@ -103,7 +107,7 @@ int main()
             break;
         }
         Input();        
-        my_alg::test_robot();
+        if(frame_id>=2)my_alg::test_robot();
         if (frame_id == 1)
         {
             cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
