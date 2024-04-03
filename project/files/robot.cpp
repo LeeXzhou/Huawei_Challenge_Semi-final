@@ -191,7 +191,7 @@ void Robot::find_berth() //ÕÒ×î½ü²´Î»
 	if (aim_num == -1)aim_num = 0;*/
 	target_x = berth[aim_num].x;
 	target_y = berth[aim_num].y;
-	int min_dis = dis[x][y][0];
+	int min_dis = berth_dis[x][y][0];
 	find_road(min_dis);
 }
 

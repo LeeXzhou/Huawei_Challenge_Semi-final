@@ -107,11 +107,11 @@ int main()
 			break;
 		}
 		Input();
-		my_alg::test_robot();
-		/*if (frame_id == 1)
+		if (frame_id >= 2)my_alg::test_robot();
+		if (frame_id == 1)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
-		}*/
+		}
 		puts("OK");
 		fflush(stdout);
 	}
