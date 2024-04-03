@@ -38,7 +38,7 @@ struct MyTuple {
 
 struct Foursome {
 	int x, y, dir, flag;
-	
+	MyTuple get_tuple();
 	Foursome(int a=-1, int b=-1, int c=-1, int d=-1);
 };
 struct Plan {

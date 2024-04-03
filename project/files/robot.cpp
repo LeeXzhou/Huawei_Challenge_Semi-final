@@ -59,7 +59,7 @@ void Robot::robot_control()
 				{
 					target_x = target.first, target_y = target.second;
 					goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
-					find_road(dis[target_x][target_y][i]);
+					find_road(berth_dis[target_x][target_y][i]);
 					no_goods = false;	//地图上有货物
 				}
 				return;
@@ -90,7 +90,7 @@ void Robot::robot_control()
 					{
 						target_x = target.first, target_y = target.second;
 						goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
-						find_road(dis[target_x][target_y][i]);
+						find_road(berth_dis[target_x][target_y][i]);
 						no_goods = false;	//地图上有货物
 					}
 					return;
@@ -143,9 +143,9 @@ void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 				int good_to_berth_dis = 300000;
 				for (int i = 0; i < berth_num; i++)
 				{
-					if (dis[u.first][u.second][i] > 0)
+					if (berth_dis[u.first][u.second][i] > 0)
 					{
-						good_to_berth_dis = min(good_to_berth_dis, dis[u.first][u.second][i]);
+						good_to_berth_dis = min(good_to_berth_dis, berth_dis[u.first][u.second][i]);
 					}
 				}
 				choice.push(Plan(goods_map[u.first][u.second].first, step + good_to_berth_dis, { u.first, u.second }));
@@ -182,10 +182,10 @@ void Robot::find_berth() //找最近泊位
 	int min_dis = 300000;
 	for (int i = 0; i < berth_num; i++)
 	{
-		if (dis[x][y][i] > 0 && dis[x][y][i] < min_dis)
+		if (berth_dis[x][y][i] > 0 && berth_dis[x][y][i] < min_dis)
 		{
 			aim_num = i;
-			min_dis = dis[x][y][i];
+			min_dis = berth_dis[x][y][i];
 		}
 	}
 	if (aim_num == -1)aim_num = 0;

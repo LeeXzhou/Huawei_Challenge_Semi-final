@@ -22,9 +22,6 @@ std::ostream& operator<<(std::ostream& os, const MyPair& p) {
 
 MyTuple::MyTuple(int a, int b, int c) : x(a), y(b), status(c) {}
 
-
-Foursome::Foursome(int a, int b, int c, int d) :x(a), y(b), dir(c), flag(d){}
-
 bool MyTuple::operator==(const MyTuple& tmp) const
 {
     if (status != tmp.status || x != tmp.x || y != tmp.y)
@@ -64,6 +61,11 @@ bool MyTuple::operator>(const MyTuple& tmp) const {
     }
 }
 
+Foursome::Foursome(int a, int b, int c, int d) :x(a), y(b), dir(c), flag(d){}
+MyTuple Foursome::get_tuple()
+{
+    return MyTuple(x, y, dir);
+}
 Plan::Plan(int v, int t, MyPair g)
 {
     value = v, time = t, target = g;

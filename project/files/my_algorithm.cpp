@@ -3,8 +3,10 @@ bool visited[200][200];
 namespace my_alg {
 	void init_dis()
 	{
-		memset(dis, -1, sizeof(dis));
-		unique_ptr<unique_ptr<unique_ptr<bool[]>[]>[]> vis(new unique_ptr<unique_ptr<bool[]>[]>[200]);
+		memset(berth_dis, -1, sizeof(berth_dis));
+		memset(delivery_dis, 0x3f, sizeof(delivery_dis));
+		bool vis[200][200][10] = { false };
+		/*unique_ptr<unique_ptr<unique_ptr<bool[]>[]>[]> vis(new unique_ptr<unique_ptr<bool[]>[]>[200]);
 		for (int i = 0; i < 200; ++i)
 		{
 			vis[i].reset(new std::unique_ptr<bool[]>[200]);
@@ -16,12 +18,12 @@ namespace my_alg {
 					vis[i][j][k] = false;
 				}
 			}
-		}
+		}*/
 		queue<MyPair> q;
 		for (int i = 0; i < berth_num; i++)
 		{
 			q.push({ berth[i].x, berth[i].y });
-			dis[berth[i].x][berth[i].y][i] = 0;
+			berth_dis[berth[i].x][berth[i].y][i] = 0;
 			vis[berth[i].x][berth[i].y][i] = true;
 			while (!q.empty())
 			{
@@ -33,11 +35,67 @@ namespace my_alg {
 					if (Robot::land_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
 					{
 						vis[cur.first][cur.second][i] = true;
-						dis[cur.first][cur.second][i] = dis[tmp.first][tmp.second][i] + 1;
+						berth_dis[cur.first][cur.second][i] = berth_dis[tmp.first][tmp.second][i] + 1;
 						q.push(cur);
 					}
 				}
 			}
+		}
+		queue<Foursome>qq;
+		MyTuple tuple_tmp;
+		for (int i = 0; i < delivery_num; i++)
+		{
+			memset(vis, false, sizeof(vis));
+			for (int j = 0; j < 4; j++)
+			{
+				Foursome tmp = Foursome(delivery_point[i].first, delivery_point[i].second, j, 0);
+				tuple_tmp = tmp.get_tuple();
+				if (Boat::check_valid(tuple_tmp))
+				{
+					//if(!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
+					qq.push(tmp);
+				}
+			}
+			
+			delivery_dis[delivery_point[i].first][delivery_point[i].second][i] = 0;
+			vis[delivery_point[i].first][delivery_point[i].second][i] = true;
+			while (!qq.empty())
+			{
+				Foursome u = qq.front();
+				qq.pop();
+				for (int j = 0; j <= 2; j++)
+				{
+					Foursome tmp = u;
+					tuple_tmp = u.get_tuple();
+					if (Boat::operate(tuple_tmp, j))
+					{
+						if (!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
+						{
+							vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status] = true;
+							Foursome foursome_tmp;
+							if (Boat::slow_or_not(tuple_tmp))
+							{
+								delivery_dis[tuple_tmp.x][tuple_tmp.y][i] = min(
+									delivery_dis[tuple_tmp.x][tuple_tmp.y][i], u.flag + 2
+								);
+								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + 2);
+
+							}
+							else
+							{
+								delivery_dis[tuple_tmp.x][tuple_tmp.y][i] = min(
+									delivery_dis[tuple_tmp.x][tuple_tmp.y][i], u.flag + 1
+								);
+								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + 1);
+
+							}
+							qq.push(foursome_tmp);
+						}
+					}
+
+				}
+			}
+			cerr << delivery_dis[berth[0].x][berth[0].y][0] << endl;
 		}
 	}
 	void test_robot()

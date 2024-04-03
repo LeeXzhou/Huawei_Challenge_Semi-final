@@ -20,7 +20,7 @@ public:
 const int N = 200, boat_price = 8000, robot_price = 2000;
 const MyPair dx_dy[4] = { {0, 1} , {0, -1}, {-1, 0}, {1, 0} };
 
-extern int robot_num, boat_num, berth_num, goods_num;
+extern int robot_num, boat_num, berth_num, delivery_num, goods_num;
 extern int frame_id;
 extern int money, boat_capacity;
 
@@ -29,5 +29,6 @@ extern MyPair goods_map[N][N];
 extern vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 extern Berth berth[10];
 
-extern int dis[200][200][10];	//若干个泊位到地图上每个点的距离，有船从海洋走的距离也有机器人从陆地走的距离
+extern int berth_dis[200][200][10];	//若干个泊位到地图上每个点的距离(陆地)
+extern int delivery_dis[200][200][5];
 #endif // !berth_h
