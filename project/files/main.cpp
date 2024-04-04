@@ -90,6 +90,7 @@ void Input()
 	for (int i = 0; i < boat_num; i++)
 	{
 		cin >> boat[i].boat_id >> boat[i].goods_num >> boat[i].x >> boat[i].y >> boat[i].dir >> boat[i].status;
+		boat[i].dept_or_not = false;
 	}
 	char okk[100];
 	cin >> okk;
@@ -113,7 +114,7 @@ int main()
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
-		else if (money >= 8000 && robot_num == 20 && boat_num < 4)
+		else if (money >= 8000 && robot_num == 20 && boat_num < 2)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}

@@ -1,1 +1,1 @@
-..\SemiFinalJudge.exe -m .\maps\mymap1.txt .\x64\Debug\project.exe
+..\SemiFinalJudge.exe -m .\maps\map2.txt .\x64\Debug\project.exe

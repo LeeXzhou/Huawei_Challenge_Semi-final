@@ -1,6 +1,4 @@
-﻿  boat.cpp
-C:\Users\29541\Desktop\Github\Huawei_Challenge_Semi-final\project\files\boat.cpp(112,24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  main.cpp
+﻿  main.cpp
   my_algorithm.cpp
   正在生成代码...
-  project.vcxproj -> C:\Users\29541\Desktop\Github\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
+  project.vcxproj -> D:\huawei_semi\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe

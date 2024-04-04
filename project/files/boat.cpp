@@ -227,6 +227,117 @@ void Boat::find_road2() {
 	}
 }
 
+bool Boat::two_boat_clash(MyTuple a, MyTuple b)
+{
+	unordered_map<int,int>mp;
+	if (a.status == 2) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x - j) * 1000 + a.y + i;
+				mp[tp] += 1;
+			}
+		}
+	}
+	else if (a.status == 3) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x + j) * 1000 + a.y - i;
+				mp[tp] += 1;
+			}
+		}
+	}
+	else if (a.status == 1) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x - i) * 1000 + a.y - j;
+				mp[tp] += 1;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x +i) * 1000 + a.y + j;
+				mp[tp] += 1;
+			}
+		}
+	}
+	/////////////////////////////////////////////////
+	if (b.status == 2) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x - j) * 1000 + b.y + i;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				}
+			}
+		}
+	}
+	else if (b.status == 3) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x + j) * 1000 + b.y - i;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				}
+			}
+		}
+	}
+	else if (b.status == 1) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x - i) * 1000 + b.y - j;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				};
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x + i) * 1000 + b.y + j;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				}
+			}
+		}
+	}
+	return false;
+
+}
+
+void Boat::clash_solve(int op , MyTuple boat_a)
+{   
+	for (int i = boat_id + 1; i < boat_num; i++)
+	{
+		MyTuple boat_b = MyTuple(boat[i].x, boat[i].y, boat[i].dir);
+		if (Boat::two_boat_clash(boat_a,boat_b))
+		{
+			string tmp = "dept " + to_string(boat_id);
+			boat_option.push_back(tmp);
+			dept_flag = true;
+			return;
+		}
+	}
+	if (op <= 1) {
+		string tmp = "rot " + to_string(boat_id) + " " + to_string(op);
+		boat_option.push_back(tmp);
+		//cout << "rot " << boat_id << " " << j << endl;
+
+	}
+	else {
+		string tmp = "ship " + to_string(boat_id);
+		boat_option.push_back(tmp);
+		//cout << "ship " << boat_id << endl;
+	}
+
+}
+
 #if(0)
 
 bool Boat::Forward(MyTuple& k) {
@@ -441,8 +552,9 @@ void Boat::Boat_control()
 		{
 			target_x = delivery_point[0].first;
 			target_y = delivery_point[0].second;
+			aim_berth = -1;
 
-			leave_flag = true;
+			dept_flag = true;
 			string tmp = "dept " + to_string(boat_id);
 			boat_option.push_back(tmp);
 			//cout << "dept " << boat_id << endl;
@@ -471,34 +583,24 @@ void Boat::Boat_control()
 			}
 			return;
 		}
-		if (target_x == delivery_point[0].first && target_y == delivery_point[0].second && leave_flag == true)
+		if (dept_flag == true)
 		{
 			if (goods_num < boat_capacity)
 			{
 				choose_berth();
 			}
 			find_road2();
-			leave_flag = false;
+			dept_flag = false;
 			return;
 		}
+		
 
 		for (int j = 0; j <= 2; j++)
 		{
 			MyTuple tmp = MyTuple(x, y, dir);
 			if (operate(tmp, j)) {
 				if (tmp == nxt[x][y][dir]) {
-					if (j <= 1) {
-						string tmp = "rot " + to_string(boat_id) + " " + to_string(j);
-						boat_option.push_back(tmp);
-						//cout << "rot " << boat_id << " " << j << endl;
-
-					}
-					else {
-						string tmp = "ship " + to_string(boat_id);
-						boat_option.push_back(tmp);
-						//cout << "ship " << boat_id << endl;
-					}
-					return;
+					clash_solve(j, tmp);
 				}
 			}
 		}
@@ -511,14 +613,21 @@ void Boat::choose_berth()
 	target_berth = 0;
 	for (int i = 0; i < berth_num; i++)	//挑选货物最多的泊位
 	{
-		if (berth[i].num > max_num)
+		if (berth[i].left_num > max_num)
 		{
-			max_num = berth[i].num;
+			max_num = berth[i].left_num;
 			target_berth = i;
 		}
 	}
 	target_x = berth[target_berth].x;
 	target_y = berth[target_berth].y;
+	aim_berth = target_berth;
+	if (goods_num == boat_capacity)
+	{
+		target_x = delivery_point[0].second;
+		target_y = delivery_point[0].second;
+		aim_berth = -1;
+	}
 }
 
 int Boat::GetId() {

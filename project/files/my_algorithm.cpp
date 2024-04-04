@@ -111,6 +111,32 @@ namespace my_alg {
 			robot[i].robot_control();
 		}
 	}
+	void get_left_num()
+	{
+		for (int i = 0; i < berth_num; i++)
+		{
+			berth[i].left_num = berth[i].num;
+		}
+		//cerr << boat_num << endl;
+		for (int i = 0; i < boat_num; i++)
+		{
+			berth[i].left_num = max(0, berth[i].left_num - boat_capacity + boat[i].goods_num);
+		}
+		/*
+		cerr << "NUM\t";
+		for (int i = 0; i < berth_num; i++)
+		{
+			cerr << berth[i].num << '\t';
+		}
+		cerr << endl;
+		cerr << "LEF\t";
+		for (int i = 0; i < berth_num; i++)
+		{
+			cerr << berth[i].left_num << '\t';
+		}
+		cerr << endl;
+		*/
+	}
 	void test_robot()
 	{
 		boat_option.clear();
@@ -120,7 +146,8 @@ namespace my_alg {
 			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
 		}
 
-		
+		get_left_num();
+
 		thread t1(all_boat_control), t2(all_robot_control);
 		t1.join(); t2.join();
 		for (int i = 0; i < boat_option.size(); i++)

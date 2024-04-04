@@ -11,6 +11,7 @@ public:
 	int x = -1, y = -1, loading_speed = -1;
 	bool aimed = false;
 	int num = 0, berth_id = -1;
+	int left_num = 0;
 	Berth() { };
 	Berth(int x, int y, int loading_speed);
 	MyPair find_goods_from_berth();
