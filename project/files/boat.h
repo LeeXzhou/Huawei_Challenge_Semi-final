@@ -18,16 +18,16 @@ public:
 	static bool slow_or_not(const MyTuple& t);
 	static bool slow_or_not(const MyPair& t);
 	void Boat_control();
+	void choose_berth();	//挑选货物量最多的泊位
 	int GetId();
 	static bool sea_check_valid(int x, int y);
 	static bool init_check_valid(int x, int y);
 	int cal_manhattan(MyTuple k);
 	//private:
-	int boat_id, x, y, dir, status, goods_num;
+	int boat_id, x, y, dir, status, goods_num, target_berth = -1;
 
 	int target_x = -1, target_y = -1;
 	bool leave_flag = false;//坨
-	static int boat_num;
 	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked true
 	static int projection_x[4];
 	static int projection_y[4];

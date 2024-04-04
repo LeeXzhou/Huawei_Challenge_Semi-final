@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <thread>
+#include <string>
 using namespace std;
 using MyPair = std::pair<int, int>;
 

@@ -1,7 +1,6 @@
 #include "boat.h"
 using namespace std;
 
-int Boat::boat_num = 0;
 const int fx[4] = { 0, 0, -1, 1 };
 const int fy[4] = { 1, -1, 0, 0 };
 const int rot_0x[4] = { 0,0,-2,2 };
@@ -16,7 +15,6 @@ bool Boat::boat_loc[200][200] = { false }; // all the origin loc is false
 Boat::Boat(int id, int X, int Y, direction Dir, int Status, int Num_goods) :
 	boat_id(boat_num), x(X), y(Y), dir(Dir), status(Status), goods_num(Num_goods)
 {
-	boat_num++;
 	for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 3; j++) {
 			boat_loc[i][j] = true;
@@ -430,83 +428,97 @@ bool Boat::check_valid(const MyTuple& t) {
 
 void Boat::Boat_control()
 {
-	//cerr << robot_num << endl;
 	if (status == 1)return;
-	//cerr << frame_id << endl;
-	//cerr << nxt[x][y][dir].x << ' ' << nxt[x][y][dir].y << ' ' << nxt[x][y][dir].status << endl;
 	if (status == 2)
 	{
-		if (berth[0].num > 0 && goods_num < boat_capacity)
+		if (berth[target_berth].num > 0 && goods_num < boat_capacity)
 		{
-			int add = min(berth[0].loading_speed, min(boat_capacity - goods_num, berth[0].num));
+			int add = min(berth[target_berth].loading_speed, min(boat_capacity - goods_num, berth[target_berth].num));
 			goods_num += add;
-			berth[0].num -= add;
+			berth[target_berth].num -= add;
 		}
 		else
 		{
 			target_x = delivery_point[0].first;
 			target_y = delivery_point[0].second;
-			//left_time = berth[aim_berth].transport_time;
+
 			leave_flag = true;
-			cout << "dept " << boat_id << endl;
+			string tmp = "dept " + to_string(boat_id);
+			boat_option.push_back(tmp);
+			//cout << "dept " << boat_id << endl;
 		}
 		return;
 	}
 	if (target_x == -1)
 	{
-		target_x = berth[0].x;
-		target_y = berth[0].y;
+		choose_berth();
 		find_road2();
 	}
 	else
 	{
 		if (target_x == x && target_y == y)
 		{
-			if (x == berth[0].x && y == berth[0].y)
+			if (x == berth[target_berth].x && y == berth[target_berth].y)
 			{
-				cout << "berth 0\n";
+				string tmp = "berth " + to_string(boat_id);
+				boat_option.push_back(tmp);
+				//cout << "berth " << boat_id << endl;;
 			}
 			else
 			{
-				target_x = berth[0].x; target_y = berth[0].y;
+				choose_berth();
 				find_road2();
 			}
 			return;
 		}
-		if (target_x == delivery_point[0].first && leave_flag == true)
+		if (target_x == delivery_point[0].first && target_y == delivery_point[0].second && leave_flag == true)
 		{
+			if (goods_num < boat_capacity)
+			{
+				choose_berth();
+			}
 			find_road2();
 			leave_flag = false;
 			return;
 		}
-		//cerr << frame_id << endl;
-		//cerr << x << ' ' << y << ' ' << status << endl;
 
 		for (int j = 0; j <= 2; j++)
 		{
-			//cerr << "see see\n";
-			//cerr << "j = " << j << endl;
 			MyTuple tmp = MyTuple(x, y, dir);
-			//if(frame_id<10)cerr << nxt[x][y][dir].x << nxt[x][y][dir].y << nxt[x][y][dir].status << endl;
 			if (operate(tmp, j)) {
-				//cerr << 111111 << endl;
-				//if (frame_id < 10)cerr << j<<' '<<tmp.x << ' ' << tmp.y << ' ' << tmp.status << endl;
 				if (tmp == nxt[x][y][dir]) {
 					if (j <= 1) {
-						cout << "rot 0 " << j << endl;
-						//cerr << "rot 0 " << j << endl;
+						string tmp = "rot " + to_string(boat_id) + " " + to_string(j);
+						boat_option.push_back(tmp);
+						//cout << "rot " << boat_id << " " << j << endl;
 
 					}
 					else {
-						cout << "ship 0\n";
-						//cerr << "ship 0\n";
+						string tmp = "ship " + to_string(boat_id);
+						boat_option.push_back(tmp);
+						//cout << "ship " << boat_id << endl;
 					}
 					return;
 				}
 			}
 		}
 	}
+}
 
+void Boat::choose_berth()
+{
+	int max_num = 0;
+	target_berth = 0;
+	for (int i = 0; i < berth_num; i++)	//挑选货物最多的泊位
+	{
+		if (berth[i].num > max_num)
+		{
+			max_num = berth[i].num;
+			target_berth = i;
+		}
+	}
+	target_x = berth[target_berth].x;
+	target_y = berth[target_berth].y;
 }
 
 int Boat::GetId() {

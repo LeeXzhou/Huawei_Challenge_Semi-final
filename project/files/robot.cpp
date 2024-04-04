@@ -59,7 +59,7 @@ void Robot::robot_control()
 				{
 					target_x = target.first, target_y = target.second;
 					goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
-					find_road(berth_dis[target_x][target_y][i]);
+					find_road(land_dis[target_x][target_y][i]);
 					no_goods = false;	//地图上有货物
 				}
 				return;
@@ -76,9 +76,12 @@ void Robot::robot_control()
 			{
 				if (x >= berth[i].x && x <= berth[i].x + 3 && y <= berth[i].y + 3 && y >= berth[i].y)
 				{
-					cout << "pull " << robot_id << endl;
+					string tmp = "pull " + to_string(robot_id);
+					robot_option.push_back(tmp);
+					//cout << "pull " << robot_id << endl;
 					goods_num = 0;
 					berth[i].num += 1;
+					all_num += 1;
 					MyPair target = berth[i].find_goods_from_berth();
 
 					if (target.first == -1)
@@ -90,7 +93,7 @@ void Robot::robot_control()
 					{
 						target_x = target.first, target_y = target.second;
 						goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
-						find_road(berth_dis[target_x][target_y][i]);
+						find_road(land_dis[target_x][target_y][i]);
 						no_goods = false;	//地图上有货物
 					}
 					return;
@@ -111,7 +114,9 @@ void Robot::robot_control()
 			//		return;
 			//	}
 			//}
-			cout << "get " << robot_id << endl;	//拿货物
+			string tmp = "get " + to_string(robot_id);
+			robot_option.push_back(tmp);
+			//cout << "get " << robot_id << endl;	//拿货物
 			find_berth();	//找泊位
 		}
 	}
@@ -143,9 +148,9 @@ void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 				int good_to_berth_dis = 300000;
 				for (int i = 0; i < berth_num; i++)
 				{
-					if (berth_dis[u.first][u.second][i] > 0)
+					if (land_dis[u.first][u.second][i] > 0)
 					{
-						good_to_berth_dis = min(good_to_berth_dis, berth_dis[u.first][u.second][i]);
+						good_to_berth_dis = min(good_to_berth_dis, land_dis[u.first][u.second][i]);
 					}
 				}
 				choice.push(Plan(goods_map[u.first][u.second].first, step + good_to_berth_dis, { u.first, u.second }));
@@ -179,19 +184,19 @@ void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 void Robot::find_berth() //找最近泊位
 {
 	int aim_num = 0;
-	/*int min_dis = 300000;
+	int min_dis = 300000;
 	for (int i = 0; i < berth_num; i++)
 	{
-		if (berth_dis[x][y][i] > 0 && berth_dis[x][y][i] < min_dis)
+		if (land_dis[x][y][i] > 0 && land_dis[x][y][i] < min_dis)
 		{
 			aim_num = i;
-			min_dis = berth_dis[x][y][i];
+			min_dis = land_dis[x][y][i];
 		}
 	}
-	if (aim_num == -1)aim_num = 0;*/
+	if (aim_num == -1)aim_num = 0;
 	target_x = berth[aim_num].x;
 	target_y = berth[aim_num].y;
-	int min_dis = berth_dis[x][y][0];
+	//int min_dis = land_dis[x][y][0];
 	find_road(min_dis);
 }
 
@@ -257,7 +262,9 @@ void Robot::clash_solve()
 		{
 			if (now + dx_dy[i] == nxt[x][y])
 			{
-				cout << "move " << robot_id << " " << i << endl;
+				string tmp = "move " + to_string(robot_id) + " " + to_string(i);
+				robot_option.push_back(tmp);
+				//cout << "move " << robot_id << " " << i << endl;
 				x = nxt[now.first][now.second].first;
 				y = nxt[now.first][now.second].second;
 				move_or_not = true;
@@ -285,7 +292,9 @@ void Robot::clash_solve()
 		{
 			if (now + dx_dy[i] == nxt[x][y])
 			{
-				cout << "move " << robot_id << " " << i << endl;
+				string tmp = "move " + to_string(robot_id) + " " + to_string(i);
+				robot_option.push_back(tmp);
+				//cout << "move " << robot_id << " " << i << endl;
 
 				x = nxt[now.first][now.second].first;
 				y = nxt[now.first][now.second].second;
@@ -336,7 +345,9 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 					goods_map[robot[u_id].target_x][robot[u_id].target_y].first = -goods_map[robot[u_id].target_x][robot[u_id].target_y].first;
 				}
 				robot[u_id].target_x = -1; robot[u_id].target_y = -1;
-				cout << "move " << u_id << " " << u_op << endl;
+				string tmp = "move " + to_string(u_id) + " " + to_string(u_op);
+				robot_option.push_back(tmp);
+				//cout << "move " << u_id << " " << u_op << endl;
 
 				robot[u_id].x += dx_dy[u_op].first;
 				robot[u_id].y += dx_dy[u_op].second;

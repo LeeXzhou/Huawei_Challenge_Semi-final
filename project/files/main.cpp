@@ -2,9 +2,10 @@
 #include "my_algorithm.h"
 using namespace std;
 int robot_num, boat_num, berth_num, delivery_num, goods_num;
+vector<string> boat_option, robot_option;
 int frame_id;
-int money, boat_capacity;
-int berth_dis[200][200][10], delivery_dis[200][200][5];
+int money, boat_capacity, all_num;
+int land_dis[200][200][10], delivery_dis[200][200][5];
 char grid[N][N];
 MyPair goods_map[N][N];
 vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
@@ -70,9 +71,9 @@ void Input()
 		cin >> x >> y >> val;
 		for (int j = 0; j < berth_num; j++)
 		{
-			if (berth_dis[x][y][j] != -1)
+			if (land_dis[x][y][j] != -1)
 			{
-				berth[j].goods_info.insert(MyTuple(x, y, frame_id + 1000 - berth_dis[x][y][j]));
+				berth[j].goods_info.insert(MyTuple(x, y, frame_id + 1000 - land_dis[x][y][j]));
 			}
 		}
 		goods_map[x][y] = { val, frame_id + 1000 };
@@ -112,6 +113,11 @@ int main()
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
+		else if (money >= 8000 && robot_num == 20 && boat_num < 4)
+		{
+			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
+		}
+		//cerr << frame_id << " " << all_num << endl;
 		puts("OK");
 		fflush(stdout);
 	}

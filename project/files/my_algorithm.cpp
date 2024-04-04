@@ -3,7 +3,7 @@ bool visited[200][200];
 namespace my_alg {
 	void init_dis()
 	{
-		memset(berth_dis, -1, sizeof(berth_dis));
+		memset(land_dis, -1, sizeof(land_dis));
 		memset(delivery_dis, 0x3f, sizeof(delivery_dis));
 		bool vis[200][200][10] = { false };
 		/*unique_ptr<unique_ptr<unique_ptr<bool[]>[]>[]> vis(new unique_ptr<unique_ptr<bool[]>[]>[200]);
@@ -23,7 +23,7 @@ namespace my_alg {
 		for (int i = 0; i < berth_num; i++)
 		{
 			q.push({ berth[i].x, berth[i].y });
-			berth_dis[berth[i].x][berth[i].y][i] = 0;
+			land_dis[berth[i].x][berth[i].y][i] = 0;
 			vis[berth[i].x][berth[i].y][i] = true;
 			while (!q.empty())
 			{
@@ -35,7 +35,7 @@ namespace my_alg {
 					if (Robot::land_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
 					{
 						vis[cur.first][cur.second][i] = true;
-						berth_dis[cur.first][cur.second][i] = berth_dis[tmp.first][tmp.second][i] + 1;
+						land_dis[cur.first][cur.second][i] = land_dis[tmp.first][tmp.second][i] + 1;
 						q.push(cur);
 					}
 				}
@@ -95,22 +95,41 @@ namespace my_alg {
 
 				}
 			}
-			cerr << delivery_dis[berth[0].x][berth[0].y][0] << endl;
+		}
+	}
+	void all_boat_control()
+	{
+		for (int i = 0; i < boat_num; i++)
+		{
+			boat[i].Boat_control();
+		}
+	}
+	void all_robot_control()
+	{
+		for (int i = 0; i < robot_num; i++)
+		{
+			robot[i].robot_control();
 		}
 	}
 	void test_robot()
 	{
+		boat_option.clear();
+		robot_option.clear();
 		if (money >= 2000 && robot_num < 20)
 		{
 			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
 		}
-		boat[0].Boat_control();
 
-		for (int i = 0; i < robot_num; i++)
+		
+		thread t1(all_boat_control), t2(all_robot_control);
+		t1.join(); t2.join();
+		for (int i = 0; i < boat_option.size(); i++)
 		{
-			robot[i].robot_control();
-			//cerr << i;
+			cout << boat_option[i] << endl;
 		}
-		//cerr << "I am out" << endl;
+		for (int i = 0; i < robot_option.size(); i++)
+		{
+			cout << robot_option[i] << endl;
+		}
 	}
 }
