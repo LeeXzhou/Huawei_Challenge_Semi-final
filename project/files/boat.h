@@ -32,12 +32,18 @@ public:
 	bool dept_flag = false;//лч
 	int aim_berth = -1;
 	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked true
-	static int projection_x[4];
-	static int projection_y[4];
+	static int projection_x[4], projection_y[4];
 	bool dept_or_not = false;
 	bool visited[200][200][4] = { false };
 	MyTuple pre[200][200][4], nxt[200][200][4];
-
 };
 extern Boat boat[20];
+const int fx[4] = { 0, 0, -1, 1 };
+const int fy[4] = { 1, -1, 0, 0 };
+const int rot_0x[4] = { 0,0,-2,2 };
+const int rot_0y[4] = { 2,-2,0,0 };
+const int rot_1x[4] = { 1,-1,-1,1 };
+const int rot_1y[4] = { 1,-1,1,-1 };
+const int rot_0dir[4] = { 3,2,0,1 };
+const int rot_1dir[4] = { 2,3,1,0 };
 #endif // !boat_h
