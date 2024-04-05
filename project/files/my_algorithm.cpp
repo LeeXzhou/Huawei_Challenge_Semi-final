@@ -125,29 +125,48 @@ namespace my_alg {
 				berth[boat[i].aim_berth].left_num = max(0, berth[boat[i].aim_berth].left_num - boat_capacity + boat[i].goods_num);
 			}
 		}
-		/*
-		cerr << "NUM\t";
-		for (int i = 0; i < berth_num; i++)
+	}
+	void predict()
+	{
+		sum_efficiency[robot_num] = static_cast<double>((all_num - start_record[robot_num].second)) / static_cast<double>(frame_id - start_record[robot_num].first);	//预测当前机器人数量的总效率
+		predict_efficiency[robot_num] = sum_efficiency[robot_num] / robot_num;	//机器人的平均单个效率
+		for (int i = robot_num - 1; i; i--)
 		{
-			cerr << berth[i].num << '\t';
+			if (predict_efficiency[i] > 0)
+			{
+				predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - (predict_efficiency[robot_num] - predict_efficiency[i]) / (robot_num - i);	//根据与上一个的差值来预测下一个
+				predict_efficiency[robot_num] = min(predict_efficiency[robot_num], predict_efficiency[i]);
+				break;
+			}
 		}
-		cerr << endl;
-		cerr << "LEF\t";
-		for (int i = 0; i < berth_num; i++)
+		if (predict_efficiency[robot_num + 1] < 0.1)	//如果前面没有差值参考
 		{
-			cerr << berth[i].left_num << '\t';
+			predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - 0.1;	//我认为新增机器人一定会下降单个效率，所以至少下降0.1
 		}
-		cerr << endl;
-		*/
+	}
+	bool buy_robot()
+	{
+		if (!no_buy)
+		{
+			if (robot_num < 10)
+			{
+				return true;
+			}
+			if (predict_efficiency[robot_num + 1] * (robot_num + 1) * (15000.0 - frame_id) / 200 - 2000 > predict_efficiency[robot_num] * robot_num * (15000.0 - frame_id) / 200.0)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	void test_robot()
 	{
 		boat_option.clear();
 		robot_option.clear();
-		if (money >= 2000 && robot_num < 20)
+		if (money >= 2000 && buy_robot())
 		{
-			cout << "lbot " << robot_purchase_point[robot_num % 2].first << " " << robot_purchase_point[robot_num % 2].second << endl;
-			cerr << all_num << " " << robot_num << " " << frame_id << endl;
+			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+			start_record[robot_num + 1] = { frame_id, all_num };
 		}
 
 		get_left_num();

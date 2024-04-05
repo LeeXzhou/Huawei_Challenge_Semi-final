@@ -5,6 +5,7 @@ int robot_num, boat_num, berth_num, delivery_num, goods_num;
 vector<string> boat_option, robot_option;
 int frame_id;
 int money, boat_capacity, all_num;
+int max_dis;
 int land_dis[200][200][10], delivery_dis[200][200][5];
 char grid[N][N];
 MyPair goods_map[N][N];
@@ -12,6 +13,8 @@ vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 Berth berth[10];
 Robot robot[30];
 Boat boat[20];
+double sum_efficiency[30], predict_efficiency[30];
+MyPair start_record[30];
 void ProcessMap()
 {
 	for (int i = 0; i < N; i++) {
@@ -55,6 +58,18 @@ void Init()
 
 		}cerr << endl;
 	}*/
+	for (int i = 0; i < berth_num; i++)
+	{
+		int tmp = 0;
+		for (int j = 0; j < delivery_point.size(); j++)
+		{
+			tmp = max(delivery_dis[berth[i].x][berth[i].y][j], tmp);
+		}
+		if (tmp > 0)
+		{
+			max_dis = min(max_dis, tmp);
+		}		
+	}
 	char okk[100];
 	cin >> okk;
 	cout << "OK\n";
@@ -109,7 +124,23 @@ int main()
 			break;
 		}
 		Input();
-		if (frame_id >= 2)my_alg::test_robot();
+		if (frame_id % 200 == 0)
+		{
+			my_alg::predict();
+		}
+		if (frame_id == 1)
+		{
+			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
+		}
+		else if(money >= 8000)
+		{
+			if (sum_efficiency[robot_num] / 200.0 * max_dis * 2.0 > boat_capacity * boat_num)//机器人在船一个来回内能送的货物与船的装载量做比较，可能需要放缩
+			{
+				cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
+			}
+		}
+		my_alg::test_robot();
+		/*if (frame_id >= 2)my_alg::test_robot();
 		if (frame_id == 1)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
@@ -117,16 +148,16 @@ int main()
 		else if (money >= 8000 && robot_num == 20 && boat_num < 2)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
-		}
+		}*/
 		puts("OK");
 		fflush(stdout);
-		if (robot_num)
+		/*if (robot_num)
 		{
 			if (frame_id % 1000 == 0)
 			{
 				cerr << all_num << " " << frame_id << endl;
 			}
-		}
+		}*/
 	}
 	return 0;
 }
