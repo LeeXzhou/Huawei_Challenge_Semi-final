@@ -118,9 +118,15 @@ int main()
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
-		//cerr << frame_id << " " << all_num << endl;
 		puts("OK");
 		fflush(stdout);
+		if (robot_num)
+		{
+			if (frame_id % 1000 == 0)
+			{
+				cerr << all_num << " " << frame_id << endl;
+			}
+		}
 	}
 	return 0;
 }

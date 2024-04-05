@@ -1,14 +1,6 @@
 #include "boat.h"
 using namespace std;
 
-const int fx[4] = { 0, 0, -1, 1 };
-const int fy[4] = { 1, -1, 0, 0 };
-const int rot_0x[4] = { 0,0,-2,2 };
-const int rot_0y[4] = { 2,-2,0,0 };
-const int rot_1x[4] = { 1,-1,-1,1 };
-const int rot_1y[4] = { 1,-1,1,-1 };
-const int rot_0dir[4] = { 3,2,0,1 };
-const int rot_1dir[4] = { 2,3,1,0 };
 bool Boat::boat_loc[200][200] = { false }; // all the origin loc is false
 
 // Before create one boat, check if it's valid
@@ -22,6 +14,76 @@ Boat::Boat(int id, int X, int Y, direction Dir, int Status, int Num_goods) :
 	}
 }
 
+void Boat::Boat_control()
+{
+	if (status == 1)return;
+	if (status == 2)
+	{
+		if (berth[target_berth].num > 0 && goods_num < boat_capacity)
+		{
+			int add = min(berth[target_berth].loading_speed, min(boat_capacity - goods_num, berth[target_berth].num));
+			goods_num += add;
+			berth[target_berth].num -= add;
+			//all_num -= add;
+		}
+		else
+		{
+			target_x = delivery_point[0].first;
+			target_y = delivery_point[0].second;
+			aim_berth = -1;
+
+			dept_flag = true;
+			string tmp = "dept " + to_string(boat_id);
+			boat_option.push_back(tmp);
+			//cout << "dept " << boat_id << endl;
+		}
+		return;
+	}
+	if (target_x == -1)
+	{
+		choose_berth();
+		find_road2();
+	}
+	else
+	{
+		if (target_x == x && target_y == y)
+		{
+			if (x == berth[target_berth].x && y == berth[target_berth].y)
+			{
+				string tmp = "berth " + to_string(boat_id);
+				boat_option.push_back(tmp);
+				//cout << "berth " << boat_id << endl;;
+			}
+			else
+			{
+				choose_berth();
+				find_road2();
+			}
+			return;
+		}
+		if (dept_flag == true)
+		{
+			if (goods_num < boat_capacity)
+			{
+				choose_berth();
+			}
+			find_road2();
+			dept_flag = false;
+			return;
+		}
+
+
+		for (int j = 0; j <= 2; j++)
+		{
+			MyTuple tmp = MyTuple(x, y, dir);
+			if (operate(tmp, j)) {
+				if (tmp == nxt[x][y][dir]) {
+					clash_solve(j, tmp);
+				}
+			}
+		}
+	}
+}
 // repeat this function check before and after move, which can be improved
 bool Boat::slow_or_not(const MyPair& t) {
 	int x = t.first, y = t.second;
@@ -179,11 +241,8 @@ void Boat::find_road()
 	//cerr << "out" << endl;
 }
 
-int Boat::cal_manhattan(MyTuple k) {
-	return Manhattan(make_pair(k.x, k.y), make_pair(target_x, target_y));
-}
 
-void Boat::find_road2() {
+void Boat::find_road2() {	//启发式搜索，降低复杂度
 	if (x == target_x && y == target_y) {
 		return;
 	}
@@ -475,7 +534,7 @@ bool Boat::Clockwise(MyTuple& k) {
 }
 #endif
 
-bool Boat::operate(MyTuple& t, int op) {
+bool Boat::operate(MyTuple& t, int op) {	//给定t状态，做出op操作之后的状态，引用传递，所以t直接改变
 	MyTuple tmp;
 	if (op == 2) {
 		tmp = MyTuple(t.x + fx[t.status], t.y + fy[t.status], t.status);
@@ -537,76 +596,6 @@ bool Boat::check_valid(const MyTuple& t) {
 	return true;
 }
 
-void Boat::Boat_control()
-{
-	if (status == 1)return;
-	if (status == 2)
-	{
-		if (berth[target_berth].num > 0 && goods_num < boat_capacity)
-		{
-			int add = min(berth[target_berth].loading_speed, min(boat_capacity - goods_num, berth[target_berth].num));
-			goods_num += add;
-			berth[target_berth].num -= add;
-		}
-		else
-		{
-			target_x = delivery_point[0].first;
-			target_y = delivery_point[0].second;
-			aim_berth = -1;
-
-			dept_flag = true;
-			string tmp = "dept " + to_string(boat_id);
-			boat_option.push_back(tmp);
-			//cout << "dept " << boat_id << endl;
-		}
-		return;
-	}
-	if (target_x == -1)
-	{
-		choose_berth();
-		find_road2();
-	}
-	else
-	{
-		if (target_x == x && target_y == y)
-		{
-			if (x == berth[target_berth].x && y == berth[target_berth].y)
-			{
-				string tmp = "berth " + to_string(boat_id);
-				boat_option.push_back(tmp);
-				//cout << "berth " << boat_id << endl;;
-			}
-			else
-			{
-				choose_berth();
-				find_road2();
-			}
-			return;
-		}
-		if (dept_flag == true)
-		{
-			if (goods_num < boat_capacity)
-			{
-				choose_berth();
-			}
-			find_road2();
-			dept_flag = false;
-			return;
-		}
-		
-
-		for (int j = 0; j <= 2; j++)
-		{
-			MyTuple tmp = MyTuple(x, y, dir);
-			if (operate(tmp, j)) {
-				if (tmp == nxt[x][y][dir]) {
-					clash_solve(j, tmp);
-				}
-			}
-		}
-	}
-}
-
 void Boat::choose_berth()
 {
 	int max_num = 0;
@@ -632,4 +621,8 @@ void Boat::choose_berth()
 
 int Boat::GetId() {
 	return boat_id;
+}
+
+int Boat::cal_manhattan(MyTuple k) {
+	return Manhattan(make_pair(k.x, k.y), make_pair(target_x, target_y));
 }

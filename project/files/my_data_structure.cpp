@@ -20,9 +20,10 @@ std::ostream& operator<<(std::ostream& os, const MyPair& p) {
     return os;
 }
 
+//重载MyTuple的运算符
 MyTuple::MyTuple(int a, int b, int c) : x(a), y(b), status(c) {}
 
-bool MyTuple::operator==(const MyTuple& tmp) const
+bool MyTuple::operator==(const MyTuple& tmp) const  
 {
     if (status != tmp.status || x != tmp.x || y != tmp.y)
     {
@@ -61,6 +62,7 @@ bool MyTuple::operator>(const MyTuple& tmp) const {
     }
 }
 
+//重载Foursome的运算符，并提供get_tuple获取前三个元素
 Foursome::Foursome(int a, int b, int c, int d) :x(a), y(b), dir(c), flag(d){}
 MyTuple Foursome::get_tuple()
 {
@@ -88,6 +90,7 @@ int my_abs(const int& a, const int& b)
     }
 }
 
+//重载BoatRout
 BoatRout::BoatRout(int X, int Y, int Dir, int G_val, int H_val) : x(X), y(Y), dir(Dir), g_val(G_val), h_val(H_val) {};
 
 bool BoatRout::operator < (const BoatRout& tmp) const {
