@@ -24,6 +24,7 @@ void Boat::Boat_control()
 			int add = min(berth[target_berth].loading_speed, min(boat_capacity - goods_num, berth[target_berth].num));
 			goods_num += add;
 			berth[target_berth].num -= add;
+			//all_num -= add;
 		}
 		else
 		{

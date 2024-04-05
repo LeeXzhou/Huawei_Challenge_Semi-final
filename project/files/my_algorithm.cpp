@@ -143,7 +143,8 @@ namespace my_alg {
 		robot_option.clear();
 		if (money >= 2000 && robot_num < 20)
 		{
-			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
+			cout << "lbot " << robot_purchase_point[robot_num % 2].first << " " << robot_purchase_point[robot_num % 2].second << endl;
+			cerr << all_num << " " << robot_num << " " << frame_id << endl;
 		}
 
 		get_left_num();
