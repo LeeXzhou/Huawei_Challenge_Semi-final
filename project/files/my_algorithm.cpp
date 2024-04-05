@@ -120,7 +120,10 @@ namespace my_alg {
 		//cerr << boat_num << endl;
 		for (int i = 0; i < boat_num; i++)
 		{
-			berth[i].left_num = max(0, berth[i].left_num - boat_capacity + boat[i].goods_num);
+			if (boat[i].aim_berth != -1)
+			{
+				berth[boat[i].aim_berth].left_num = max(0, berth[boat[i].aim_berth].left_num - boat_capacity + boat[i].goods_num);
+			}
 		}
 		/*
 		cerr << "NUM\t";
