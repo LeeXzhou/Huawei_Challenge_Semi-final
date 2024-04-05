@@ -33,35 +33,13 @@ bool Boat::slow_or_not(const MyPair& t) {
 
 bool Boat::slow_or_not(const MyTuple& t) {
 	int x = t.x, y = t.y, dir = t.status;
-	if (dir == 2) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x - j, y + i)))
-					return true;
-			}
-		}
-	}
-	else if (dir == 3) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x + j, y - i)))
-					return true;
-			}
-		}
-	}
-	else if (dir == 1) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x - i, y - j)))
-					return true;
-			}
-		}
-	}
-	else {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x + i, y + j)))
-					return true;
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 3; j++) {
+			if ((dir == 2 && slow_or_not(make_pair(x - j, y + i))) ||
+				(dir == 3 && slow_or_not(make_pair(x + j, y - i))) ||
+				(dir == 1 && slow_or_not(make_pair(x - i, y - j))) ||
+				(dir == 0 && slow_or_not(make_pair(x + i, y + j)))) {
+				return true;
 			}
 		}
 	}
@@ -393,42 +371,29 @@ bool Boat::operate(MyTuple& t, int op) {
 
 bool Boat::check_valid(const MyTuple& t) {
 	int x = t.x, y = t.y, dir = t.status;
-	if (dir == 2) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x - j, y + i))
-					return false;
-			}
-		}
-	}
-	else if (dir == 3) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x + j, y - i))
-					return false;
-			}
-		}
-	}
-	else if (dir == 1) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x - i, y - j))
-					return false;
-			}
-		}
-	}
-	else {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x + i, y + j))
-					return false;
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 3; j++) {
+			if ((dir == 2 && !sea_check_valid(x - j, y + i)) ||
+				(dir == 3 && !sea_check_valid(x + j, y - i)) ||
+				(dir == 1 && !sea_check_valid(x - i, y - j)) ||
+				(dir == 0 && !sea_check_valid(x + i, y + j))) {
+				return false;
 			}
 		}
 	}
 	return true;
 }
 
+<<<<<<< Updated upstream
 void Boat::Boat_control()
+=======
+/*
+* need to change!!!
+* give more weights to the distance you take.
+* update: we can predict more steps.
+*/
+void Boat::choose_berth()
+>>>>>>> Stashed changes
 {
 	//cerr << robot_num << endl;
 	if (status == 1)return;

@@ -14,10 +14,10 @@ using namespace std;
 using MyPair = std::pair<int, int>;
 
 enum direction {
-	north = 0,
-	south = 2,
-	west = 3,
-	east = 1
+	east = 0,
+	north = 2,
+	south = 3,
+	west = 1
 };
 
 // 重载 pair 的加法运算符

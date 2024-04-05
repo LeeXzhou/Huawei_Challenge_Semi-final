@@ -2,7 +2,11 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+<<<<<<< Updated upstream
       <FullPath>C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe</FullPath>
+=======
+      <FullPath>D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe</FullPath>
+>>>>>>> Stashed changes
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

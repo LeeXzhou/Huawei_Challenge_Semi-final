@@ -98,6 +98,49 @@ namespace my_alg {
 			cerr << delivery_dis[berth[0].x][berth[0].y][0] << endl;
 		}
 	}
+<<<<<<< Updated upstream
+=======
+	void all_boat_control()
+	{
+		for (int i = 0; i < boat_num; i++)
+		{
+			boat[i].Boat_control();
+		}
+	}
+	void all_robot_control()
+	{
+		for (int i = 0; i < robot_num; i++)
+		{
+			robot[i].robot_control();
+		}
+	}
+	void get_left_num()
+	{
+		for (int i = 0; i < berth_num; i++)
+		{
+			berth[i].left_num = berth[i].num;
+		}
+		//cerr << boat_num << endl;
+		for (int i = 0; i < boat_num; i++)
+		{
+			 berth[i].left_num = max(0, berth[i].left_num - boat_capacity + boat[i].goods_num);
+		}
+		/*
+		cerr << "NUM\t";
+		for (int i = 0; i < berth_num; i++)
+		{
+			cerr << berth[i].num << '\t';
+		}
+		cerr << endl;
+		cerr << "LEF\t";
+		for (int i = 0; i < berth_num; i++)
+		{
+			cerr << berth[i].left_num << '\t';
+		}
+		cerr << endl;
+		*/
+	}
+>>>>>>> Stashed changes
 	void test_robot()
 	{
 		if (money >= 2000 && robot_num < 20)

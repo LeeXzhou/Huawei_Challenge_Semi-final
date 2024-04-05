@@ -26,8 +26,13 @@ public:
 	int boat_id, x, y, dir, status, goods_num;
 
 	int target_x = -1, target_y = -1;
+<<<<<<< Updated upstream
 	bool leave_flag = false;//лч
 	static int boat_num;
+=======
+	bool dept_flag = false;//лч
+	int aim_berth = -1; // record the targeted berth, -1 as saling point.
+>>>>>>> Stashed changes
 	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked true
 	static int projection_x[4];
 	static int projection_y[4];
