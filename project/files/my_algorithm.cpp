@@ -5,6 +5,7 @@ namespace my_alg {
 	{
 		memset(berth_dis, -1, sizeof(berth_dis));
 		memset(delivery_dis, 0x3f, sizeof(delivery_dis));
+		memset(berth_dis, 0x3f, sizeof(berth_dis));
 		bool vis[200][200][10] = { false };
 		/*unique_ptr<unique_ptr<unique_ptr<bool[]>[]>[]> vis(new unique_ptr<unique_ptr<bool[]>[]>[200]);
 		for (int i = 0; i < 200; ++i)
@@ -43,60 +44,102 @@ namespace my_alg {
 		}
 		queue<Foursome>qq;
 		MyTuple tuple_tmp;
-		for (int i = 0; i < delivery_num; i++)
-		{
+		for (int k = 0; k < berth_num + delivery_num; k++) {
+			int i = (k >= berth_num ? k - berth_num : k);
 			memset(vis, false, sizeof(vis));
-			for (int j = 0; j < 4; j++)
-			{
-				Foursome tmp = Foursome(delivery_point[i].first, delivery_point[i].second, j, 0);
-				tuple_tmp = tmp.get_tuple();
-				if (Boat::check_valid(tuple_tmp))
+			if (k >= berth_num) {
+
+				for (int j = 0; j < 4; j++)
 				{
-					//if(!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
-					qq.push(tmp);
-				}
-			}
-			
-			delivery_dis[delivery_point[i].first][delivery_point[i].second][i] = 0;
-			vis[delivery_point[i].first][delivery_point[i].second][i] = true;
-			while (!qq.empty())
-			{
-				Foursome u = qq.front();
-				qq.pop();
-				for (int j = 0; j <= 2; j++)
-				{
-					Foursome tmp = u;
-					tuple_tmp = u.get_tuple();
-					if (Boat::operate(tuple_tmp, j))
+					Foursome tmp = Foursome(delivery_point[i].first, delivery_point[i].second, j, 0);
+					tuple_tmp = tmp.get_tuple();
+					if (Boat::check_valid(tuple_tmp))
 					{
-						if (!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
-						{
-							vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status] = true;
-							Foursome foursome_tmp;
-							if (Boat::slow_or_not(tuple_tmp))
-							{
-								delivery_dis[tuple_tmp.x][tuple_tmp.y][i] = min(
-									delivery_dis[tuple_tmp.x][tuple_tmp.y][i], u.flag + 2
-								);
-								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + 2);
-
-							}
-							else
-							{
-								delivery_dis[tuple_tmp.x][tuple_tmp.y][i] = min(
-									delivery_dis[tuple_tmp.x][tuple_tmp.y][i], u.flag + 1
-								);
-								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + 1);
-
-							}
-							qq.push(foursome_tmp);
-						}
+						//if(!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
+						qq.push(tmp);
 					}
+				}
+			
+				delivery_dis[delivery_point[i].first][delivery_point[i].second][i] = 0;
+				vis[delivery_point[i].first][delivery_point[i].second][i] = true;
+				while (!qq.empty())
+				{
+					Foursome u = qq.front();
+					qq.pop();
+					for (int j = 0; j <= 2; j++)
+					{
+						Foursome tmp = u;
+						tuple_tmp = u.get_tuple();
+						if (Boat::operate(tuple_tmp, j))
+						{
+							if (!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
+							{
+								vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status] = true;
+								Foursome foursome_tmp;
+								delivery_dis[tuple_tmp.x][tuple_tmp.y][i] = min(
+									delivery_dis[tuple_tmp.x][tuple_tmp.y][i], u.flag + 
+									Boat::slow_or_not(tuple_tmp) + 1
+								);
+								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + Boat::slow_or_not(tuple_tmp) + 1);
+								qq.push(foursome_tmp);
+							}
+						}
 
+					}
 				}
 			}
+<<<<<<< Updated upstream
 			cerr << delivery_dis[berth[0].x][berth[0].y][0] << endl;
+=======
+			else {
+				for (int j = 0; j < 4; j++)
+				{
+					Foursome tmp = Foursome(berth[i].x, berth[i].y, j, 0);
+					tuple_tmp = tmp.get_tuple();
+					if (Boat::check_valid(tuple_tmp))
+					{
+						//if(!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
+						qq.push(tmp);
+					}
+				}
+
+				berth_dis[berth[i].x][berth[i].y][i] = 0;
+				vis[berth[i].x][berth[i].y][i] = true;
+				while (!qq.empty())
+				{
+					Foursome u = qq.front();
+					qq.pop();
+					for (int j = 0; j <= 2; j++)
+					{
+						Foursome tmp = u;
+						tuple_tmp = u.get_tuple();
+						if (Boat::operate(tuple_tmp, j))
+						{
+							if (!vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status])
+							{
+								vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status] = true;
+								Foursome foursome_tmp;
+								berth_dis[tuple_tmp.x][tuple_tmp.y][i] = min(
+									berth_dis[tuple_tmp.x][tuple_tmp.y][i], u.flag +
+									Boat::slow_or_not(tuple_tmp) + 1
+								);
+								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + Boat::slow_or_not(tuple_tmp) + 1);
+								qq.push(foursome_tmp);
+							}
+						}
+
+					}
+				}
+			}
+
+>>>>>>> Stashed changes
 		}
+		//for (int i = 0; i < 200; i++) {
+		//	for (int j = 0; j < 200; j++) {
+		//		cerr << berth_dis[i][j][0] << ' ';
+		//	}
+		//	cerr << '\n';
+		//}
 	}
 <<<<<<< Updated upstream
 =======

@@ -207,6 +207,7 @@ void Boat::find_road2() {
 	}
 }
 
+<<<<<<< Updated upstream
 #if(0)
 
 bool Boat::Forward(MyTuple& k) {
@@ -345,6 +346,120 @@ bool Boat::Clockwise(MyTuple& k) {
 #endif
 
 bool Boat::operate(MyTuple& t, int op) {
+=======
+bool Boat::two_boat_clash(MyTuple a, MyTuple b)
+{
+	unordered_map<int,int>mp;
+	if (a.status == 2) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x - j) * 1000 + a.y + i;
+				mp[tp] += 1;
+			}
+		}
+	}
+	else if (a.status == 3) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x + j) * 1000 + a.y - i;
+				mp[tp] += 1;
+			}
+		}
+	}
+	else if (a.status == 1) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x - i) * 1000 + a.y - j;
+				mp[tp] += 1;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (a.x +i) * 1000 + a.y + j;
+				mp[tp] += 1;
+			}
+		}
+	}
+	/////////////////////////////////////////////////
+	if (b.status == 2) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x - j) * 1000 + b.y + i;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				}
+			}
+		}
+	}
+	else if (b.status == 3) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x + j) * 1000 + b.y - i;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				}
+			}
+		}
+	}
+	else if (b.status == 1) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x - i) * 1000 + b.y - j;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				};
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				int tp = (b.x + i) * 1000 + b.y + j;
+				if (mp[tp] == 1)
+				{
+					if (!slow_or_not(make_pair(tp / 1000, tp % 1000)))return true;
+				}
+			}
+		}
+	}
+	return false;
+
+}
+
+void Boat::clash_solve(int op , MyTuple boat_a)
+{   
+	for (int i = boat_id + 1; i < boat_num; i++)
+	{
+		MyTuple boat_b = MyTuple(boat[i].x, boat[i].y, boat[i].dir);
+		if (Boat::two_boat_clash(boat_a,boat_b))
+		{
+			string tmp = "dept " + to_string(boat_id);
+			boat_option.push_back(tmp);
+			dept_flag = true;
+			return;
+		}
+	}
+	if (op <= 1) {
+		string tmp = "rot " + to_string(boat_id) + " " + to_string(op);
+		boat_option.push_back(tmp);
+		//cout << "rot " << boat_id << " " << j << endl;
+
+	}
+	else {
+		string tmp = "ship " + to_string(boat_id);
+		boat_option.push_back(tmp);
+		//cout << "ship " << boat_id << endl;
+	}
+
+}
+
+bool Boat::operate(MyTuple& t, int op) {	//给定t状态，做出op操作之后的状态，引用传递，所以t直接改变
+>>>>>>> Stashed changes
 	MyTuple tmp;
 	if (op == 2) {
 		tmp = MyTuple(t.x + fx[t.status], t.y + fy[t.status], t.status);
@@ -385,16 +500,22 @@ bool Boat::check_valid(const MyTuple& t) {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 void Boat::Boat_control()
 =======
 /*
 * need to change!!!
 * give more weights to the distance you take.
 * update: we can predict more steps.
+=======
+/*
+* take more steps into account?
+>>>>>>> Stashed changes
 */
 void Boat::choose_berth()
 >>>>>>> Stashed changes
 {
+<<<<<<< Updated upstream
 	//cerr << robot_num << endl;
 	if (status == 1)return;
 	//cerr << frame_id << endl;
@@ -469,6 +590,30 @@ void Boat::choose_berth()
 					return;
 				}
 			}
+=======
+	double max_num = .0;
+	target_berth = 0;
+	for (int i = 0; i < berth_num; i++)	//挑选货物最多的泊位
+	{
+		// here is the policy that can be changed
+#if(1)
+		if (berth_dis[x][y][i] == 0) {
+			if (berth[i].left_num != 0) {
+				target_berth = i;
+				break;
+			}
+			else
+				continue;
+		}
+		double tmp = berth[i].left_num * 1.0 / berth_dis[x][y][i];
+#else
+		double tmp = berth[i].left_num * 1.0;
+#endif
+		if (tmp > max_num)
+		{
+			max_num = tmp;
+			target_berth = i;
+>>>>>>> Stashed changes
 		}
 	}
 

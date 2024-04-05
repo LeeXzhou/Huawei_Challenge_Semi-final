@@ -3,8 +3,13 @@
 using namespace std;
 int robot_num, boat_num, berth_num, delivery_num, goods_num;
 int frame_id;
+<<<<<<< Updated upstream
 int money, boat_capacity;
 int berth_dis[200][200][10], delivery_dis[200][200][5];
+=======
+int money, boat_capacity, all_num;
+int land_dis[200][200][10], delivery_dis[200][200][5], berth_dis[200][200][10];
+>>>>>>> Stashed changes
 char grid[N][N];
 MyPair goods_map[N][N];
 vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;

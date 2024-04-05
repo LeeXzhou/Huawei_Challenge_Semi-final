@@ -1,4 +1,5 @@
 ﻿  boat.cpp
+<<<<<<< Updated upstream
   main.cpp
 D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\boat.cpp(32,4): error C2065: “aim_berth”: 未声明的标识符
 D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\boat.cpp(151,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
@@ -9,4 +10,8 @@ D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\boat.
 <<<<<<< Updated upstream
   project.vcxproj -> C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
 =======
+>>>>>>> Stashed changes
+=======
+D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\boat.cpp(152,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  project.vcxproj -> D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
 >>>>>>> Stashed changes

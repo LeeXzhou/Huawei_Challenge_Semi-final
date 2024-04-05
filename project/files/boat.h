@@ -10,9 +10,6 @@ public:
 	Boat(int id = -1, int X = -1, int Y = -1, direction Dir = east/*east as default*/, int Status = -1, int Num_goods = 0);
 	void find_road();
 	void find_road2();
-	static bool Clockwise(MyTuple& k);
-	static bool AntiClock(MyTuple& k);
-	static bool Forward(MyTuple& k);
 	static bool operate(MyTuple& t, int op);//0: clockwise, 1: anti, 2:forward
 	static bool check_valid(const MyTuple& t);//if this point is valid
 	static bool slow_or_not(const MyTuple& t);
