@@ -32,5 +32,5 @@ extern vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 extern Berth berth[10];
 extern vector<string> boat_option, robot_option;
 extern int land_dis[200][200][10], sea_dis[200][200][10];	//若干个泊位到地图上每个点的距离(陆地)
-extern int delivery_dis[200][200][5];
+extern int delivery_dis[200][200][5], berth_dis[200][200][10];
 #endif // !berth_h

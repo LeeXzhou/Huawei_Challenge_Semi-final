@@ -6,7 +6,7 @@ vector<string> boat_option, robot_option;
 int frame_id;
 int money, boat_capacity, all_num;
 int max_dis;
-int land_dis[200][200][10], delivery_dis[200][200][5];
+int land_dis[200][200][10], delivery_dis[200][200][5], berth_dis[200][200][10];
 char grid[N][N];
 MyPair goods_map[N][N];
 vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;

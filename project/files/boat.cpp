@@ -115,35 +115,13 @@ bool Boat::slow_or_not(const MyPair& t) {
 
 bool Boat::slow_or_not(const MyTuple& t) {
 	int x = t.x, y = t.y, dir = t.status;
-	if (dir == 2) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x - j, y + i)))
-					return true;
-			}
-		}
-	}
-	else if (dir == 3) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x + j, y - i)))
-					return true;
-			}
-		}
-	}
-	else if (dir == 1) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x - i, y - j)))
-					return true;
-			}
-		}
-	}
-	else {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (slow_or_not(make_pair(x + i, y + j)))
-					return true;
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 3; j++) {
+			if ((dir == 2 && slow_or_not(make_pair(x - j, y + i))) ||
+				(dir == 3 && slow_or_not(make_pair(x + j, y - i))) ||
+				(dir == 1 && slow_or_not(make_pair(x - i, y - j))) ||
+				(dir == 0 && slow_or_not(make_pair(x + i, y + j)))) {
+				return true;
 			}
 		}
 	}
@@ -419,142 +397,6 @@ void Boat::clash_solve(int op , MyTuple boat_a)
 
 }
 
-#if(0)
-
-bool Boat::Forward(MyTuple& k) {
-	int& x = k.x, & y = k.y, & dir = k.status;
-	if (dir == north) { //north
-		int _x = x - 3, _y = y + 1;
-		if (!sea_check_valid(_x, y) || !sea_check_valid(_x, _y))
-			return false;
-		boat_loc[x][y] = boat_loc[x][_y] = false;
-		boat_loc[_x][y] = boat_loc[_x][_y] = true;
-		x--;
-	}
-	else if (dir == south) {//south
-		int _x = x + 3, _y = y - 1;
-		if (!sea_check_valid(_x, _y) || !sea_check_valid(_x, y))
-			return false;
-		boat_loc[x][y] = boat_loc[x][_y] = false;
-		boat_loc[_x][y] = boat_loc[_x][_y] = true;
-		x++;
-	}
-	else if (dir == west) {//west
-		int _x = x - 1, _y = y - 3;
-		if (!sea_check_valid(_x, _y) || !sea_check_valid(_x, y))
-			return false;
-		boat_loc[x][y] = boat_loc[x][_y] = false;
-		boat_loc[_x][y] = boat_loc[_x][_y] = true;
-		y--;
-	}
-	else {//east
-		int _x = x + 1, _y = y + 3;
-		if (!sea_check_valid(_x, _y) || !sea_check_valid(_x, y))
-			return false;
-		boat_loc[x][y] = boat_loc[x][_y] = false;
-		boat_loc[_x][y] = boat_loc[_x][_y] = true;
-		y++;
-	}
-	return true;
-}
-bool Boat::AntiClock(MyTuple& k) {
-	int& x = k.x, & y = k.y, & dir = k.status;
-	int kx = x, ky = y;
-	int kdir = dir;
-	x += projection_x[dir];
-	y += projection_y[dir];
-	dir = (dir + 4 - 1) % 4;
-	x -= projection_x[dir];
-	y -= projection_y[dir];
-
-	if (dir == west) {
-		if (!sea_check_valid(x, y - 2) || !sea_check_valid(x - 1, y - 2)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x][y - 2] = boat_loc[x - 1][y - 2] = true;
-		boat_loc[kx][ky + 1] = boat_loc[kx][ky] = false;
-	}
-	else if (dir == north) {
-		if (!sea_check_valid(x - 2, y) || !sea_check_valid(x - 2, y + 1)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x - 2][y] = boat_loc[x - 2][y + 1] = true;
-		boat_loc[kx][ky] = boat_loc[kx + 1][ky] = false;
-	}
-	else if (dir == east) {
-		if (!sea_check_valid(x, y + 2) || !sea_check_valid(x + 1, y + 2)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x][y + 2] = boat_loc[x + 1][y + 2] = true;
-		boat_loc[kx][ky - 1] = boat_loc[kx][ky] = false;
-	}
-	else {
-		if (!sea_check_valid(x + 2, y) || !sea_check_valid(x + 2, y - 1)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x + 2][y] = boat_loc[x + 2][y - 1] = true;
-		boat_loc[kx][ky] = boat_loc[kx - 1][ky] = false;
-	}
-	return true;
-}
-
-bool Boat::Clockwise(MyTuple& k) {
-	int& x = k.x, & y = k.y, & dir = k.status;
-	int kx = x, ky = y;
-	int kdir = dir;
-
-	x += projection_x[dir];
-	y += projection_y[dir];
-	dir = (dir + 1) % 4;
-
-	if (dir == west) {
-		if (!sea_check_valid(x, y - 2) || !sea_check_valid(x - 1, y - 2)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x][y - 2] = boat_loc[x - 1][y - 2] = true;
-		boat_loc[kx][ky - 1] = boat_loc[kx][ky] = false;
-	}
-	else if (dir == north) {
-		if (!sea_check_valid(x - 2, y) || !sea_check_valid(x - 2, y + 1)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x - 2][y] = boat_loc[x - 2][y + 1] = true;
-		boat_loc[kx][ky] = boat_loc[kx - 1][ky] = false;
-	}
-	else if (dir == east) {
-		if (!sea_check_valid(x, y + 2) || !sea_check_valid(x + 1, y + 2)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x][y + 2] = boat_loc[x + 1][y + 2] = true;
-		boat_loc[kx][ky + 1] = boat_loc[kx][ky] = false;
-	}
-	else {
-		if (!sea_check_valid(x + 2, y) || !sea_check_valid(x + 2, y - 1)) {
-			x = kx, y = ky;
-			dir = kdir;
-			return false;
-		}
-		boat_loc[x + 2][y] = boat_loc[x + 2][y - 1] = true;
-		boat_loc[kx][ky] = boat_loc[kx + 1][ky] = false;
-	}
-
-	return true;
-}
-#endif
 
 bool Boat::operate(MyTuple& t, int op) {	//给定t状态，做出op操作之后的状态，引用传递，所以t直接改变
 	MyTuple tmp;
@@ -583,35 +425,13 @@ bool Boat::operate(MyTuple& t, int op) {	//给定t状态，做出op操作之后的状态，引用
 
 bool Boat::check_valid(const MyTuple& t) {
 	int x = t.x, y = t.y, dir = t.status;
-	if (dir == 2) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x - j, y + i))
-					return false;
-			}
-		}
-	}
-	else if (dir == 3) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x + j, y - i))
-					return false;
-			}
-		}
-	}
-	else if (dir == 1) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x - i, y - j))
-					return false;
-			}
-		}
-	}
-	else {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (!sea_check_valid(x + i, y + j))
-					return false;
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 3; j++) {
+			if ((dir == 2 && !sea_check_valid(x - j, y + i)) ||
+				(dir == 3 && !sea_check_valid(x + j, y - i)) ||
+				(dir == 1 && !sea_check_valid(x - i, y - j)) ||
+				(dir == 0 && !sea_check_valid(x + i, y + j))) {
+				return false;
 			}
 		}
 	}
@@ -620,11 +440,25 @@ bool Boat::check_valid(const MyTuple& t) {
 
 void Boat::choose_berth()
 {
-	int max_num = 0;
+	double max_num = .0;
 	target_berth = 0;
 	for (int i = 0; i < berth_num; i++)	//挑选货物最多的泊位
 	{
-		if (berth[i].left_num > max_num)
+		// here is the policy that can be changed
+#if(0)
+		if (berth_dis[x][y][i] == 0) {
+			if (berth[i].left_num != 0) {
+				target_berth = i;
+				break;
+			}
+			else
+				continue;
+		}
+		double tmp = berth[i].left_num * 1.0 / berth_dis[x][y][i];
+#else
+		double tmp = berth[i].left_num * 1.0;
+#endif
+		if (tmp > max_num)
 		{
 			max_num = berth[i].left_num;
 			target_berth = i;
