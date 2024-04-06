@@ -2,7 +2,7 @@
 using namespace std;
 
 bool Boat::boat_loc[200][200] = { false }; // all the origin loc is false
-
+int Boat::operation[6][3] = { {0, 1, 2}, {0, 2, 1}, {1, 2, 0}, {1, 0, 2}, {2, 0, 1}, {2, 1, 0} };
 // Before create one boat, check if it's valid
 Boat::Boat(int id, int X, int Y, direction Dir, int Status, int Num_goods) :
 	boat_id(boat_num), x(X), y(Y), dir(Dir), status(Status), goods_num(Num_goods)
@@ -101,6 +101,9 @@ void Boat::Boat_control()
 			if (operate(tmp, j)) {
 				if (tmp == nxt[x][y][dir]) {
 					clash_solve(j, tmp);
+					// never use it!!
+					//choose_berth();
+					//find_road2();
 				}
 			}
 		}
@@ -271,7 +274,8 @@ void Boat::find_road2() {	//启发式搜索，降低复杂度
 		if (vis[tp.x][tp.y][tp.dir]) continue;
 		vis[tp.x][tp.y][tp.dir] = true;
 		MyTuple copy = MyTuple(tp.x, tp.y, tp.dir);
-		for (int i = 0; i < 3; i++) {
+		for(int i : operation[rand() % 6]) {
+		//for (int i = 0; i < 3; i++) {
 			MyTuple tmp = copy;
 			if (operate(tmp, i)) {
 				int len = dis[copy.x][copy.y][copy.status] + (slow_or_not(tmp) ? 2 : 1);
@@ -444,8 +448,6 @@ void Boat::choose_berth()
 	target_berth = 0;
 	for (int i = 0; i < berth_num; i++)	//挑选货物最多的泊位
 	{
-		// here is the policy that can be changed
-#if(0)
 		if (berth_dis[x][y][i] == 0) {
 			if (berth[i].left_num != 0) {
 				target_berth = i;
@@ -454,10 +456,8 @@ void Boat::choose_berth()
 			else
 				continue;
 		}
-		double tmp = berth[i].left_num * 1.0 / berth_dis[x][y][i];
-#else
-		double tmp = berth[i].left_num * 1.0;
-#endif
+		// here is the policy that can be changed
+		double tmp = pow(berth[i].left_num * 1.0, 2) / pow(1.0 * berth_dis[x][y][i], 1);
 		if (tmp > max_num)
 		{
 			max_num = berth[i].left_num;
