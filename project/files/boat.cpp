@@ -71,12 +71,13 @@ void Boat::Boat_control()
 		}
 		if (dept_flag == true)
 		{
-			int min_dis = 300000, targer_delivery = 0;
+			int min_dis = 300000, target_delivery = 0;
 			for (int i = 0; i < delivery_point.size(); i++)
 			{
 				if (delivery_dis[x][y][i] < min_dis)
 				{
-					targer_delivery = i;
+					min_dis = delivery_dis[x][y][i];
+					target_delivery = i;
 				}
 			}
 			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 20)	//½â¾öÎ²É±
@@ -85,8 +86,8 @@ void Boat::Boat_control()
 			}
 			else
 			{
-				target_x = delivery_point[targer_delivery].first;
-				target_y = delivery_point[targer_delivery].second;
+				target_x = delivery_point[target_delivery].first;
+				target_y = delivery_point[target_delivery].second;
 			}
 			find_road2();
 			dept_flag = false;

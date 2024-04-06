@@ -60,15 +60,21 @@ void Init()
 	}*/
 	for (int i = 0; i < berth_num; i++)
 	{
-		int tmp = 0;
+		int tmp = 300000;
 		for (int j = 0; j < delivery_point.size(); j++)
 		{
-			tmp = max(delivery_dis[berth[i].x][berth[i].y][j], tmp);
+			tmp = min(delivery_dis[berth[i].x][berth[i].y][j], tmp);
 		}
 		if (tmp > 0)
 		{
-			max_dis = min(max_dis, tmp);
+			max_dis = max(max_dis, tmp);
 		}		
+	}
+	//cerr << max_dis << endl;
+	for (int i = 0; i < 30; i++)
+	{
+		predict_efficiency[i] = -1;
+		sum_efficiency[i] = -1;
 	}
 	char okk[100];
 	cin >> okk;
@@ -134,7 +140,7 @@ int main()
 		}
 		else if(money >= 8000)
 		{
-			if (sum_efficiency[robot_num] / 200.0 * max_dis * 2.0 > boat_capacity * boat_num)//机器人在船一个来回内能送的货物与船的装载量做比较，可能需要放缩
+			if (sum_efficiency[robot_num] / 200.0 * max_dis * 2.0 > 1.0 * boat_capacity * boat_num)//机器人在船一个来回内能送的货物与船的装载量做比较，可能需要放缩
 			{
 				cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 			}
@@ -149,6 +155,10 @@ int main()
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}*/
+		if (frame_id == 15000)
+		{
+			cerr << boat_num << " " << robot_num << endl;
+		}
 		puts("OK");
 		fflush(stdout);
 		/*if (robot_num)

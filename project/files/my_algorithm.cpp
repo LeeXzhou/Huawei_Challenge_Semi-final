@@ -128,21 +128,24 @@ namespace my_alg {
 	}
 	void predict()
 	{
-		sum_efficiency[robot_num] = static_cast<double>((all_num - start_record[robot_num].second)) / static_cast<double>(frame_id - start_record[robot_num].first);	//预测当前机器人数量的总效率
+		sum_efficiency[robot_num] = static_cast<double>((all_num - start_record[robot_num].second)) / static_cast<double>(frame_id - start_record[robot_num].first) * 200.0;	//预测当前机器人数量的总效率
 		predict_efficiency[robot_num] = sum_efficiency[robot_num] / robot_num;	//机器人的平均单个效率
-		for (int i = robot_num - 1; i; i--)
+		bool flag = true;
+		for (int i = robot_num - 1; i > 10; i--)
 		{
-			if (predict_efficiency[i] > 0)
+			if (predict_efficiency[i] > predict_efficiency[robot_num])
 			{
-				predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - (predict_efficiency[robot_num] - predict_efficiency[i]) / (robot_num - i);	//根据与上一个的差值来预测下一个
-				predict_efficiency[robot_num] = min(predict_efficiency[robot_num], predict_efficiency[i]);
+				//cerr << predict_efficiency[robot_num] << " " << predict_efficiency[i] << " " << i << "why?" << endl;
+				predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - (predict_efficiency[i] - predict_efficiency[robot_num]) / (robot_num - i);	//根据与上一个的差值来预测下一个
+				flag = false;
 				break;
 			}
 		}
-		if (predict_efficiency[robot_num + 1] < 0.1)	//如果前面没有差值参考
+		if (flag)	//如果前面没有差值参考
 		{
 			predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - 0.1;	//我认为新增机器人一定会下降单个效率，所以至少下降0.1
 		}
+		//cerr << sum_efficiency[robot_num] << " " << robot_num << " " << predict_efficiency[robot_num] << " " << predict_efficiency[robot_num + 1] << endl;
 	}
 	bool buy_robot()
 	{
@@ -152,7 +155,7 @@ namespace my_alg {
 			{
 				return true;
 			}
-			if (predict_efficiency[robot_num + 1] * (robot_num + 1) * (15000.0 - frame_id) / 200 - 2000 > predict_efficiency[robot_num] * robot_num * (15000.0 - frame_id) / 200.0)
+			if (predict_efficiency[robot_num + 1] * (robot_num + 1) * (15000.0 - frame_id) / 200.0 - 20 > predict_efficiency[robot_num] * robot_num * (15000.0 - frame_id) / 200.0)
 			{
 				return true;
 			}

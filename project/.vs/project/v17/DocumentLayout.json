@@ -7,12 +7,16 @@
       "RelativeMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|solutionrelative:files\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\my_algorithm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|solutionrelative:files\\my_algorithm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\my_algorithm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|solutionrelative:files\\my_algorithm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\boat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|solutionrelative:files\\boat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\my_algorithm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|solutionrelative:files\\my_algorithm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\robot.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -29,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\berth.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|solutionrelative:files\\berth.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\boat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|solutionrelative:files\\boat.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7ABDE50E-B36F-44C4-BAC6-DC0EAF104470}|project\\project.vcxproj|C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\my_data_structure.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -58,7 +58,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "berth.h",
               "DocumentMoniker": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\berth.h",
               "RelativeDocumentMoniker": "files\\berth.h",
@@ -66,8 +66,7 @@
               "RelativeToolTip": "files\\berth.h",
               "ViewState": "AQIAAA8AAAAAAAAAAAAnwBoAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-03T07:12:06.685Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-03T07:12:06.685Z"
             },
             {
               "$type": "Document",
@@ -79,12 +78,11 @@
               "RelativeToolTip": "files\\berth.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-03T01:26:08.999Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-03T01:26:08.999Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "robot.h",
               "DocumentMoniker": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\robot.h",
               "RelativeDocumentMoniker": "files\\robot.h",
@@ -92,12 +90,11 @@
               "RelativeToolTip": "files\\robot.h",
               "ViewState": "AQIAABQAAAAAAAAAAAAowAwAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-02T02:41:49.673Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T02:41:49.673Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "robot.cpp",
               "DocumentMoniker": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\robot.cpp",
               "RelativeDocumentMoniker": "files\\robot.cpp",
@@ -105,8 +102,7 @@
               "RelativeToolTip": "files\\robot.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-02T02:41:49.583Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T02:41:49.583Z"
             },
             {
               "$type": "Document",
@@ -118,8 +114,7 @@
               "RelativeToolTip": "files\\my_data_structure.h",
               "ViewState": "AQIAACwAAAAAAAAAAAAnwDoAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-02T02:41:49.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T02:41:49.486Z"
             },
             {
               "$type": "Document",
@@ -131,12 +126,11 @@
               "RelativeToolTip": "files\\my_data_structure.cpp",
               "ViewState": "AQIAAFEAAAAAAAAAAAAAAFwAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-02T02:41:49.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T02:41:49.415Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "my_algorithm.h",
               "DocumentMoniker": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\my_algorithm.h",
               "RelativeDocumentMoniker": "files\\my_algorithm.h",
@@ -144,18 +138,17 @@
               "RelativeToolTip": "files\\my_algorithm.h",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-02T02:41:49.316Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T02:41:49.316Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "my_algorithm.cpp",
               "DocumentMoniker": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\my_algorithm.cpp",
               "RelativeDocumentMoniker": "files\\my_algorithm.cpp",
               "ToolTip": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\my_algorithm.cpp",
               "RelativeToolTip": "files\\my_algorithm.cpp",
-              "ViewState": "AQIAAIIAAAAAAAAAAAAswJEAAAACAAAA",
+              "ViewState": "AQIAAKcAAAAAAAAAAAAYwJMAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-02T02:41:49.197Z",
               "EditorCaption": ""
@@ -168,14 +161,14 @@
               "RelativeDocumentMoniker": "files\\main.cpp",
               "ToolTip": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\main.cpp",
               "RelativeToolTip": "files\\main.cpp",
-              "ViewState": "AQIAAHUAAAAAAAAAAAAAAIoAAABlAAAA",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAAAEgAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-02T02:41:49.103Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "boat.h",
               "DocumentMoniker": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\boat.h",
               "RelativeDocumentMoniker": "files\\boat.h",
@@ -183,18 +176,17 @@
               "RelativeToolTip": "files\\boat.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-02T02:41:48.985Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T02:41:48.985Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "boat.cpp",
               "DocumentMoniker": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\boat.cpp",
               "RelativeDocumentMoniker": "files\\boat.cpp",
               "ToolTip": "C:\\Users\\Lee\\Desktop\\GitHub\\Huawei_Challenge_Semi-final\\project\\files\\boat.cpp",
               "RelativeToolTip": "files\\boat.cpp",
-              "ViewState": "AQIAAHcCAAAAAAAAAAAcwIUCAAA0AAAA",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAcwE4AAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-02T02:41:48.906Z",
               "EditorCaption": ""
