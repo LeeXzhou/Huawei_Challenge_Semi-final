@@ -130,23 +130,7 @@ int main()
 			break;
 		}
 		Input();
-		if (frame_id % 200 == 0)
-		{
-			my_alg::predict();
-		}
-		if (frame_id == 1)
-		{
-			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
-		}
-		else if(money >= 8000)
-		{
-			if (sum_efficiency[robot_num] / 200.0 * max_dis * 2.0 > 1.0 * boat_capacity * boat_num)//机器人在船一个来回内能送的货物与船的装载量做比较，可能需要放缩
-			{
-				cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
-			}
-		}
-		my_alg::test_robot();
-		/*if (frame_id >= 2)my_alg::test_robot();
+		if (frame_id >= 2)my_alg::test_robot();
 		if (frame_id == 1)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
@@ -154,11 +138,8 @@ int main()
 		else if (money >= 8000 && robot_num == 20 && boat_num < 2)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
-		}*/
-		if (frame_id == 15000)
-		{
-			cerr << boat_num << " " << robot_num << endl;
 		}
+
 		puts("OK");
 		fflush(stdout);
 		/*if (robot_num)
