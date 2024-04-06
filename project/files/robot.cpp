@@ -115,6 +115,7 @@ void Robot::robot_control()
 			//	}
 			//}
 			string tmp = "get " + to_string(robot_id);
+			sum_value -= goods_map[x][y].first;
 			robot_option.push_back(tmp);
 			//cout << "get " << robot_id << endl;	//ÄÃ»õÎï
 			find_berth();	//ÕÒ²´Î»

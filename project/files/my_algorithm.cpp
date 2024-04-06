@@ -188,7 +188,7 @@ namespace my_alg {
 			{
 				return true;
 			}
-			if (predict_efficiency[robot_num + 1] * (robot_num + 1) * (15000.0 - frame_id) / 200.0 - 20 > predict_efficiency[robot_num] * robot_num * (15000.0 - frame_id) / 200.0)
+			if (predict_efficiency[robot_num + 1] * (robot_num + 1) * (15000.0 - frame_id) / 200.0 - 2000 / sum_value * all_num > predict_efficiency[robot_num] * robot_num * (15000.0 - frame_id) / 200.0)
 			{
 				return true;
 			}

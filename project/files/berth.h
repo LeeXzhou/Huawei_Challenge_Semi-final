@@ -24,7 +24,7 @@ const MyPair dx_dy[4] = { {0, 1} , {0, -1}, {-1, 0}, {1, 0} };
 extern int robot_num, boat_num, berth_num, delivery_num, goods_num;
 extern int frame_id;
 extern int money, boat_capacity, all_num;
-extern double sum_efficiency[30], predict_efficiency[30];
+extern double sum_efficiency[30], predict_efficiency[30], sum_value;
 extern MyPair start_record[30];
 extern char grid[N][N];
 extern MyPair goods_map[N][N];

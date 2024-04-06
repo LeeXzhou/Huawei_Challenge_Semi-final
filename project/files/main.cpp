@@ -13,7 +13,7 @@ vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 Berth berth[10];
 Robot robot[30];
 Boat boat[20];
-double sum_efficiency[30], predict_efficiency[30];
+double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
 void ProcessMap()
 {
