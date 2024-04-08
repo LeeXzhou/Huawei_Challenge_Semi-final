@@ -9,6 +9,8 @@ namespace my_alg {
 	void predict();
 	void get_left_num();
 	bool buy_robot();
+	void function_predict();
+	double fun(int i);
 	static bool no_buy = false;
 }
 #endif // !my_algorithm_h

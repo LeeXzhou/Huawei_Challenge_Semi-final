@@ -1,2 +1,3 @@
-﻿  my_algorithm.cpp
-  project.vcxproj -> C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
+﻿  boat.cpp
+D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\boat.cpp(188,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  project.vcxproj -> D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe

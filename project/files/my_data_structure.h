@@ -15,7 +15,7 @@
 #include<unordered_map>
 using namespace std;
 using MyPair = std::pair<int, int>;
-
+extern const int tg;	
 enum direction {
 	north = 2,
 	south = 3,

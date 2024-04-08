@@ -15,6 +15,7 @@ Robot robot[30];
 Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
+const int tg = 1;
 void ProcessMap()
 {
 	for (int i = 0; i < N; i++) {
@@ -36,6 +37,7 @@ void ProcessMap()
 
 void Init()
 {
+	srand(0);
 	for (int i = 0; i < N; i++) {
 		cin >> grid[i];
 	}
@@ -49,7 +51,11 @@ void Init()
 		cin >> berth[id].x >> berth[id].y >> berth[id].loading_speed;
 	}
 	cin >> boat_capacity;
+
 	my_alg::init_dis();
+	if (tg == 0) {
+		my_alg::function_predict();
+	}
 	/*for (int i = 0; i < 200; i++)
 	{
 		for (int j = 0; j < 200; j++)
@@ -73,7 +79,8 @@ void Init()
 	//cerr << max_dis << endl;
 	for (int i = 0; i < 30; i++)
 	{
-		predict_efficiency[i] = -1;
+		if(tg != 0)
+			predict_efficiency[i] = -1;
 		sum_efficiency[i] = -1;
 	}
 	char okk[100];

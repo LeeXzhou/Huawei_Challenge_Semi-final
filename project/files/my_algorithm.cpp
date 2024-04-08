@@ -159,26 +159,60 @@ namespace my_alg {
 			}
 		}
 	}
+	// 牛顿法收敛函数
+	double fun(int i) {
+		double x = 1.0 * i; // 输入的 x 值
+		double a = -0.2473843908434571; // 对数方程中的系数
+		double b = 2.610581908446403; // 对数方程中的常数
+		auto ln_func = [&](double y) -> double {
+			return log(y) - a * log(x) - b;
+		};
+		auto solve_ln_equation = [&]()->double {
+			double y_guess = 1.0; // 初始猜测值
+			double tolerance = 1e-9; // 精度要求
+			int max_iter = 1000; // 最大迭代次数
+
+			for (int i = 0; i < max_iter; ++i) {
+				double y_next = y_guess - ln_func(y_guess) / (1.0 / y_guess);
+				if (fabs(y_next - y_guess) < tolerance) {
+					return y_next;
+				}
+				y_guess = y_next;
+			}
+
+			std::cerr << "未能收敛到指定精度" << std::endl;
+			return y_guess;
+			};
+		return solve_ln_equation();
+	}
+	void function_predict() {
+		for (int i = 1; i < 30; i++) {
+			predict_efficiency[i] = fun(i);
+			cerr << predict_efficiency[i] << '\n';
+		}
+	}
 	void predict()
 	{
 		sum_efficiency[robot_num] = static_cast<double>((all_num - start_record[robot_num].second)) / static_cast<double>(frame_id - start_record[robot_num].first) * 200.0;	//预测当前机器人数量的总效率
-		predict_efficiency[robot_num] = sum_efficiency[robot_num] / robot_num;	//机器人的平均单个效率
-		bool flag = true;
-		for (int i = robot_num - 1; i > 10; i--)
-		{
-			if (predict_efficiency[i] > predict_efficiency[robot_num])
+		if (tg != 0){
+			predict_efficiency[robot_num] = sum_efficiency[robot_num] / robot_num;	//机器人的平均单个效率
+			bool flag = true;
+			for (int i = robot_num - 1; i > 10; i--)
 			{
-				//cerr << predict_efficiency[robot_num] << " " << predict_efficiency[i] << " " << i << "why?" << endl;
-				predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - (predict_efficiency[i] - predict_efficiency[robot_num]) / (robot_num - i);	//根据与上一个的差值来预测下一个
-				flag = false;
-				break;
+				if (predict_efficiency[i] > predict_efficiency[robot_num])
+				{
+					//cerr << predict_efficiency[robot_num] << " " << predict_efficiency[i] << " " << i << "why?" << endl;
+					predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - (predict_efficiency[i] - predict_efficiency[robot_num]) / (robot_num - i);	//根据与上一个的差值来预测下一个
+					flag = false;
+					break;
+				}
 			}
+			if (flag)	//如果前面没有差值参考
+			{
+				predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - 0.1;	//我认为新增机器人一定会下降单个效率，所以至少下降0.1
+			}
+			//cerr << sum_efficiency[robot_num] << " " << robot_num << " " << predict_efficiency[robot_num] << " " << predict_efficiency[robot_num + 1] << endl;
 		}
-		if (flag)	//如果前面没有差值参考
-		{
-			predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - 0.1;	//我认为新增机器人一定会下降单个效率，所以至少下降0.1
-		}
-		//cerr << sum_efficiency[robot_num] << " " << robot_num << " " << predict_efficiency[robot_num] << " " << predict_efficiency[robot_num + 1] << endl;
 	}
 	bool buy_robot()
 	{
@@ -212,6 +246,7 @@ namespace my_alg {
 		for (int i = 0; i < boat_option.size(); i++)
 		{
 			cout << boat_option[i] << endl;
+			//cerr << boat_option[i] << ' ';
 		}
 		for (int i = 0; i < robot_option.size(); i++)
 		{

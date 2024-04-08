@@ -80,7 +80,7 @@ void Boat::Boat_control()
 					target_delivery = i;
 				}
 			}
-			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 20)	//解决尾杀
+			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 40)	//解决尾杀
 			{
 				choose_berth();
 			}
@@ -101,6 +101,17 @@ void Boat::Boat_control()
 			if (operate(tmp, j)) {
 				if (tmp == nxt[x][y][dir]) {
 					clash_solve(j, tmp);
+					for (int i = 0; i < delivery_point.size(); i++)
+					{
+						if (delivery_dis[x][y][i] < 5 && goods_num > 20) //hyper parameter
+						{
+							target_x = delivery_point[i].first;
+							target_y = delivery_point[i].second;
+							find_road2();
+						}
+					}
+
+
 					// never use it!!
 					//choose_berth();
 					//find_road2();
@@ -396,6 +407,7 @@ void Boat::clash_solve(int op , MyTuple boat_a)
 	else {
 		string tmp = "ship " + to_string(boat_id);
 		boat_option.push_back(tmp);
+		//cerr << frame_id << " " << tmp << endl;
 		//cout << "ship " << boat_id << endl;
 	}
 
