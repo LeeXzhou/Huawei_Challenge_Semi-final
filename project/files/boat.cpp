@@ -101,15 +101,16 @@ void Boat::Boat_control()
 			if (operate(tmp, j)) {
 				if (tmp == nxt[x][y][dir]) {
 					clash_solve(j, tmp);
-					for (int i = 0; i < delivery_point.size(); i++)
-					{
-						if (delivery_dis[x][y][i] < 5 && goods_num > 20) //hyper parameter
+					if(aim_berth != -1)
+						for (int i = 0; i < delivery_point.size(); i++)
 						{
-							target_x = delivery_point[i].first;
-							target_y = delivery_point[i].second;
-							find_road2();
+							if (delivery_dis[x][y][i] < 5 && goods_num > 20) //hyper parameter
+							{
+								target_x = delivery_point[i].first;
+								target_y = delivery_point[i].second;
+								find_road2();
+							}
 						}
-					}
 
 
 					// never use it!!

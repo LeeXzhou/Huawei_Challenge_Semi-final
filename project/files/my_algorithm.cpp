@@ -241,8 +241,10 @@ namespace my_alg {
 
 		get_left_num();
 
-		thread t1(all_boat_control), t2(all_robot_control);
-		t1.join(); t2.join();
+		//thread t1(all_boat_control), t2(all_robot_control);
+		//t2.join(); t1.join(); 
+		all_boat_control();
+		all_robot_control();
 		for (int i = 0; i < boat_option.size(); i++)
 		{
 			cout << boat_option[i] << endl;
