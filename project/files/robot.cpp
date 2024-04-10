@@ -184,10 +184,15 @@ void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 
 void Robot::find_berth() //找最近泊位
 {
-	int aim_num = 0;
+	int aim_num = -1;
 	int min_dis = 300000;
 	for (int i = 0; i < berth_num; i++)
 	{
+		int mx = 0;
+		for (int j = 0; j < delivery_num; j++) {
+			mx = max(mx, delivery_dis[berth[i].x][berth[i].y][j]);
+		}
+		if (frame_id + land_dis[x][y][i] + mx > 15000) continue;
 		if (land_dis[x][y][i] > 0 && land_dis[x][y][i] < min_dis)
 		{
 			aim_num = i;

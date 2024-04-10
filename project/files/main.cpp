@@ -15,7 +15,7 @@ Robot robot[30];
 Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
-const int tg = 1;
+const int tg = 1; // 1 is from lizhou, 0 is from lsh
 void ProcessMap()
 {
 	for (int i = 0; i < N; i++) {

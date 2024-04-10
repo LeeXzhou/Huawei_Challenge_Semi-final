@@ -80,15 +80,15 @@ void Boat::Boat_control()
 					target_delivery = i;
 				}
 			}
-			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 40)	//解决尾杀
-			{
-				choose_berth();
-			}
-			else
-			{
+			//if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 40)	//解决尾杀
+			//{
+			//	choose_berth();
+			//}
+			//else
+			//{
 				target_x = delivery_point[target_delivery].first;
 				target_y = delivery_point[target_delivery].second;
-			}
+			//}
 			find_road2();
 			dept_flag = false;
 			return;
@@ -101,16 +101,16 @@ void Boat::Boat_control()
 			if (operate(tmp, j)) {
 				if (tmp == nxt[x][y][dir]) {
 					clash_solve(j, tmp);
-					if(aim_berth != -1)
-						for (int i = 0; i < delivery_point.size(); i++)
-						{
-							if (delivery_dis[x][y][i] < 5 && goods_num > 20) //hyper parameter
-							{
-								target_x = delivery_point[i].first;
-								target_y = delivery_point[i].second;
-								find_road2();
-							}
-						}
+					//if(aim_berth != -1)
+					//	for (int i = 0; i < delivery_point.size(); i++)
+					//	{
+					//		if (delivery_dis[x][y][i] < 5 && goods_num > 20) //hyper parameter
+					//		{
+					//			target_x = delivery_point[i].first;
+					//			target_y = delivery_point[i].second;
+					//			find_road2();
+					//		}
+					//	}
 
 
 					// never use it!!

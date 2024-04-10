@@ -1,3 +1,7 @@
 ﻿  boat.cpp
 D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\boat.cpp(189,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  robot.cpp
+D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\robot.cpp(142,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\files\robot.cpp(223,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  正在生成代码...
   project.vcxproj -> D:\acm-icpc\semi\copilot_desktop\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
