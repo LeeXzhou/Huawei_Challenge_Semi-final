@@ -80,15 +80,15 @@ void Boat::Boat_control()
 					target_delivery = i;
 				}
 			}
-			//if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 40)	//½â¾öÎ²É±
-			//{
-			//	choose_berth();
-			//}
-			//else
-			//{
+			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 40)	//è§£å†³å°¾æ€
+			{
+				choose_berth();
+			}
+			else
+			{
 				target_x = delivery_point[target_delivery].first;
 				target_y = delivery_point[target_delivery].second;
-			//}
+			}
 			find_road2();
 			dept_flag = false;
 			return;
@@ -170,7 +170,7 @@ void Boat::find_road()
 	memset(pre, 0, sizeof(pre)); memset(nxt, 0, sizeof(nxt)); memset(visited, false, sizeof(visited));
 
 	queue<Foursome>q;
-	if (slow_or_not(MyTuple(x, y, dir)))//Èç¹û³õÊ¼µã°üº¬Ö÷º½µÀ
+	if (slow_or_not(MyTuple(x, y, dir)))//å¦‚æœåˆå§‹ç‚¹åŒ…å«ä¸»èˆªé“
 	{
 		q.push(Foursome(x, y, dir, 0));
 	}
@@ -234,7 +234,7 @@ void Boat::find_road()
 						//cerr << "aaaaa" << endl;
 						//cerr << tmp.x << ' ' << tmp.y << ' ' << tmp.status << endl;
 
-						if (slow_or_not(tmp))//Èç¹ûÏÂÒ»²½¼õËÙÁË£¬ÔòÍÆÈë0
+						if (slow_or_not(tmp))//å¦‚æœä¸‹ä¸€æ­¥å‡é€Ÿäº†ï¼Œåˆ™æ¨å…¥0
 						{
 							//if (frame_id >= 70 && frame_id <= 120&& tmp.y == 193) cerr << tmp.x << " " << tmp.y << " " << endl;
 							//visited[tmp.x][tmp.y][tmp.status] = 1;
@@ -257,7 +257,7 @@ void Boat::find_road()
 }
 
 
-void Boat::find_road2() {	//Æô·¢Ê½ËÑË÷£¬½µµÍ¸´ÔÓ¶È
+void Boat::find_road2() {	//å¯å‘å¼æœç´¢ï¼Œé™ä½å¤æ‚åº¦
 	if (x == target_x && y == target_y) {
 		return;
 	}
@@ -415,7 +415,7 @@ void Boat::clash_solve(int op , MyTuple boat_a)
 }
 
 
-bool Boat::operate(MyTuple& t, int op) {	//¸ø¶¨t×´Ì¬£¬×ö³öop²Ù×÷Ö®ºóµÄ×´Ì¬£¬ÒıÓÃ´«µİ£¬ËùÒÔtÖ±½Ó¸Ä±ä
+bool Boat::operate(MyTuple& t, int op) {	//ç»™å®štçŠ¶æ€ï¼Œåšå‡ºopæ“ä½œä¹‹åçš„çŠ¶æ€ï¼Œå¼•ç”¨ä¼ é€’ï¼Œæ‰€ä»¥tç›´æ¥æ”¹å˜
 	MyTuple tmp;
 	if (op == 2) {
 		tmp = MyTuple(t.x + fx[t.status], t.y + fy[t.status], t.status);
@@ -459,7 +459,7 @@ void Boat::choose_berth()
 {
 	double max_num = .0;
 	target_berth = 0;
-	for (int i = 0; i < berth_num; i++)	//ÌôÑ¡»õÎï×î¶àµÄ²´Î»
+	for (int i = 0; i < berth_num; i++)	//æŒ‘é€‰è´§ç‰©æœ€å¤šçš„æ³Šä½
 	{
 		if (berth_dis[x][y][i] == 0) {
 			if (berth[i].left_num != 0) {
