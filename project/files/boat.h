@@ -23,8 +23,9 @@ public:
 	static bool init_check_valid(int x, int y);
 	int cal_manhattan(MyTuple k);
 	//private:
+	int carry_value = 0;
 	int boat_id, x, y, dir, status, goods_num, target_berth = -1;
-
+	bool yanchibiaoji_flag = false;
 	int target_x = -1, target_y = -1;
 	bool dept_flag = false;//лч
 	int aim_berth = -1;

@@ -11,12 +11,15 @@ public:
 	int target_x = -1, target_y = -1;	//目标地，-1为没目标
 	MyPair pre[200][200], nxt[200][200];
 	bool visited[200][200] = { false };
+	int carry_value = 0;
+	double eps_value=0;
+	double accumulate_value=0;
 	bool move_or_not = false, no_goods = false;	//是否移动，true为这帧移动过了，地图上是否还有货物，true为没有货物
 	Robot() { };
 	Robot(int startX, int startY);
 	void find_goods();	//bfs到至多6个货物，然后选取货物
 	void get_nxt(MyPair & target);	//利用pre找nxt
-	void find_berth();	//从当前位置去找最近的泊位
+	int find_berth();	//从当前位置去找最近的泊位
 	void find_road(const int& min_dis);	//利用min_dis剪枝来找路
 	void clash_solve();	//机器人移动，包括了防碰撞
 	bool robot_dfs(const int& move_num, stack<MyPair>move_order);	//用来解决防碰撞

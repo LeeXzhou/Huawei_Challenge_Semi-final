@@ -23,6 +23,7 @@ Robot::Robot(int startX, int startY) {
 
 void Robot::robot_control()
 {
+	
 	if (move_or_not)
 	{
 		return;
@@ -49,16 +50,19 @@ void Robot::robot_control()
 		{
 			if (x == berth[i].x && y == berth[i].y)
 			{
-				MyPair target = berth[i].find_goods_from_berth();
+				MyTuple target = berth[i].find_goods_from_berth();
 				target_x = -1; target_y = -1;
-				if (target.first == -1)
+				if (target.x == -1)
 				{
 					no_goods = true;	//标记地图暂时没货物，让它停留在泊位不动
 				}
 				else
 				{
-					target_x = target.first, target_y = target.second;
+					target_x = target.x, target_y = target.y;
+					accumulate_value = 0;
+					eps_value = 1.0 * goods_map[target_x][target_y].first / target.status;
 					goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
+
 					find_road(land_dis[target_x][target_y][i]);
 					no_goods = false;	//地图上有货物
 				}
@@ -74,25 +78,33 @@ void Robot::robot_control()
 		{
 			for (int i = 0; i < berth_num; i++)
 			{
-				if (x >= berth[i].x && x <= berth[i].x + 3 && y <= berth[i].y + 3 && y >= berth[i].y)
+				if (x >= berth[i].x && x <= berth[i].x + 1 && y <= berth[i].y + 2 && y >= berth[i].y)
 				{
 					string tmp = "pull " + to_string(robot_id);
+
+					eps_value = 0;
+					accumulate_value = 0;
+					berth[i].goods_queue.push(carry_value);
+					carry_value = 0;
 					robot_option.push_back(tmp);
 					//cout << "pull " << robot_id << endl;
 					goods_num = 0;
 					berth[i].num += 1;
 					all_num += 1;
-					MyPair target = berth[i].find_goods_from_berth();
+					MyTuple target = berth[i].find_goods_from_berth();
 
-					if (target.first == -1)
+					if (target.x == -1)
 					{
 						no_goods = true;	//标记地图暂时没货物，让它停留在泊位不动
 						target_x = -1; target_y = -1;
 					}
 					else
 					{
-						target_x = target.first, target_y = target.second;
+						target_x = target.x, target_y = target.y;
+						eps_value = 1.0 * goods_map[target_x][target_y].first / target.status;
 						goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
+						accumulate_value = 0;
+						
 						find_road(land_dis[target_x][target_y][i]);
 						no_goods = false;	//地图上有货物
 					}
@@ -115,6 +127,7 @@ void Robot::robot_control()
 			//	}
 			//}
 			string tmp = "get " + to_string(robot_id);
+			carry_value = -goods_map[x][y].first;
 			sum_value -= goods_map[x][y].first;
 			robot_option.push_back(tmp);
 			//cout << "get " << robot_id << endl;	//拿货物
@@ -137,7 +150,7 @@ void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 	bool found = false;
 	int step = 0;
 	priority_queue<Plan> choice;
-	while (cnt < 6 && !q.empty())	//测下来6效果较好
+	while (cnt < 15 && !q.empty())	//测下来6效果较好//但是复赛可以变大了
 	{
 		int q_size = q.size();
 		for (int j = 1; j <= q_size; j++)
@@ -175,14 +188,17 @@ void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 	{
 		no_goods = false;
 		MyPair now = choice.top().target;
+		int temp_dis = choice.top().time;
 		target_x = now.first, target_y = now.second;
+		eps_value = 1.0*goods_map[target_x][target_y].first / temp_dis;
+		if(eps_value<=0)cerr << eps_value << endl;
 		goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
 		get_nxt(now);
 	}
 	return;
 }
 
-void Robot::find_berth() //找最近泊位
+int Robot::find_berth() //找最近泊位
 {
 	int aim_num = 0;
 	int min_dis = 300000;
@@ -199,6 +215,7 @@ void Robot::find_berth() //找最近泊位
 	target_y = berth[aim_num].y;
 	//int min_dis = land_dis[x][y][0];
 	find_road(min_dis);
+	return aim_num;
 }
 
 void Robot::find_road(const int& min_dis)	//给定target下去找路，有剪枝，效率高
@@ -253,7 +270,7 @@ void Robot::clash_solve()
 	for (int i = 0; i < robot_num; i++)
 	{
 		if (i == robot_id)continue;
-		if (nxt[x][y] == make_pair(robot[i].x, robot[i].y) && (grid[robot[i].x][robot[i].y] == 'C' || grid[robot[i].x][robot[i].y] == '.' || grid[robot[i].x][robot[i].y] == 'B')) { flag = false; break; }
+		if (nxt[x][y] == make_pair(robot[i].x, robot[i].y) && (grid[robot[i].x][robot[i].y] == 'C' || grid[robot[i].x][robot[i].y] == '.')) { flag = false; break; }
 	}
 
 	if (flag)//若下一步没有机器人
@@ -265,6 +282,8 @@ void Robot::clash_solve()
 			{
 				string tmp = "move " + to_string(robot_id) + " " + to_string(i);
 				robot_option.push_back(tmp);
+				accumulate_value += eps_value;
+				total_accumulate_value[frame_id] += eps_value;
 				//cout << "move " << robot_id << " " << i << endl;
 				x = nxt[now.first][now.second].first;
 				y = nxt[now.first][now.second].second;
@@ -295,6 +314,8 @@ void Robot::clash_solve()
 			{
 				string tmp = "move " + to_string(robot_id) + " " + to_string(i);
 				robot_option.push_back(tmp);
+				accumulate_value += eps_value;
+				total_accumulate_value[frame_id] += eps_value;
 				//cout << "move " << robot_id << " " << i << endl;
 
 				x = nxt[now.first][now.second].first;
@@ -345,7 +366,8 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 				{
 					goods_map[robot[u_id].target_x][robot[u_id].target_y].first = -goods_map[robot[u_id].target_x][robot[u_id].target_y].first;
 				}
-				robot[u_id].target_x = -1; robot[u_id].target_y = -1;
+				robot[u_id].target_x = -1; robot[u_id].target_y = -1;//把挡路的撞飞
+				
 				string tmp = "move " + to_string(u_id) + " " + to_string(u_op);
 				robot_option.push_back(tmp);
 				//cout << "move " << u_id << " " << u_op << endl;
@@ -355,11 +377,20 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 				robot[u_id].move_or_not = true;				
 				if (robot[u_id].goods_num == 0)	//重新规划路线
 				{
+					total_accumulate_value[frame_id] -= robot[u_id].accumulate_value;
+					robot[u_id].eps_value = 0;
+					robot[u_id].accumulate_value = 0;
+
 					robot[u_id].find_goods();
 				}
 				else
 				{
-					robot[u_id].find_berth();
+					total_accumulate_value[frame_id] -= accumulate_value;
+					robot[u_id].eps_value = 0;
+					robot[u_id].accumulate_value = 0;
+					int aim_berth_tmp=robot[u_id].find_berth();
+					if(land_dis[x][y][aim_berth_tmp])robot[u_id].eps_value = 1.0 * carry_value / land_dis[x][y][aim_berth_tmp];
+
 				}
 			}
 			return true;

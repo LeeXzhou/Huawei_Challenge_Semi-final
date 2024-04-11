@@ -100,3 +100,51 @@ bool BoatRout::operator < (const BoatRout& tmp) const {
 int Manhattan(const MyPair & a, const MyPair & b) {
     return my_abs(a.first, b.first) + my_abs(a.second, b.second);
 }
+vector<double>lagrange(vector<double>x, vector<double>y, vector<double>input_x)
+{
+    vector<double>output_y;
+    for (int u = 0; u < input_x.size(); u++)
+    {
+        double output = 0;
+        for (int i = 0; i < x.size(); i++)
+        {
+            double tmp = y[i];
+            for (int j = 0; j < x.size(); j++)
+            {
+                if (i == j)continue;
+                tmp *= (input_x[u] - x[j]) / (x[i] - x[j]);
+            }
+            output += tmp;
+        }
+        output_y.push_back(output);
+    }
+    return output_y;
+}
+
+pair<double, double> solvelog(pair<double, double> a, pair<double, double> b)
+{
+    double retx = 1.0 * (a.second - b.second) / (log(a.first) - log(b.first));
+    //cerr << "TEETTETEYT" << a.second - b.second <<' ' << log(a.first) - log(b.first) <<' '<<retx<< endl;
+    double rety = 1.0 * a.second - retx * log(a.first);
+    return make_pair(retx, rety);
+}
+
+double predict_log(vector<double>x, vector<double>y, double predict_num)
+{
+    double a = 0, b = 0;
+    int fenzi = 0;
+    for (int i = 0; i < x.size(); i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            
+            pair<double, double>tmp = solvelog(make_pair(x[i], y[i]), make_pair(x[j], y[j]));
+            a += tmp.first;
+            b += tmp.second;
+        }
+    }
+    a = 1.0 * a / ((x.size() - 1) * x.size() / 2);
+    b = 1.0 * b / ((x.size() - 1) * x.size() / 2);
+    double ans = a * log(predict_num) + b;
+    return ans;
+}

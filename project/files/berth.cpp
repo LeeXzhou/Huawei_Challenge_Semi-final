@@ -15,7 +15,7 @@ Berth::Berth(int x, int y, int loading_speed) {
 	this->loading_speed = loading_speed;
 }
 
-MyPair Berth::find_goods_from_berth()
+MyTuple Berth::find_goods_from_berth()
 {
 	priority_queue<Plan> q;
 	for (auto cur = goods_info.begin(); cur != goods_info.end();)
@@ -28,18 +28,26 @@ MyPair Berth::find_goods_from_berth()
 		{
 			if (goods_map[cur->x][cur->y].first > 0)
 			{
-				q.push(Plan(goods_map[cur->x][cur->y].first, land_dis[cur->x][cur->y][berth_id],{ cur->x,cur->y }));
+				int good_to_berth_dis = 300000;
+				for (int i = 0; i < berth_num; i++)
+				{
+					if (land_dis[cur->x][cur->y][i] > 0)
+					{
+						good_to_berth_dis = min(good_to_berth_dis, land_dis[cur->x][cur->y][i]);
+					}
+				}//这里原版是没有加号之后的东西的
+				q.push(Plan(goods_map[cur->x][cur->y].first, land_dis[cur->x][cur->y][berth_id]+good_to_berth_dis,{ cur->x,cur->y }));
 			}
 			cur++;
 		}
 	}
 	if (!q.empty())
 	{
-		MyPair ret = q.top().target;
+		MyTuple ret = MyTuple(q.top().target.first,q.top().target.second,q.top().time);
 		return ret;
 	}
 	else
 	{
-		return make_pair(-1, -1);
+		return MyTuple(-1,-1, -1);
 	}
 }

@@ -22,8 +22,19 @@ void Boat::Boat_control()
 		if (berth[target_berth].num > 0 && goods_num < boat_capacity)
 		{
 			int add = min(berth[target_berth].loading_speed, min(boat_capacity - goods_num, berth[target_berth].num));
+			for (int i = 1; i <= add; i++)
+			{
+				carry_value += berth[target_berth].goods_queue.front();
+				berth[target_berth].goods_queue.pop();
+			}
 			goods_num += add;
 			berth[target_berth].num -= add;
+			/*if (boat_num == 1 && robot_num <= 10 && carry_value + money >= 2000)
+			{
+				dept_flag = true;
+				string tmp = "dept " + to_string(boat_id);
+				boat_option.push_back(tmp);
+			}*/
 			//all_num -= add;
 		}
 		else
@@ -64,6 +75,7 @@ void Boat::Boat_control()
 			}
 			else
 			{
+				carry_value = 0;
 				choose_berth();
 				find_road2();
 			}
@@ -71,6 +83,7 @@ void Boat::Boat_control()
 		}
 		if (dept_flag == true)
 		{
+			//cerr << frame_id<<' '<<carry_value << endl;
 			int min_dis = 300000, target_delivery = 0;
 			for (int i = 0; i < delivery_point.size(); i++)
 			{
@@ -86,6 +99,12 @@ void Boat::Boat_control()
 			}
 			else
 			{
+				target_x = delivery_point[target_delivery].first;
+				target_y = delivery_point[target_delivery].second;
+			}
+			if (boat_num == 1 && robot_num <= 10 && carry_value + money >= 2000)
+			{
+				//cerr << frame_id << " " << carry_value + money << endl;
 				target_x = delivery_point[target_delivery].first;
 				target_y = delivery_point[target_delivery].second;
 			}
@@ -274,8 +293,8 @@ void Boat::find_road2() {	//Æô·¢Ê½ËÑË÷£¬½µµÍ¸´ÔÓ¶È
 		if (vis[tp.x][tp.y][tp.dir]) continue;
 		vis[tp.x][tp.y][tp.dir] = true;
 		MyTuple copy = MyTuple(tp.x, tp.y, tp.dir);
-		for(int i : operation[rand() % 6]) {
-		//for (int i = 0; i < 3; i++) {
+		//for(int i : operation[rand() % 6]) {
+		for (int i = 0; i < 3; i++) {
 			MyTuple tmp = copy;
 			if (operate(tmp, i)) {
 				int len = dis[copy.x][copy.y][copy.status] + (slow_or_not(tmp) ? 2 : 1);

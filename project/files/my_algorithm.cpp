@@ -130,6 +130,169 @@ namespace my_alg {
 			}
 		}
 	}
+
+	void buy_robot()
+	{
+		if (no_buy)return;
+		//连买多个机器人的情况，当前帧向前追溯，追溯200帧(可调)以上才可加入拉格朗日估算。
+		if (money >= 2000)
+		{
+			if (robot_num < 11)//得至少买三次，不然日不了
+			{
+				if (robot_num >= 7)
+				{
+					predictable_num.push_back(robot_num + 1);
+					edge_frames.push_back(frame_id);
+				}
+				
+				cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+				return;
+			}
+			vector<double>robot_num_tmp;
+			vector<double>robot_efficiency_tmp;
+			for (int i = 0; i < edge_frames.size(); i++)
+			{
+				if (frame_id - edge_frames[i] <= 200)break;
+				double tmp;
+				if (i == edge_frames.size() - 1)
+				{
+					tmp = 1.0 * (total_accumulate_value[frame_id-1] - total_accumulate_value[int(edge_frames[i])]) / (frame_id-1 - edge_frames[i]);
+				}
+				else
+				{
+					tmp = 1.0 * (total_accumulate_value[int(edge_frames[i+1])] - total_accumulate_value[int(edge_frames[i])]) / (edge_frames[i+1] - edge_frames[i]);
+				}
+				robot_num_tmp.push_back(predictable_num[i]);
+				robot_efficiency_tmp.push_back(tmp);
+				cerr <<"AAAA"<<edge_frames[i]<<' ' << predictable_num[i] << ' ' << tmp <<' '<<money<< endl;
+			}
+			vector<double>num_tmp;
+			num_tmp.push_back(robot_num + 1);
+			vector<double>ans = lagrange(robot_num_tmp, robot_efficiency_tmp, num_tmp);
+			cerr << robot_num << ' ' << ans[0] << endl;
+			if (1.0 * (ans[0] - robot_efficiency_tmp[robot_efficiency_tmp.size() - 1]) * (15000 - frame_id) > 2000)
+			{
+				predictable_num.push_back(robot_num+1);
+				edge_frames.push_back(frame_id);
+				cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+			}
+			else
+			{
+				no_buy = true;
+			}
+		}
+	}
+
+
+	void buy_robot_log()
+	{
+		if (no_buy)return;
+		//连买多个机器人的情况，当前帧向前追溯，追溯200帧(可调)以上才可加入拉格朗日估算。
+		if (money >= 2000)
+		{
+			/*
+			if (robot_num <= 10)//得至少买三次，不然日不了
+			{
+				if (robot_num >= 7 && (edge_frames.size()==0||frame_id-edge_frames[edge_frames.size()-1]>=50))
+				{
+					lagable_num.push_back(robot_num + 1);
+					edge_frames.push_back(frame_id);
+				}
+
+				cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+				return;
+			}
+			vector<double>robot_num_tmp;
+			vector<double>robot_efficiency_tmp;
+			for (int i = 0; i < lagable_num.size(); i++)
+			{
+				double tmp;
+				if (i == edge_frames.size() - 1 && frame_id - 1 - edge_frames[i]>0)
+				{
+					tmp = 1.0 * (total_accumulate_value[frame_id - 1] - total_accumulate_value[int(edge_frames[i])]) / (frame_id - 1 - edge_frames[i]);
+				}
+				else
+				{
+					tmp = 1.0 * (total_accumulate_value[int(edge_frames[i + 1])] - total_accumulate_value[int(edge_frames[i])]) / (edge_frames[i + 1] - edge_frames[i]);
+				}
+				robot_num_tmp.push_back(lagable_num[i]);
+				robot_efficiency_tmp.push_back(tmp);
+				cerr << "AAAAA" <<' ' << total_accumulate_value[int(edge_frames[i])] << ' ' << edge_frames[i] << ' ' << lagable_num[i] << ' ' << tmp << endl;
+			}
+			
+			double a = 0, b = 0;
+			int fenzi = 0;
+			for (int i = 0; i < robot_num_tmp.size(); i++)
+			{
+				for (int j = 0; j < i; j++)
+				{
+					//if (abs(edge_frames[i] - edge_frames[j]) < 100)continue;//相邻100帧范围太小，不考虑（可调）
+					pair<double, double>tmp = solvelog(make_pair(robot_num_tmp[i], robot_efficiency_tmp[i]), make_pair(robot_num_tmp[j], robot_efficiency_tmp[j]));
+					a += tmp.first;
+					b += tmp.second;
+					cerr << "BBB" << a << ' ' << b << endl;
+					fenzi++;
+				}
+			}
+			a = 1.0 * a / fenzi;
+			b = 1.0 * b / fenzi;
+			double predict_efficiency = a * log(robot_num+1) + b;
+			cerr << "PRE" << predict_efficiency << endl;
+			if ((predict_efficiency - robot_efficiency_tmp[robot_efficiency_tmp.size() - 1]) * (15000 - frame_id) > 2000)
+			{
+				if (frame_id - edge_frames[edge_frames.size() - 1] >= 100)
+				{
+					lagable_num.push_back(robot_num + 1);
+					edge_frames.push_back(frame_id);
+				}
+				
+				cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+			}
+			else
+			{
+				no_buy = true;
+			}
+			*/
+			if (robot_num <= 8)
+			{
+			    cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+				predictable_num.push_back(8);
+				predictable_total_efficiency_perframe.push_back(frame_id);
+				return;
+			}
+			vector<double>robot_num_tmp;
+			vector<double>robot_efficiency_tmp;
+			robot_num_tmp.push_back(0.0);
+			robot_efficiency_tmp.push_back(0.0);
+			
+			for (int i = 0; i < predictable_num.size(); i++)
+			{
+				if (frame_id - edge_frames[i] <= 50)
+				{
+					break;
+				}
+				double tmp;
+				if (i == edge_frames.size() - 1 && frame_id - 1 - edge_frames[i] > 0)
+				{
+					tmp = 1.0 * (total_accumulate_value[frame_id - 1] - total_accumulate_value[int(edge_frames[i])]) / (frame_id - 1 - edge_frames[i]);
+				}
+				else
+				{
+					tmp = 1.0 * (total_accumulate_value[int(edge_frames[i + 1])] - total_accumulate_value[int(edge_frames[i])]) / (edge_frames[i + 1] - edge_frames[i]);
+				}
+				robot_num_tmp.push_back(lagable_num[i]);
+				robot_efficiency_tmp.push_back(tmp);
+				cerr << "AAAAA" << ' ' << total_accumulate_value[int(edge_frames[i])] << ' ' << edge_frames[i] << ' ' << lagable_num[i] << ' ' << tmp << endl;
+			}
+
+		}
+	}
+
+
+	void buy_boat()
+	{
+		
+	}
 	void all_boat_control()
 	{
 		for (int i = 0; i < boat_num; i++)
@@ -161,6 +324,10 @@ namespace my_alg {
 	}
 	void test_robot()
 	{
+		
+		total_accumulate_value[frame_id] = pre_value;
+		
+		
 		boat_option.clear();
 		robot_option.clear();
 		if (money >= 2000 && robot_num < 20)
@@ -168,6 +335,7 @@ namespace my_alg {
 			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
 			start_record[robot_num + 1] = { frame_id, all_num };
 		}
+		//buy_robot_log();
 
 		get_left_num();
 
@@ -180,6 +348,10 @@ namespace my_alg {
 		for (int i = 0; i < robot_option.size(); i++)
 		{
 			cout << robot_option[i] << endl;
+		}
+		if (total_accumulate_value[frame_id] != 0)
+		{
+			pre_value = total_accumulate_value[frame_id];
 		}
 	}
 }

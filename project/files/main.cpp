@@ -8,6 +8,13 @@ int money, boat_capacity, all_num;
 int max_dis;
 int land_dis[200][200][10], delivery_dis[200][200][5], berth_dis[200][200][10];
 char grid[N][N];
+
+double pre_value = 0;
+double total_accumulate_value[15005];
+vector<double>predictable_num;
+vector<double>predictable_total_efficiency_perframe;
+vector<double>edge_frames;
+
 MyPair goods_map[N][N];
 vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 Berth berth[10];
@@ -15,6 +22,8 @@ Robot robot[30];
 Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
+bool no_buy = false;
+bool no_buy_boat = false;
 void ProcessMap()
 {
 	for (int i = 0; i < N; i++) {
@@ -135,7 +144,7 @@ int main()
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
-		else if (money >= 8000 && robot_num == 20 && boat_num < 2)
+		else if (money >= 8000 && robot_num == 20 && boat_num < 1)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
@@ -144,11 +153,15 @@ int main()
 		fflush(stdout);
 		/*if (robot_num)
 		{
-			if (frame_id % 1000 == 0)
+			if (frame_id % 500 == 0)
 			{
-				cerr << all_num << " " << frame_id << endl;
+				cerr << frame_id<< " "<< sum_value  <<' '<<int(total_accumulate_value[frame_id]) << endl;
 			}
 		}*/
+		if (frame_id == 15000)
+		{
+			cerr << robot_num << endl;
+		}
 	}
 	return 0;
 }

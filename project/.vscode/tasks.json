@@ -1,0 +1,49 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558 
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+        "type": "shell",
+        "label": "task_g++",
+        "command": "C:\\mingw64\\bin\\g++.exe",	/*修改成自己bin目录下的g++.exe，这里的路径和电脑里复制的文件目录有一点不一样，这里是两个反斜杠\\*/
+        "args": [
+            "-g",
+            "${file}",
+            //these lines exlarge the stack size and print more warning or error messages
+            // "-Wall",
+            // "-Wextra",
+            // "'-Wl,--stack=5368709120'",
+            "-o",
+            "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "-std=c++17",
+            "-finput-charset=UTF-8",
+            "-fexec-charset=UTF-8"
+        ],
+        "options": {
+            "cwd": "C:\\mingw64\\bin"	/*修改成自己bin目录，这里的路径和电脑里复制的文件目录有一点不一样，这里是两个反斜杠\\*/
+        },
+        "problemMatcher":{
+            "owner": "cpp",
+            "fileLocation": [
+                "relative",
+                "${workspaceFolderBasename}"
+            ],
+            "pattern":{
+                "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                "file": 1,
+                "line": 2,
+                "column": 3,
+                "severity": 4,
+                "message": 5
+            }
+        },
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        }
+        
+        }
+    ]
+}
+

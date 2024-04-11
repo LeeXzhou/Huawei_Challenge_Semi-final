@@ -61,4 +61,10 @@ struct BoatRout {
 	BoatRout(int X = -1, int Y = -1, int Dir = -1, int G_val = 0, int H_val = 0);
 	bool operator < (const BoatRout& tmp) const;
 };
+vector<double>lagrange(vector<double>x, vector<double>y, vector<double>input_x);
+
+pair<double, double> solvelog(pair<double, double> a, pair<double, double> b);
+
+double predict_log(vector<double>x, vector<double>y, double predict_num);
+
 #endif // !my_data_structure_h
