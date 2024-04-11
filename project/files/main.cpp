@@ -50,14 +50,27 @@ void Init()
 	}
 	cin >> boat_capacity;
 	my_alg::init_dis();
-	/*for (int i = 0; i < 200; i++)
+	int min_dis = 0, point_num = 0, total_dis = 0;
+	for (int i = 0; i < 200; i++)
 	{
 		for (int j = 0; j < 200; j++)
 		{
-			cerr << dis[i][j][0] << " ";
-
-		}cerr << endl;
-	}*/
+			min_dis = 300000;
+			for (int t = 0; t < berth_num; t++)
+			{
+				if (land_dis[i][j][t] > 0 && land_dis[i][j][t] < min_dis)
+				{
+					min_dis = land_dis[i][j][t];
+				}
+			}
+			if (min_dis != 300000)
+			{
+				point_num += 1;
+				total_dis += min_dis;
+			}
+		}
+	}
+	cerr << 1.0 * total_dis / point_num << endl;
 	for (int i = 0; i < berth_num; i++)
 	{
 		int tmp = 300000;
@@ -139,7 +152,7 @@ int main()
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
-
+		cerr << all_num << endl;
 		puts("OK");
 		fflush(stdout);
 		/*if (robot_num)
