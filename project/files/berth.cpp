@@ -36,18 +36,18 @@ MyTuple Berth::find_goods_from_berth()
 						good_to_berth_dis = min(good_to_berth_dis, land_dis[cur->x][cur->y][i]);
 					}
 				}//这里原版是没有加号之后的东西的
-				q.push(Plan(goods_map[cur->x][cur->y].first, land_dis[cur->x][cur->y][berth_id]+good_to_berth_dis,{ cur->x,cur->y }));
+				q.push(Plan(goods_map[cur->x][cur->y].first, land_dis[cur->x][cur->y][berth_id] + good_to_berth_dis, { cur->x,cur->y }));
 			}
 			cur++;
 		}
 	}
 	if (!q.empty())
 	{
-		MyTuple ret = MyTuple(q.top().target.first,q.top().target.second,q.top().time);
+		MyTuple ret = MyTuple(q.top().target.first, q.top().target.second, q.top().time);
 		return ret;
 	}
 	else
 	{
-		return MyTuple(-1,-1, -1);
+		return MyTuple(-1, -1, -1);
 	}
 }
