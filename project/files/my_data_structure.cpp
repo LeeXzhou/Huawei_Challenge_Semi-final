@@ -126,6 +126,7 @@ pair<double, double> solvelog(pair<double, double> a, pair<double, double> b)
     double retx = 1.0 * (a.second - b.second) / (log(a.first) - log(b.first));
     //cerr << "TEETTETEYT" << a.second - b.second <<' ' << log(a.first) - log(b.first) <<' '<<retx<< endl;
     double rety = 1.0 * a.second - retx * log(a.first);
+   
     return make_pair(retx, rety);
 }
 

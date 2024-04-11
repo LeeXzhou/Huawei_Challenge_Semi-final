@@ -201,9 +201,19 @@ namespace my_alg {
 				}
 				return;
 			}
+			if (robot_num <= 10)
+			{
+				cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+				if (frame_id - edge_frames[edge_frames.size() - 1] >= 100)
+				{
+					predictable_num.push_back(robot_num + 1);
+					edge_frames.push_back(frame_id);
+				}
+				return;
+			}
 			vector<pair<double,double>>robot_num_and_efficeincy;
 			
-			robot_num_and_efficeincy.push_back({0.01,0});
+			//robot_num_and_efficeincy.push_back({0.01,0});
 			
 			for (int i = 0; i < predictable_num.size(); i++)
 			{
@@ -211,7 +221,7 @@ namespace my_alg {
 				{
 					break;
 				}
-				cerr << "IMIN"<< robot_num_and_efficeincy.size() << endl;
+				
 				double tmp;
 				if (i == edge_frames.size() - 1 && frame_id - 1 - edge_frames[i] > 0)
 				{
@@ -222,24 +232,25 @@ namespace my_alg {
 					tmp = 1.0 * (total_accumulate_value[int(edge_frames[i + 1])] - total_accumulate_value[int(edge_frames[i])]) / (edge_frames[i + 1] - edge_frames[i]);
 				}
 				robot_num_and_efficeincy.push_back(make_pair(predictable_num[i], tmp));
+				cerr << predictable_num[i] << ' ' << tmp << endl;
 			}
-			cerr << "VECTORSIZE" << robot_num_and_efficeincy.size() << endl;
+			
 			double a = 0, b = 0;
 			for (int i = 0; i < robot_num_and_efficeincy.size(); i++)
 			{
 				for (int j = 0; j < i; j++)
 				{
-					cerr << robot_num_and_efficeincy[i].first << ' ' << robot_num_and_efficeincy[i].second << endl;
-					cerr << robot_num_and_efficeincy[j].first << ' ' << robot_num_and_efficeincy[j].second << endl;
+					
 					pair<double, double>tmp = solvelog(robot_num_and_efficeincy[i], robot_num_and_efficeincy[j] );
 					a += tmp.first;
-					b += tmp.first;
+					b += tmp.second;
 				}
 			}
 			a /= (robot_num_and_efficeincy.size() * (robot_num_and_efficeincy.size() - 1) / 2);
 			b /= (robot_num_and_efficeincy.size() * (robot_num_and_efficeincy.size() - 1) / 2);
 			double predict_efficiency = a * log(robot_num + 1) + b;
-			cerr<< a<<' '<<b<<' ' << predict_efficiency << endl;
+			
+			cerr<< predict_efficiency << endl;
 			if ((predict_efficiency - robot_num_and_efficeincy[robot_num_and_efficeincy.size() - 1].second) * (15000 - frame_id) > 2000)
 			{
 				if (frame_id - edge_frames[edge_frames.size() - 1] >= 100)

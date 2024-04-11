@@ -133,6 +133,7 @@ int main()
 	Init();
 	while (cin >> frame_id)
 	{
+		
 		//cerr << frame_id << endl;
 		if (cin.fail())
 		{
@@ -151,13 +152,13 @@ int main()
 
 		puts("OK");
 		fflush(stdout);
-		/*if (robot_num)
+		if (robot_num)
 		{
 			if (frame_id % 500 == 0)
 			{
 				cerr << frame_id<< " "<< sum_value  <<' '<<int(total_accumulate_value[frame_id]) << endl;
 			}
-		}*/
+		}
 		if (frame_id == 15000)
 		{
 			cerr << "NUM"<<robot_num << endl;
