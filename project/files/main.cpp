@@ -160,7 +160,7 @@ int main()
 		}*/
 		if (frame_id == 15000)
 		{
-			cerr << robot_num << endl;
+			cerr << "NUM"<<robot_num << endl;
 		}
 	}
 	return 0;
