@@ -159,18 +159,18 @@ namespace my_alg {
 			}
 		}
 	}
-	// Å£¶Ù·¨ÊÕÁ²º¯Êı
+	// ç‰›é¡¿æ³•æ”¶æ•›å‡½æ•°
 	double fun(int i) {
-		double x = 1.0 * i; // ÊäÈëµÄ x Öµ
-		double a = -0.2473843908434571; // ¶ÔÊı·½³ÌÖĞµÄÏµÊı
-		double b = 2.610581908446403; // ¶ÔÊı·½³ÌÖĞµÄ³£Êı
+		double x = 1.0 * i; // è¾“å…¥çš„ x å€¼
+		double a = -0.2473843908434571; // å¯¹æ•°æ–¹ç¨‹ä¸­çš„ç³»æ•°
+		double b = 2.610581908446403; // å¯¹æ•°æ–¹ç¨‹ä¸­çš„å¸¸æ•°
 		auto ln_func = [&](double y) -> double {
 			return log(y) - a * log(x) - b;
 		};
 		auto solve_ln_equation = [&]()->double {
-			double y_guess = 1.0; // ³õÊ¼²Â²âÖµ
-			double tolerance = 1e-9; // ¾«¶ÈÒªÇó
-			int max_iter = 1000; // ×î´óµü´ú´ÎÊı
+			double y_guess = 1.0; // åˆå§‹çŒœæµ‹å€¼
+			double tolerance = 1e-9; // ç²¾åº¦è¦æ±‚
+			int max_iter = 1000; // æœ€å¤§è¿­ä»£æ¬¡æ•°
 
 			for (int i = 0; i < max_iter; ++i) {
 				double y_next = y_guess - ln_func(y_guess) / (1.0 / y_guess);
@@ -180,7 +180,7 @@ namespace my_alg {
 				y_guess = y_next;
 			}
 
-			std::cerr << "Î´ÄÜÊÕÁ²µ½Ö¸¶¨¾«¶È" << std::endl;
+			std::cerr << "æœªèƒ½æ”¶æ•›åˆ°æŒ‡å®šç²¾åº¦" << std::endl;
 			return y_guess;
 			};
 		return solve_ln_equation();
@@ -193,23 +193,23 @@ namespace my_alg {
 	}
 	void predict()
 	{
-		sum_efficiency[robot_num] = static_cast<double>((all_num - start_record[robot_num].second)) / static_cast<double>(frame_id - start_record[robot_num].first) * 200.0;	//Ô¤²âµ±Ç°»úÆ÷ÈËÊıÁ¿µÄ×ÜĞ§ÂÊ
+		sum_efficiency[robot_num] = static_cast<double>((all_num - start_record[robot_num].second)) / static_cast<double>(frame_id - start_record[robot_num].first) * 200.0;	//é¢„æµ‹å½“å‰æœºå™¨äººæ•°é‡çš„æ€»æ•ˆç‡
 		if (tg != 0){
-			predict_efficiency[robot_num] = sum_efficiency[robot_num] / robot_num;	//»úÆ÷ÈËµÄÆ½¾ùµ¥¸öĞ§ÂÊ
+			predict_efficiency[robot_num] = sum_efficiency[robot_num] / robot_num;	//æœºå™¨äººçš„å¹³å‡å•ä¸ªæ•ˆç‡
 			bool flag = true;
 			for (int i = robot_num - 1; i > 10; i--)
 			{
 				if (predict_efficiency[i] > predict_efficiency[robot_num])
 				{
 					//cerr << predict_efficiency[robot_num] << " " << predict_efficiency[i] << " " << i << "why?" << endl;
-					predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - (predict_efficiency[i] - predict_efficiency[robot_num]) / (robot_num - i);	//¸ù¾İÓëÉÏÒ»¸öµÄ²îÖµÀ´Ô¤²âÏÂÒ»¸ö
+					predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - (predict_efficiency[i] - predict_efficiency[robot_num]) / (robot_num - i);	//æ ¹æ®ä¸ä¸Šä¸€ä¸ªçš„å·®å€¼æ¥é¢„æµ‹ä¸‹ä¸€ä¸ª
 					flag = false;
 					break;
 				}
 			}
-			if (flag)	//Èç¹ûÇ°ÃæÃ»ÓĞ²îÖµ²Î¿¼
+			if (flag)	//å¦‚æœå‰é¢æ²¡æœ‰å·®å€¼å‚è€ƒ
 			{
-				predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - 0.1;	//ÎÒÈÏÎªĞÂÔö»úÆ÷ÈËÒ»¶¨»áÏÂ½µµ¥¸öĞ§ÂÊ£¬ËùÒÔÖÁÉÙÏÂ½µ0.1
+				predict_efficiency[robot_num + 1] = predict_efficiency[robot_num] - 0.1;	//æˆ‘è®¤ä¸ºæ–°å¢æœºå™¨äººä¸€å®šä¼šä¸‹é™å•ä¸ªæ•ˆç‡ï¼Œæ‰€ä»¥è‡³å°‘ä¸‹é™0.1
 			}
 			//cerr << sum_efficiency[robot_num] << " " << robot_num << " " << predict_efficiency[robot_num] << " " << predict_efficiency[robot_num + 1] << endl;
 		}
@@ -241,10 +241,8 @@ namespace my_alg {
 
 		get_left_num();
 
-		//thread t1(all_boat_control), t2(all_robot_control);
-		//t2.join(); t1.join(); 
-		all_boat_control();
-		all_robot_control();
+		thread t1(all_boat_control), t2(all_robot_control);
+		t2.join(); t1.join(); 
 		for (int i = 0; i < boat_option.size(); i++)
 		{
 			cout << boat_option[i] << endl;
