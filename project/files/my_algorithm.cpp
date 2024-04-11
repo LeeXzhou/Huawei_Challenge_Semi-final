@@ -179,8 +179,6 @@ namespace my_alg {
 				}
 				y_guess = y_next;
 			}
-
-			std::cerr << "未能收敛到指定精度" << std::endl;
 			return y_guess;
 			};
 		return solve_ln_equation();
@@ -246,7 +244,7 @@ namespace my_alg {
 		for (int i = 0; i < boat_option.size(); i++)
 		{
 			cout << boat_option[i] << endl;
-			//cerr << boat_option[i] << ' ';
+			//cerr << boat_option[i] << ' ' << frame_id << "\n";
 		}
 		for (int i = 0; i < robot_option.size(); i++)
 		{

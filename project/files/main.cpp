@@ -66,11 +66,17 @@ void Init()
 	}*/
 	for (int i = 0; i < berth_num; i++)
 	{
-		int tmp = 300000;
-		for (int j = 0; j < delivery_point.size(); j++)
+		int tmp = 300000, mi = -1;
+		for (int j = 0; j < delivery_num; j++)
 		{
-			tmp = min(delivery_dis[berth[i].x][berth[i].y][j], tmp);
+			if (delivery_dis[berth[i].x][berth[i].y][j] < tmp) {
+				tmp = delivery_dis[berth[i].x][berth[i].y][j];
+				mi = j;
+			}
 		}
+		berth[i].nearest_delivery = tmp;
+		berth[i].nearest_delivery_point = mi;
+		//berth[i].end_time -= tmp + 10;
 		if (tmp > 0)
 		{
 			max_dis = max(max_dis, tmp);
@@ -175,6 +181,9 @@ int main()
 				cerr << all_num << " " << frame_id << endl;
 			}
 		}*/
+	}
+	for (int i = 0; i < berth_num; i++) {
+		cerr << berth[i].num << '\n';
 	}
 	return 0;
 }
