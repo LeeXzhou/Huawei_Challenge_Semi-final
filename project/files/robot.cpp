@@ -345,7 +345,8 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 		{
 
 			if (move_num == j)continue;
-			if (dx_dy[ran_i] + make_pair(robot[move_num].x, robot[move_num].y) == make_pair(robot[j].x, robot[j].y))
+			MyPair next_pos = dx_dy[ran_i] + make_pair(robot[move_num].x, robot[move_num].y);
+			if (next_pos == make_pair(robot[j].x, robot[j].y) && (grid[next_pos.first][next_pos.second] == 'C' || grid[next_pos.first][next_pos.second] == '.'))
 			{
 				robot_clash = true; break;
 			}
@@ -375,7 +376,7 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 				robot[u_id].x += dx_dy[u_op].first;
 				robot[u_id].y += dx_dy[u_op].second;
 				robot[u_id].move_or_not = true;				
-				if (robot[u_id].goods_num == 0)	//重新规划路线
+				if (robot[u_id].goods_num == 0)	//重新规划路线寻货物
 				{
 					total_accumulate_value[frame_id] -= robot[u_id].accumulate_value;
 					robot[u_id].eps_value = 0;
@@ -383,13 +384,13 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 
 					robot[u_id].find_goods();
 				}
-				else
+				else	//重新规划路线寻泊位，所以需要把之前积累的货物价值清空开始重新计算，epsilon也需要重新算
 				{
 					total_accumulate_value[frame_id] -= accumulate_value;
 					robot[u_id].eps_value = 0;
 					robot[u_id].accumulate_value = 0;
 					int aim_berth_tmp=robot[u_id].find_berth();
-					if(land_dis[x][y][aim_berth_tmp])robot[u_id].eps_value = 1.0 * carry_value / land_dis[x][y][aim_berth_tmp];
+					if(land_dis[x][y][aim_berth_tmp])robot[u_id].eps_value = 1.0 * carry_value / land_dis[x][y][aim_berth_tmp];		//防止0
 
 				}
 			}

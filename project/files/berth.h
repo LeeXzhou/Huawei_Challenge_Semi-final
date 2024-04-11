@@ -15,7 +15,7 @@ public:
 	queue<int>goods_queue;
 	Berth() { };
 	Berth(int x, int y, int loading_speed);
-	MyTuple find_goods_from_berth();
+	MyTuple find_goods_from_berth();	//返回目标点x，y以及时间（到达货物+货物到最近泊位）
 	set<MyTuple> goods_info;	//存储该泊位到每个货物的时间，货物x，y坐标，默认time从小到大
 };
 

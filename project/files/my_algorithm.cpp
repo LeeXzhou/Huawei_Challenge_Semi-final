@@ -261,7 +261,7 @@ namespace my_alg {
 				return;
 			}
 			vector<double>robot_num_tmp;
-			vector<double>robot_efficiency_tmp;
+			vector<double>robot_efficiency_tmp;	
 			robot_num_tmp.push_back(0.0);
 			robot_efficiency_tmp.push_back(0.0);
 			
