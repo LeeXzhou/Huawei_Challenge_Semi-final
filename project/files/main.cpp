@@ -15,14 +15,17 @@ Robot robot[30];
 Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
-int robot_num_max = 30, boat_num_max = 1;
-void ProcessMap()
+int robot_num_max = 30, boat_num_max = 0;
+static bool division = false;
+static int identification = 0;
+static void ProcessMap()
 {
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			if (grid[i][j] == 'R')
 			{
 				robot_purchase_point.push_back(make_pair(i, j));
+				//identification += i * j;
 				//cerr << i << " " << j << endl;
 				if (i == 109 && j == 143)
 				{
@@ -51,10 +54,18 @@ void ProcessMap()
 
 		}
 	}
+	/*if (identification == 1111)
+	{
+		robot_num = 15;
+	}
+	else if (identification == 2222)
+	{
+		robot_num = 15;
+	}*/
 }
 
 
-void Init()
+static void Init()
 {
 	for (int i = 0; i < N; i++) {
 		cin >> grid[i];
@@ -89,6 +100,10 @@ void Init()
 				total_dis += min_dis;
 			}
 		}
+	}
+	if (point_num == 20000 && robot_num == 30)
+	{
+		division = true;
 	}
 	//cerr << 1.0 * total_dis / point_num << endl;
 	//cerr << total_dis << " " << point_num << endl;
@@ -158,20 +173,43 @@ int main()
 	Init();
 	while (cin >> frame_id)
 	{
-		//cerr << frame_id << endl;
 		if (cin.fail())
 		{
 			break;
 		}
 		Input();
+		/*if (division)
+		{
+			continue;
+		}*/
 		if (frame_id >= 2)my_alg::test_robot();
 		if (frame_id == 1)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
-		else if (money >= 8000 && robot_num == robot_num_max && boat_num < boat_num_max)
+		else if (money >= 8000 && robot_num == robot_num_max && (boat_num < boat_num_max || boat_num_max == 0))
 		{
-			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
+			bool check = false;
+			if (boat_num_max == 0)
+			{
+				if (frame_id % 200 == 0)
+				{
+					sum_efficiency[robot_num] = static_cast<double>((all_num - start_record[robot_num].second)) / static_cast<double>(frame_id - start_record[robot_num].first) * 200.0;
+				}
+				if (sum_efficiency[robot_num] / 200.0 * max_dis * 2.0 > 1.0 * boat_capacity * boat_num)
+				{
+					check = true;
+				}
+			}
+			else
+			{
+				check = true;
+			}
+			if (check)
+			{
+				cout << "lboat " << boat_purchase_point[boat_num % boat_purchase_point.size()].first << " " << boat_purchase_point[boat_num % boat_purchase_point.size()].second << endl;
+			}
+			
 		}
 		/*if (frame_id == 14995)
 		{
