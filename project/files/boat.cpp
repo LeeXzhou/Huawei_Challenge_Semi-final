@@ -353,7 +353,7 @@ void Boat::find_road2() {	//启发式搜索，降低复杂度
 }
 #else 
 void Boat::find_road2() {	//启发式搜索，降低复杂度
-	cerr << "in\n";
+	//cerr << "in\n";
 	if (x == target_x && y == target_y) {
 		return;
 	}
@@ -377,7 +377,7 @@ void Boat::find_road2() {	//启发式搜索，降低复杂度
 				nxt[tmp.x][tmp.y][tmp.status] = now;
 				now = tmp;
 			}
-			cerr << "out\n";
+			//cerr << "out\n";
 			return;
 		}
 		if (vis[tp.x][tp.y][tp.dir]) continue;

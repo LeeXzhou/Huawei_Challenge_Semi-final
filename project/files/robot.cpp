@@ -65,6 +65,26 @@ void Robot::robot_control()
 				return;
 			}
 		}
+		for (int i = 0; i < robot_purchase_point.size(); i++)
+		{
+			if (x == robot_purchase_point[i].first && y == robot_purchase_point[i].second)
+			{
+				MyPair target = find_goods_from_purchase(i);
+				target_x = -1; target_y = -1;
+				if (target.first == -1)
+				{
+					no_goods = true;	//标记地图暂时没货物，让它停留在交货点
+				}
+				else
+				{
+					target_x = target.first, target_y = target.second;
+					goods_map[target_x][target_y].first = -goods_map[target_x][target_y].first;
+					find_road(land_dis[target_x][target_y][i + berth_num]);
+					no_goods = false;	//地图上有货物
+				}
+				return;
+			}
+		}
 		find_goods();
 	}
 	if (target_x == x && target_y == y)
@@ -202,7 +222,7 @@ void Robot::find_berth() //找最近泊位
 		//	mx = max(mx, delivery_dis[berth[i].x][berth[i].y][j]);
 		//	mi = min(mx, delivery_dis[berth[i].x][berth[i].y][j]);
 		//}
-		
+
 		if (frame_id + land_dis[x][y][i] > berth[i].end_time) continue;
 		if (land_dis[x][y][i] > 0 && land_dis[x][y][i] < min_dis)
 		{
@@ -370,7 +390,7 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 
 				robot[u_id].x += dx_dy[u_op].first;
 				robot[u_id].y += dx_dy[u_op].second;
-				robot[u_id].move_or_not = true;				
+				robot[u_id].move_or_not = true;
 				if (robot[u_id].goods_num == 0)	//重新规划路线
 				{
 					robot[u_id].find_goods();
@@ -404,7 +424,34 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 	robot[move_num].move_or_not = false;
 	return false;
 }
-
+MyPair Robot::find_goods_from_purchase(int cur_pos)
+{
+	priority_queue<Plan> q;
+	for (auto cur = lbot_goods_info[cur_pos].begin(); cur != lbot_goods_info[cur_pos].end();)
+	{
+		if (cur->status <= frame_id)
+		{
+			cur = lbot_goods_info[cur_pos].erase(cur);
+		}
+		else
+		{
+			if (goods_map[cur->x][cur->y].first > 0)
+			{
+				q.push(Plan(goods_map[cur->x][cur->y].first, land_dis[cur->x][cur->y][berth_num + cur_pos], { cur->x,cur->y }));
+			}
+			cur++;
+		}
+	}
+	if (!q.empty())
+	{
+		MyPair ret = q.top().target;
+		return ret;
+	}
+	else
+	{
+		return make_pair(-1, -1);
+	}
+}
 void Robot::get_nxt(MyPair& target)
 {
 	MyPair tmp = { 0, 0 };

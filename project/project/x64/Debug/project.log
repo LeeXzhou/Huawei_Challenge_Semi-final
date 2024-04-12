@@ -1,2 +1,22 @@
 ﻿  main.cpp
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\my_algorithm.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../files/main.cpp”)
+  
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\my_data_structure.h(3,9): warning C4068: 未知的杂注“GCC”
+  (编译源文件“../files/main.cpp”)
+  
+  my_algorithm.cpp
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\my_algorithm.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../files/my_algorithm.cpp”)
+  
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\my_data_structure.h(3,9): warning C4068: 未知的杂注“GCC”
+  (编译源文件“../files/my_algorithm.cpp”)
+  
+  robot.cpp
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\my_data_structure.h(3,9): warning C4068: 未知的杂注“GCC”
+  (编译源文件“../files/robot.cpp”)
+  
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\robot.cpp(171,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\files\robot.cpp(256,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  正在生成代码...
   project.vcxproj -> C:\Users\Lee\Desktop\GitHub\Huawei_Challenge_Semi-final\project\x64\Debug\project.exe
