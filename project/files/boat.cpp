@@ -28,16 +28,17 @@ void Boat::Boat_control()
 		}
 		else
 		{
-			int min_dis = 300000, targer_delivery = 0;
+			int min_dis = 300000, target_delivery = 0;
 			for (int i = 0; i < delivery_point.size(); i++)
 			{
 				if (delivery_dis[x][y][i] < min_dis)
 				{
-					targer_delivery = i;
+					target_delivery = i;
+					min_dis = delivery_dis[x][y][i];
 				}
 			}
-			target_x = delivery_point[targer_delivery].first;
-			target_y = delivery_point[targer_delivery].second;
+			target_x = delivery_point[target_delivery].first;
+			target_y = delivery_point[target_delivery].second;
 			aim_berth = -1;
 
 			dept_flag = true;
@@ -274,8 +275,8 @@ void Boat::find_road2() {	//Æô·¢Ê½ËÑË÷£¬½µµÍ¸´ÔÓ¶È
 		if (vis[tp.x][tp.y][tp.dir]) continue;
 		vis[tp.x][tp.y][tp.dir] = true;
 		MyTuple copy = MyTuple(tp.x, tp.y, tp.dir);
-		for(int i : operation[rand() % 6]) {
-		//for (int i = 0; i < 3; i++) {
+		//for(int i : operation[rand() % 6]) {
+		for (int i = 0; i < 3; i++) {
 			MyTuple tmp = copy;
 			if (operate(tmp, i)) {
 				int len = dis[copy.x][copy.y][copy.status] + (slow_or_not(tmp) ? 2 : 1);
@@ -460,7 +461,7 @@ void Boat::choose_berth()
 		double tmp = pow(berth[i].left_num * 1.0, 2) / pow(1.0 * berth_dis[x][y][i], 1);
 		if (tmp > max_num)
 		{
-			max_num = berth[i].left_num;
+			max_num = tmp;
 			target_berth = i;
 		}
 	}

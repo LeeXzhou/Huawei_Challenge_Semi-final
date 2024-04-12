@@ -253,7 +253,7 @@ void Robot::clash_solve()
 	for (int i = 0; i < robot_num; i++)
 	{
 		if (i == robot_id)continue;
-		if (nxt[x][y] == make_pair(robot[i].x, robot[i].y) && (grid[robot[i].x][robot[i].y] == 'C' || grid[robot[i].x][robot[i].y] == '.' || grid[robot[i].x][robot[i].y] == 'B')) { flag = false; break; }
+		if (nxt[x][y] == make_pair(robot[i].x, robot[i].y) && (grid[robot[i].x][robot[i].y] == 'C' || grid[robot[i].x][robot[i].y] == '.')) { flag = false; break; }
 	}
 
 	if (flag)//若下一步没有机器人
@@ -324,7 +324,7 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 		{
 
 			if (move_num == j)continue;
-			if (dx_dy[ran_i] + make_pair(robot[move_num].x, robot[move_num].y) == make_pair(robot[j].x, robot[j].y))
+			if (dx_dy[ran_i] + make_pair(robot[move_num].x, robot[move_num].y) == make_pair(robot[j].x, robot[j].y) && (grid[robot[j].x][robot[j].y] == 'C' || grid[robot[j].x][robot[j].y] == '.'))
 			{
 				robot_clash = true; break;
 			}

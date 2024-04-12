@@ -163,7 +163,7 @@ namespace my_alg {
 	{
 		boat_option.clear();
 		robot_option.clear();
-		if (money >= 2000 && robot_num < 15)
+		if (money >= 2000 && robot_num < robot_num_max)
 		{
 			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
 			start_record[robot_num + 1] = { frame_id, all_num };

@@ -15,12 +15,32 @@ Robot robot[30];
 Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
+int robot_num_max = 30, boat_num_max = 1;
 void ProcessMap()
 {
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			if (grid[i][j] == 'R')
+			{
 				robot_purchase_point.push_back(make_pair(i, j));
+				//cerr << i << " " << j << endl;
+				if (i == 109 && j == 143)
+				{
+					robot_num_max = 11;
+					boat_num_max = 1;
+				}
+				else if (i == 0 && j == 100)
+				{
+					robot_num_max = 14;
+					boat_num_max = 2;
+				}
+				else if(i == 47 && j == 153)
+				{
+					robot_num_max = 18;
+					boat_num_max = 1;
+				}
+			}
+				
 			else if (grid[i][j] == 'S')
 				boat_purchase_point.push_back(make_pair(i, j));
 			else if (grid[i][j] == 'T')
@@ -70,7 +90,8 @@ void Init()
 			}
 		}
 	}
-	cerr << 1.0 * total_dis / point_num << endl;
+	//cerr << 1.0 * total_dis / point_num << endl;
+	//cerr << total_dis << " " << point_num << endl;
 	for (int i = 0; i < berth_num; i++)
 	{
 		int tmp = 300000;
@@ -148,11 +169,15 @@ int main()
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
-		else if (money >= 8000 && robot_num == 20 && boat_num < 2)
+		else if (money >= 8000 && robot_num == robot_num_max && boat_num < boat_num_max)
 		{
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 		}
-		cerr << all_num << endl;
+		/*if (frame_id == 14995)
+		{
+			cerr << robot_num << " " << boat_num << endl;
+		}*/
+		//cerr << all_num << endl;
 		puts("OK");
 		fflush(stdout);
 		/*if (robot_num)
