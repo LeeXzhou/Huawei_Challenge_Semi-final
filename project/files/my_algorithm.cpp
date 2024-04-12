@@ -22,26 +22,52 @@ namespace my_alg {
 			}
 		}*/
 		queue<MyPair> q;
-		for (int i = 0; i < berth_num; i++)
+		for (int k = 0; k < berth_num + robot_purchase_point.size(); k++)
 		{
-			q.push({ berth[i].x, berth[i].y });
-			land_dis[berth[i].x][berth[i].y][i] = 0;
-			vis[berth[i].x][berth[i].y][i] = true;
-			while (!q.empty())
+			int i = (k >= berth_num ? k - berth_num : k);
+			if (k < berth_num)
 			{
-				MyPair tmp = q.front();
-				q.pop();
-				for (int j = 0; j < 4; j++)
+				q.push({ berth[i].x, berth[i].y });
+				land_dis[berth[i].x][berth[i].y][i] = 0;
+				vis[berth[i].x][berth[i].y][i] = true;
+				while (!q.empty())
 				{
-					MyPair cur = tmp + dx_dy[j];
-					if (Robot::land_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
+					MyPair tmp = q.front();
+					q.pop();
+					for (int j = 0; j < 4; j++)
 					{
-						vis[cur.first][cur.second][i] = true;
-						land_dis[cur.first][cur.second][i] = land_dis[tmp.first][tmp.second][i] + 1;
-						q.push(cur);
+						MyPair cur = tmp + dx_dy[j];
+						if (Robot::land_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][i])
+						{
+							vis[cur.first][cur.second][i] = true;
+							land_dis[cur.first][cur.second][i] = land_dis[tmp.first][tmp.second][i] + 1;
+							q.push(cur);
+						}
 					}
 				}
 			}
+			else
+			{
+				q.push({ robot_purchase_point[i].first, robot_purchase_point[i].second });
+				land_dis[robot_purchase_point[i].first][robot_purchase_point[i].second][k] = 0;
+				vis[robot_purchase_point[i].first][robot_purchase_point[i].second][k] = true;
+				while (!q.empty())
+				{
+					MyPair tmp = q.front();
+					q.pop();
+					for (int j = 0; j < 4; j++)
+					{
+						MyPair cur = tmp + dx_dy[j];
+						if (Robot::land_check_valid(cur.first, cur.second) && !vis[cur.first][cur.second][k])
+						{
+							vis[cur.first][cur.second][k] = true;
+							land_dis[cur.first][cur.second][k] = land_dis[tmp.first][tmp.second][k] + 1;
+							q.push(cur);
+						}
+					}
+				}
+			}
+			
 		}
 #if(1)
 		//priority_queue<Foursome, vector<Foursome>, greater<Foursome> >qq;
@@ -278,6 +304,17 @@ namespace my_alg {
 		{
 			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
 			start_record[robot_num + 1] = { frame_id, all_num };
+			MyPair target = Robot::find_goods_from_purchase(robot_num % robot_purchase_point.size());
+			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;
+			if (target.first != -1)
+			{
+				robot[robot_num].target_x = target.first, robot[robot_num].target_y = target.second;
+				goods_map[target.first][target.second].first = -goods_map[target.first][target.second].first;
+				robot[robot_num].find_road(land_dis[target.first][target.second][berth_num + robot_num % robot_purchase_point.size()]);
+			}
+			else {
+				robot[robot_num].no_goods = true;
+			}
 		}
 
 		get_left_num();

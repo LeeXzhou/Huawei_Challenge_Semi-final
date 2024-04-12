@@ -28,15 +28,15 @@ MyPair Berth::find_goods_from_berth()
 		{
 			if (goods_map[cur->x][cur->y].first > 0)
 			{
-				int good_to_berth_dis = 300000;
+				/*int good_to_berth_dis = 300000;
 				for (int i = 0; i < berth_num; i++)
 				{
 					if (land_dis[cur->x][cur->y][i] > 0)
 					{
 						good_to_berth_dis = min(good_to_berth_dis, land_dis[cur->x][cur->y][i]);
 					}
-				}
-				q.push(Plan(goods_map[cur->x][cur->y].first, land_dis[cur->x][cur->y][berth_id] + good_to_berth_dis, { cur->x,cur->y }));
+				}*/
+				q.push(Plan(goods_map[cur->x][cur->y].first, land_dis[cur->x][cur->y][berth_id], { cur->x,cur->y }));
 			}
 			cur++;
 		}

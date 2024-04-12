@@ -10,6 +10,7 @@ int land_dis[200][200][10], delivery_dis[200][200][5], berth_dis[200][200][10], 
 char grid[N][N];
 MyPair goods_map[N][N];
 vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
+vector<set<MyTuple>> lbot_goods_info;
 Berth berth[10];
 Robot robot[30];
 Boat boat[20];
@@ -30,17 +31,17 @@ static void ProcessMap()
 				//cerr << i << " " << j << endl;
 				if (i == 109 && j == 143)
 				{
-					robot_num_max = 11;
+					robot_num_max = 12;
 					boat_num_max = 1;
 				}
 				else if (i == 0 && j == 100)
 				{
-					robot_num_max = 14;
+					robot_num_max = 18;
 					boat_num_max = 2;
 				}
 				else if(i == 47 && j == 153)
 				{
-					robot_num_max = 18;
+					robot_num_max = 17;
 					boat_num_max = 1;
 				}
 			}
@@ -72,6 +73,7 @@ static void Init()
 		cin >> grid[i];
 	}
 	ProcessMap();
+	lbot_goods_info.resize(robot_purchase_point.size());
 	cin >> berth_num;
 	int id = -1;
 	for (int i = 0; i < berth_num; i++)
@@ -103,7 +105,7 @@ static void Init()
 			}
 		}
 	}
-	if (point_num == 20000 && robot_num == 30)
+	if (point_num >= 28000 && robot_num == 30)
 	{
 		division = true;
 	}
@@ -155,6 +157,13 @@ void Input()
 				berth[j].goods_info.insert(MyTuple(x, y, frame_id + 1000 - land_dis[x][y][j]));
 			}
 		}
+		for (int j = 0; j < robot_purchase_point.size(); j++)
+		{
+			if (land_dis[x][y][j + berth_num] != -1)
+			{
+				lbot_goods_info[j].insert(MyTuple(x, y, frame_id + 1000 - land_dis[x][y][j + berth_num]));
+			}
+		}
 		goods_map[x][y] = { val, frame_id + 1000 };
 	}
 
@@ -187,14 +196,27 @@ int main()
 			break;
 		}
 		Input();
-		/*if (division)
+		/*if (division)	//��֤��һ���պ�25000��
 		{
 			continue;
 		}*/
 		if (frame_id >= 2)my_alg::test_robot();
 		if (frame_id == 1)
 		{
+			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
+			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;
+			MyPair target = Robot::find_goods_from_purchase(0);
+			if (target.first != -1)
+			{
+				robot[robot_num].target_x = target.first, robot[robot_num].target_y = target.second;
+				goods_map[target.first][target.second].first = -goods_map[target.first][target.second].first;
+				robot[robot_num].find_road(land_dis[target.first][target.second][berth_num]);
+			}
+			else
+			{
+				robot[robot_num].no_goods = true;
+			}
 		}
 		else if (money >= 8000 && robot_num == robot_num_max && (boat_num < boat_num_max || boat_num_max == 0))
 		{

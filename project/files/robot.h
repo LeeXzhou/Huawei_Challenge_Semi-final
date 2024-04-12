@@ -24,6 +24,7 @@ public:
 	bool robot_dfs(const int& move_num, stack<MyPair>move_order);	//用来解决防碰撞
 	void robot_control();	//控制机器人
 
+	static MyPair find_goods_from_purchase(int cur_pos);
 	static bool land_check_valid(const int& x, const int& y);	//是否可移动到
 	static bool land_check_valid(const MyPair& x);
 };

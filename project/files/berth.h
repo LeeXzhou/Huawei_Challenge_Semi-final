@@ -12,13 +12,13 @@ public:
 	bool aimed = false;
 	int num = 0, berth_id = -1;
 	int left_num = 0;
-	int nearest_delivery = 0; // ×î½ü½»»õµã¾àÀë
-	int nearest_delivery_point = 0;// ×î½ü½»»õµã±àºÅ
-	int end_time = 15000; // ´òìÈÊ±¼ä
+	int nearest_delivery = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int nearest_delivery_point = 0;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int end_time = 15000; // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	Berth() { };
 	Berth(int x, int y, int loading_speed);
 	MyPair find_goods_from_berth();
-	set<MyTuple> goods_info;	//´æ´¢¸Ã²´Î»µ½Ã¿¸ö»õÎïµÄÊ±¼ä£¬»õÎïx£¬y×ø±ê£¬Ä¬ÈÏtime´ÓÐ¡µ½´ó
+	set<MyTuple> goods_info;	//ï¿½æ´¢ï¿½Ã²ï¿½Î»ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½yï¿½ï¿½ï¿½ê£¬Ä¬ï¿½ï¿½timeï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
 };
 
 const int N = 200, boat_price = 8000, robot_price = 2000;
@@ -34,7 +34,8 @@ extern MyPair goods_map[N][N];
 extern vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
 extern Berth berth[10];
 extern vector<string> boat_option, robot_option;
-extern int land_dis[200][200][10], sea_dis[200][200][10];	//Èô¸É¸ö²´Î»µ½µØÍ¼ÉÏÃ¿¸öµãµÄ¾àÀë(Â½µØ)
+extern int land_dis[200][200][10], sea_dis[200][200][10];	//ï¿½ï¿½ï¿½É¸ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½(Â½ï¿½ï¿½)
 extern int delivery_dis[200][200][5], berth_dis[200][200][10], delivery_dis_four[200][200][5][4];
 extern int robot_num_max, boat_num_max;
+extern vector<set<MyTuple>> lbot_goods_info;
 #endif // !berth_h
