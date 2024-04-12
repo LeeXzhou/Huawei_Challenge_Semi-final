@@ -69,7 +69,7 @@ namespace my_alg {
 			}
 			
 		}
-#if(1)
+#if(0)
 		//priority_queue<Foursome, vector<Foursome>, greater<Foursome> >qq;
 		queue<Foursome> qq;
 		MyTuple tuple_tmp;
