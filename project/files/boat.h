@@ -23,12 +23,12 @@ public:
 	static bool init_check_valid(int x, int y);
 	int cal_manhattan(MyTuple k);
 	//private:
-	int boat_id, x, y, dir, status, goods_num, target_berth = -1;
+	int boat_id, x, y, dir, status, goods_num;
 
 	int target_x = -1, target_y = -1;
 	bool dept_flag = false;//лч
 	int aim_berth = -1;
-	static bool boat_loc[200][200];	//mark the location of ships, any location occupied by any ship is marked true
+	int aim_delivery = -1;
 	static int projection_x[4], projection_y[4];
 	static int operation[6][3];
 	bool dept_or_not = false;

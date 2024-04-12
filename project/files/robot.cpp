@@ -23,7 +23,7 @@ Robot::Robot(int startX, int startY) {
 
 void Robot::robot_control()
 {
-	if (move_or_not)
+	if (move_or_not || end_of_robot)
 	{
 		return;
 	}
@@ -96,6 +96,7 @@ void Robot::robot_control()
 						find_road(land_dis[target_x][target_y][i]);
 						no_goods = false;	//地图上有货物
 					}
+					target_berth = -1;
 					return;
 				}
 			}
@@ -119,6 +120,14 @@ void Robot::robot_control()
 			robot_option.push_back(tmp);
 			//cout << "get " << robot_id << endl;	//拿货物
 			find_berth();	//找泊位
+		}
+	}
+	if (target_berth != -1) {
+		if (land_dis[x][y][target_berth] + frame_id + 5 > berth[target_berth].end_time) {
+			find_berth();
+			if (target_berth == -1) {
+				end_of_robot = true;
+			}
 		}
 	}
 }
@@ -184,17 +193,26 @@ void Robot::find_goods()	//只有起始地找货物，全局bfs，无剪枝效率低
 
 void Robot::find_berth() //找最近泊位
 {
-	int aim_num = 0;
+	int aim_num = -1;
 	int min_dis = 300000;
 	for (int i = 0; i < berth_num; i++)
 	{
+		//int mx = 0, mi = 300000;
+		//for (int j = 0; j < delivery_num; j++) {
+		//	mx = max(mx, delivery_dis[berth[i].x][berth[i].y][j]);
+		//	mi = min(mx, delivery_dis[berth[i].x][berth[i].y][j]);
+		//}
+		
+		if (frame_id + land_dis[x][y][i] > berth[i].end_time) continue;
 		if (land_dis[x][y][i] > 0 && land_dis[x][y][i] < min_dis)
 		{
 			aim_num = i;
 			min_dis = land_dis[x][y][i];
 		}
 	}
-	if (aim_num == -1)aim_num = 0;
+	/*if (aim_num == -1)aim_num = 0;*/
+	target_berth = aim_num;
+	if (aim_num == -1) return;
 	target_x = berth[aim_num].x;
 	target_y = berth[aim_num].y;
 	//int min_dis = land_dis[x][y][0];

@@ -1,5 +1,6 @@
 #ifndef my_data_structure_h
 #define my_data_structure_h
+#pragma GCC optimize(2)
 #include <utility>
 #include <iostream>
 #include <memory>
@@ -15,7 +16,7 @@
 #include<unordered_map>
 using namespace std;
 using MyPair = std::pair<int, int>;
-
+extern const int tg;	
 enum direction {
 	north = 2,
 	south = 3,
@@ -44,6 +45,7 @@ struct Foursome {
 	int x, y, dir, flag;
 	MyTuple get_tuple();
 	Foursome(int a=-1, int b=-1, int c=-1, int d=-1);
+	bool operator > (const Foursome& tmp) const;
 };
 struct Plan {
 	int value = 0, time = 0;

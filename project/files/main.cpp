@@ -15,7 +15,7 @@ Robot robot[30];
 Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
-int robot_num_max = 30, boat_num_max = 1;
+const int tg = 1; // 1 is from lizhou, 0 is from lsh
 void ProcessMap()
 {
 	for (int i = 0; i < N; i++) {
@@ -69,6 +69,7 @@ void Init()
 		cin >> berth[id].x >> berth[id].y >> berth[id].loading_speed;
 	}
 	cin >> boat_capacity;
+
 	my_alg::init_dis();
 	int min_dis = 0, point_num = 0, total_dis = 0;
 	for (int i = 0; i < 200; i++)
@@ -94,11 +95,17 @@ void Init()
 	//cerr << total_dis << " " << point_num << endl;
 	for (int i = 0; i < berth_num; i++)
 	{
-		int tmp = 300000;
-		for (int j = 0; j < delivery_point.size(); j++)
+		int tmp = 300000, mi = -1;
+		for (int j = 0; j < delivery_num; j++)
 		{
-			tmp = min(delivery_dis[berth[i].x][berth[i].y][j], tmp);
+			if (delivery_dis[berth[i].x][berth[i].y][j] < tmp) {
+				tmp = delivery_dis[berth[i].x][berth[i].y][j];
+				mi = j;
+			}
 		}
+		berth[i].nearest_delivery = tmp;
+		berth[i].nearest_delivery_point = mi;
+		//berth[i].end_time -= tmp + 10;
 		if (tmp > 0)
 		{
 			max_dis = max(max_dis, tmp);
@@ -107,7 +114,8 @@ void Init()
 	//cerr << max_dis << endl;
 	for (int i = 0; i < 30; i++)
 	{
-		predict_efficiency[i] = -1;
+		if(tg != 0)
+			predict_efficiency[i] = -1;
 		sum_efficiency[i] = -1;
 	}
 	char okk[100];
@@ -177,7 +185,13 @@ int main()
 		{
 			cerr << robot_num << " " << boat_num << endl;
 		}*/
-		//cerr << all_num << endl;
+		// if (frame_id == 15000)
+		// {
+		// 	cerr << boat_num << " " << robot_num << endl;
+		// 	for (int i = 0; i < berth_num; i++) {
+		// 		cerr << berth[i].num << '\n';
+		// 	}
+		// }
 		puts("OK");
 		fflush(stdout);
 		/*if (robot_num)

@@ -4,7 +4,7 @@
 #include "robot.h"
 using namespace std;
 namespace my_alg {
-	void init_dis(); // Çó³öÃ¿¸öµãµ½10¸ö¸Û¿ÚµÄ×î¶Ì¾àÀë
+	void init_dis(); // ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ãµ½10ï¿½ï¿½ï¿½Û¿Úµï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½
 	void test_robot();
 	void get_left_num();
 }

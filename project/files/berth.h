@@ -12,6 +12,9 @@ public:
 	bool aimed = false;
 	int num = 0, berth_id = -1;
 	int left_num = 0;
+	int nearest_delivery = 0; // 最近交货点距离
+	int nearest_delivery_point = 0;// 最近交货点编号
+	int end_time = 15000; // 打烊时间
 	Berth() { };
 	Berth(int x, int y, int loading_speed);
 	MyPair find_goods_from_berth();

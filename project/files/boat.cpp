@@ -1,29 +1,25 @@
 #include "boat.h"
 using namespace std;
 
-bool Boat::boat_loc[200][200] = { false }; // all the origin loc is false
 int Boat::operation[6][3] = { {0, 1, 2}, {0, 2, 1}, {1, 2, 0}, {1, 0, 2}, {2, 0, 1}, {2, 1, 0} };
 // Before create one boat, check if it's valid
 Boat::Boat(int id, int X, int Y, direction Dir, int Status, int Num_goods) :
 	boat_id(boat_num), x(X), y(Y), dir(Dir), status(Status), goods_num(Num_goods)
 {
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 3; j++) {
-			boat_loc[i][j] = true;
-		}
-	}
+
 }
 
 void Boat::Boat_control()
 {
+	// æ¢å¤çŠ¶æ€
 	if (status == 1)return;
-	if (status == 2)
+	if (status == 2) // è£…è½½çŠ¶æ€
 	{
-		if (berth[target_berth].num > 0 && goods_num < boat_capacity)
+		if (berth[aim_berth].num > 0 && goods_num < boat_capacity && berth[aim_berth].nearest_delivery + frame_id + 10 < 15000)
 		{
-			int add = min(berth[target_berth].loading_speed, min(boat_capacity - goods_num, berth[target_berth].num));
+			int add = min(berth[aim_berth].loading_speed, min(boat_capacity - goods_num, berth[aim_berth].num));
 			goods_num += add;
-			berth[target_berth].num -= add;
+			berth[aim_berth].num -= add;
 			//all_num -= add;
 		}
 		else
@@ -40,31 +36,38 @@ void Boat::Boat_control()
 			target_x = delivery_point[target_delivery].first;
 			target_y = delivery_point[target_delivery].second;
 			aim_berth = -1;
+			aim_delivery = target_delivery;
 
 			dept_flag = true;
+			
 			string tmp = "dept " + to_string(boat_id);
 			boat_option.push_back(tmp);
-			//cout << "dept " << boat_id << endl;
+			//cerr << "dept " << boat_id << endl;
 		}
 		return;
 	}
+
+	// è¡Œé©¶çŠ¶æ€
+	
 	if (target_x == -1)
 	{
+		// æœ€åˆå§‹çŠ¶æ€
 		choose_berth();
 		find_road2();
+		return;
 	}
-	else
-	{
+		// åˆ°è¾¾æŒ‡å®šåœ°ç‚¹
 		if (target_x == x && target_y == y)
 		{
-			if (x == berth[target_berth].x && y == berth[target_berth].y)
+			if (x == berth[aim_berth].x && y == berth[aim_berth].y)
 			{
+				// åˆ°äº†æ¸¯å£
 				string tmp = "berth " + to_string(boat_id);
 				boat_option.push_back(tmp);
-				//cout << "berth " << boat_id << endl;;
 			}
 			else
 			{
+				// åˆ°äº†äº¤è´§ç‚¹
 				choose_berth();
 				find_road2();
 			}
@@ -73,7 +76,7 @@ void Boat::Boat_control()
 		if (dept_flag == true)
 		{
 			int min_dis = 300000, target_delivery = 0;
-			for (int i = 0; i < delivery_point.size(); i++)
+			for (int i = 0; i < delivery_num; i++)
 			{
 				if (delivery_dis[x][y][i] < min_dis)
 				{
@@ -81,7 +84,7 @@ void Boat::Boat_control()
 					target_delivery = i;
 				}
 			}
-			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 20)	//½â¾öÎ²É±
+			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 10)	//è§£å†³å°¾æ€
 			{
 				choose_berth();
 			}
@@ -89,26 +92,46 @@ void Boat::Boat_control()
 			{
 				target_x = delivery_point[target_delivery].first;
 				target_y = delivery_point[target_delivery].second;
+				aim_delivery = target_delivery;
+				aim_berth = -1;
 			}
 			find_road2();
 			dept_flag = false;
 			return;
 		}
+		if (aim_berth != -1 && goods_num > 0) {
+			int mi = 300000, tmp = -1;
+			for (int i = 0; i < delivery_num; i++)
+			{
+				if (mi > delivery_dis[x][y][i]) {
+					mi = delivery_dis[x][y][i];
+					tmp = i;
+				}
+			}
+			//cerr << aim_berth << " " << (delivery_dis[x][y][tmp] < 5 && goods_num > 20) << endl;
+			if (mi + frame_id + 20 > 15000 || (delivery_dis[x][y][tmp] < 5 && goods_num > 10))
+			{
+				target_x = delivery_point[tmp].first;
+				target_y = delivery_point[tmp].second;
 
-
+				aim_berth = -1;
+				aim_delivery = tmp;
+				find_road2();
+				return;
+			}
+		}
 		for (int j = 0; j <= 2; j++)
 		{
 			MyTuple tmp = MyTuple(x, y, dir);
 			if (operate(tmp, j)) {
 				if (tmp == nxt[x][y][dir]) {
 					clash_solve(j, tmp);
-					// never use it!!
-					//choose_berth();
-					//find_road2();
+					
+					//cerr << aim_berth << endl;
+
 				}
 			}
 		}
-	}
 }
 // repeat this function check before and after move, which can be improved
 bool Boat::slow_or_not(const MyPair& t) {
@@ -137,8 +160,8 @@ bool Boat::slow_or_not(const MyTuple& t) {
 bool Boat::sea_check_valid(int x, int y) {//yes if valid
 	if (!check_boundary(x, y)) return false;
 	char tmp = grid[x][y];
-	if (boat_loc[x][y]) // there is a ship
-		return tmp == '~' || tmp == 'S' || tmp == 'c' || tmp == 'B' || tmp == 'K' || tmp == 'T';
+	//if (boat_loc[x][y]) // there is a ship
+	//	return tmp == '~' || tmp == 'S' || tmp == 'c' || tmp == 'B' || tmp == 'K' || tmp == 'T';
 	return tmp == '*' || tmp == '~' || tmp == 'S' || tmp == 'c' || tmp == 'B' || tmp == 'K' || tmp == 'T' || tmp == 'C';
 }
 
@@ -159,7 +182,7 @@ void Boat::find_road()
 	memset(pre, 0, sizeof(pre)); memset(nxt, 0, sizeof(nxt)); memset(visited, false, sizeof(visited));
 
 	queue<Foursome>q;
-	if (slow_or_not(MyTuple(x, y, dir)))//Èç¹û³õÊ¼µã°üº¬Ö÷º½µÀ
+	if (slow_or_not(MyTuple(x, y, dir)))//å¦‚æœåˆå§‹ç‚¹åŒ…å«ä¸»èˆªé“
 	{
 		q.push(Foursome(x, y, dir, 0));
 	}
@@ -178,7 +201,7 @@ void Boat::find_road()
 		int q_size = q.size();
 		for (int i = 1; i <= q_size; i++)
 		{
-			if (frame_id >= 70 && frame_id <= 120)cerr << step << endl;
+			//if (frame_id >= 70 && frame_id <= 120)cerr << step << endl;
 			//cerr << step << '\n';
 			Foursome u = q.front();
 
@@ -223,7 +246,7 @@ void Boat::find_road()
 						//cerr << "aaaaa" << endl;
 						//cerr << tmp.x << ' ' << tmp.y << ' ' << tmp.status << endl;
 
-						if (slow_or_not(tmp))//Èç¹ûÏÂÒ»²½¼õËÙÁË£¬ÔòÍÆÈë0
+						if (slow_or_not(tmp))//å¦‚æœä¸‹ä¸€æ­¥å‡é€Ÿäº†ï¼Œåˆ™æ¨å…¥0
 						{
 							//if (frame_id >= 70 && frame_id <= 120&& tmp.y == 193) cerr << tmp.x << " " << tmp.y << " " << endl;
 							//visited[tmp.x][tmp.y][tmp.status] = 1;
@@ -245,8 +268,92 @@ void Boat::find_road()
 	//cerr << "out" << endl;
 }
 
-
-void Boat::find_road2() {	//Æô·¢Ê½ËÑË÷£¬½µµÍ¸´ÔÓ¶È
+#if(0)
+void Boat::find_road2() {	//å¯å‘å¼æœç´¢ï¼Œé™ä½å¤æ‚åº¦
+	cerr << "in\n";
+	if (x == target_x && y == target_y) {
+		return;
+	}
+	// def of dis, vis
+	bool vis[200][200][4] = { false };
+	int dis[200][200][4];
+	memset(dis, 0x3f, sizeof dis);
+	priority_queue<BoatRout> q;
+	MyTuple begin = MyTuple(x, y, dir);
+	dis[begin.x][begin.y][begin.status] = 0;
+	BoatRout st;
+	if (aim_berth != -1) {
+		st = BoatRout(x, y, dir, 0, berth_dis[x][y][aim_berth]);
+		q.push(st);
+		while (q.size()) {
+			BoatRout tp = q.top(); q.pop();
+			if (tp.x == target_x && tp.y == target_y) {
+				MyTuple now = MyTuple(tp.x, tp.y, tp.dir), tmp = MyTuple(0, 0, 0);
+				while (tmp.x != x || tmp.y != y || tmp.status != dir)
+				{
+					tmp = pre[now.x][now.y][now.status];
+					//if(frame_id>=70&&frame_id<=120)cerr << tmp.x << " " << tmp.y <<' '<<tmp.status << endl;
+					nxt[tmp.x][tmp.y][tmp.status] = now;
+					now = tmp;
+				}
+				return;
+			}
+			if (vis[tp.x][tp.y][tp.dir]) continue;
+			vis[tp.x][tp.y][tp.dir] = true;
+			MyTuple copy = MyTuple(tp.x, tp.y, tp.dir);
+			//for (int i : operation[rand() % 6]) {
+			for (int i = 0; i < 3; i++) {
+				MyTuple tmp = copy;
+				if (operate(tmp, i)) {
+					int len = dis[copy.x][copy.y][copy.status] + (slow_or_not(tmp) ? 2 : 1);
+					if (dis[tmp.x][tmp.y][tmp.status] > len) {
+						dis[tmp.x][tmp.y][tmp.status] = len;
+						pre[tmp.x][tmp.y][tmp.status] = MyTuple(tp.x, tp.y, tp.dir);
+						BoatRout nw = BoatRout(tmp.x, tmp.y, tmp.status, len, berth_dis[tmp.x][tmp.y][aim_berth]);
+						q.push(nw);
+					}
+				}
+			}
+		}
+	}
+	else {
+		st = BoatRout(x, y, dir, 0, delivery_dis[x][y][aim_delivery]);
+		q.push(st);
+		while (q.size()) {
+			BoatRout tp = q.top(); q.pop();
+			if (tp.x == target_x && tp.y == target_y) {
+				MyTuple now = MyTuple(tp.x, tp.y, tp.dir), tmp = MyTuple(0, 0, 0);
+				while (tmp.x != x || tmp.y != y || tmp.status != dir)
+				{
+					tmp = pre[now.x][now.y][now.status];
+					nxt[tmp.x][tmp.y][tmp.status] = now;
+					now = tmp;
+				}
+				cerr << "out\n";
+				return;
+			}
+			if (vis[tp.x][tp.y][tp.dir]) continue;
+			vis[tp.x][tp.y][tp.dir] = true;
+			MyTuple copy = MyTuple(tp.x, tp.y, tp.dir);
+			//for (int i : operation[rand() % 6]) {
+			for (int i = 0; i < 3; i++) {
+				MyTuple tmp = copy;
+				if (operate(tmp, i)) {
+					int len = dis[copy.x][copy.y][copy.status] + (slow_or_not(tmp) ? 2 : 1);
+					if (dis[tmp.x][tmp.y][tmp.status] > len) {
+						dis[tmp.x][tmp.y][tmp.status] = len;
+						pre[tmp.x][tmp.y][tmp.status] = MyTuple(tp.x, tp.y, tp.dir);
+						BoatRout nw = BoatRout(tmp.x, tmp.y, tmp.status, len, delivery_dis[tmp.x][tmp.y][aim_delivery]);
+						q.push(nw);
+					}
+				}
+			}
+		}
+	}
+}
+#else 
+void Boat::find_road2() {	//å¯å‘å¼æœç´¢ï¼Œé™ä½å¤æ‚åº¦
+	cerr << "in\n";
 	if (x == target_x && y == target_y) {
 		return;
 	}
@@ -270,6 +377,7 @@ void Boat::find_road2() {	//Æô·¢Ê½ËÑË÷£¬½µµÍ¸´ÔÓ¶È
 				nxt[tmp.x][tmp.y][tmp.status] = now;
 				now = tmp;
 			}
+			cerr << "out\n";
 			return;
 		}
 		if (vis[tp.x][tp.y][tp.dir]) continue;
@@ -290,6 +398,7 @@ void Boat::find_road2() {	//Æô·¢Ê½ËÑË÷£¬½µµÍ¸´ÔÓ¶È
 		}
 	}
 }
+#endif
 
 bool Boat::two_boat_clash(MyTuple a, MyTuple b)
 {
@@ -391,19 +500,17 @@ void Boat::clash_solve(int op , MyTuple boat_a)
 	if (op <= 1) {
 		string tmp = "rot " + to_string(boat_id) + " " + to_string(op);
 		boat_option.push_back(tmp);
-		//cout << "rot " << boat_id << " " << j << endl;
 
 	}
 	else {
 		string tmp = "ship " + to_string(boat_id);
 		boat_option.push_back(tmp);
-		//cout << "ship " << boat_id << endl;
 	}
 
 }
 
 
-bool Boat::operate(MyTuple& t, int op) {	//¸ø¶¨t×´Ì¬£¬×ö³öop²Ù×÷Ö®ºóµÄ×´Ì¬£¬ÒıÓÃ´«µİ£¬ËùÒÔtÖ±½Ó¸Ä±ä
+bool Boat::operate(MyTuple& t, int op) {	//ç»™å®štçŠ¶æ€ï¼Œåšå‡ºopæ“ä½œä¹‹åçš„çŠ¶æ€ï¼Œå¼•ç”¨ä¼ é€’ï¼Œæ‰€ä»¥tç›´æ¥æ”¹å˜
 	MyTuple tmp;
 	if (op == 2) {
 		tmp = MyTuple(t.x + fx[t.status], t.y + fy[t.status], t.status);
@@ -414,16 +521,13 @@ bool Boat::operate(MyTuple& t, int op) {	//¸ø¶¨t×´Ì¬£¬×ö³öop²Ù×÷Ö®ºóµÄ×´Ì¬£¬ÒıÓÃ
 	else {
 		tmp = MyTuple(t.x + rot_1x[t.status], t.y + rot_1y[t.status], rot_1dir[t.status]);
 	}
-	//if(frame_id<3)cerr << tmp.x << ' ' << tmp.y << ' ' << tmp.status << endl;
 	if (check_valid(tmp))
 	{
 		t = tmp;
-		//if (frame_id < 3)cerr << "TURE" << endl;
 		return true;
 	}
 	else
 	{
-		//if (frame_id < 3)cerr << "FALSE" << endl;
 		return false;
 	}
 }
@@ -446,8 +550,8 @@ bool Boat::check_valid(const MyTuple& t) {
 void Boat::choose_berth()
 {
 	double max_num = .0;
-	target_berth = 0;
-	for (int i = 0; i < berth_num; i++)	//ÌôÑ¡»õÎï×î¶àµÄ²´Î»
+	int target_berth = 0;
+	for (int i = 0; i < berth_num; i++)	//æŒ‘é€‰è´§ç‰©æœ€å¤šçš„æ³Šä½
 	{
 		if (berth_dis[x][y][i] == 0) {
 			if (berth[i].left_num != 0) {
@@ -468,19 +572,22 @@ void Boat::choose_berth()
 	target_x = berth[target_berth].x;
 	target_y = berth[target_berth].y;
 	aim_berth = target_berth;
+	aim_delivery = -1;
 	if (goods_num == boat_capacity)
 	{
-		int min_dis = 300000, targer_delivery = 0;
-		for (int i = 0; i < delivery_point.size(); i++)
+		int min_dis = 300000, target_delivery = 0;
+		for (int i = 0; i < delivery_num; i++)
 		{
 			if (delivery_dis[x][y][i] < min_dis)
 			{
-				targer_delivery = i;
+				target_delivery = i;
+				min_dis = delivery_dis[x][y][i];
 			}
 		}
-		target_x = delivery_point[targer_delivery].first;
-		target_y = delivery_point[targer_delivery].second;
+		target_x = delivery_point[target_delivery].first;
+		target_y = delivery_point[target_delivery].second;
 		aim_berth = -1;
+		aim_delivery = target_delivery;
 	}
 }
 
