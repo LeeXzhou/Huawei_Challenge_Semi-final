@@ -23,7 +23,7 @@ Robot::Robot(int startX, int startY) {
 
 void Robot::robot_control()
 {
-	if (move_or_not)
+	if (move_or_not || end_of_robot)
 	{
 		return;
 	}
@@ -123,8 +123,11 @@ void Robot::robot_control()
 		}
 	}
 	if (target_berth != -1) {
-		if (land_dis[x][y][target_berth] + berth[target_berth].end_time > 15000) {
+		if (land_dis[x][y][target_berth] + frame_id + 5 > berth[target_berth].end_time) {
 			find_berth();
+			if (target_berth == -1) {
+				end_of_robot = true;
+			}
 		}
 	}
 }
@@ -207,8 +210,9 @@ void Robot::find_berth() //ÕÒ×î½ü²´Î»
 			min_dis = land_dis[x][y][i];
 		}
 	}
-	if (aim_num == -1)aim_num = 0;
+	/*if (aim_num == -1)aim_num = 0;*/
 	target_berth = aim_num;
+	if (aim_num == -1) return;
 	target_x = berth[aim_num].x;
 	target_y = berth[aim_num].y;
 	//int min_dis = land_dis[x][y][0];

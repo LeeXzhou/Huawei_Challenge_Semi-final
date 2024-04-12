@@ -12,6 +12,7 @@ public:
 	MyPair pre[200][200], nxt[200][200];
 	bool visited[200][200] = { false };
 	bool move_or_not = false, no_goods = false;	//是否移动，true为这帧移动过了，地图上是否还有货物，true为没有货物
+	bool end_of_robot = false;
 	int target_berth = -1;
 	Robot() { };
 	Robot(int startX, int startY);

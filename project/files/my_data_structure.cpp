@@ -68,6 +68,11 @@ MyTuple Foursome::get_tuple()
 {
     return MyTuple(x, y, dir);
 }
+
+bool Foursome::operator > (const Foursome& tmp) const {
+    return flag > tmp.flag;
+}
+
 Plan::Plan(int v, int t, MyPair g)
 {
     value = v, time = t, target = g;

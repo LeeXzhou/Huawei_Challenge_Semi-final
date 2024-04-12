@@ -37,7 +37,6 @@ void ProcessMap()
 
 void Init()
 {
-	srand(0);
 	for (int i = 0; i < N; i++) {
 		cin >> grid[i];
 	}
@@ -171,6 +170,9 @@ int main()
 		if (frame_id == 15000)
 		{
 			cerr << boat_num << " " << robot_num << endl;
+			for (int i = 0; i < berth_num; i++) {
+				cerr << berth[i].num << '\n';
+			}
 		}
 		puts("OK");
 		fflush(stdout);
@@ -181,9 +183,6 @@ int main()
 				cerr << all_num << " " << frame_id << endl;
 			}
 		}*/
-	}
-	for (int i = 0; i < berth_num; i++) {
-		cerr << berth[i].num << '\n';
 	}
 	return 0;
 }
