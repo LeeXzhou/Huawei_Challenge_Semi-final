@@ -17,7 +17,7 @@ Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
 const int tg = 1; // 1 is from lizhou, 0 is from lsh
-int robot_num_max = 15, boat_num_max = 2;
+int robot_num_max = 0, boat_num_max = 0;
 static bool division = false;
 static int identification = 0;
 static void ProcessMap()
@@ -29,21 +29,20 @@ static void ProcessMap()
 				robot_purchase_point.push_back(make_pair(i, j));
 				//identification += i * j;
 				//cerr << i << " " << j << endl;
-				//if (i == 109 && j == 143)
-				//{
-				//	robot_num_max = 12;
-				//	boat_num_max = 1;
-				//}
-				//else if (i == 0 && j == 100)
-				//{
-				//	robot_num_max = 18;
-				//	boat_num_max = 2;
-				//}
-				//else if(i == 47 && j == 153)
-				//{
-				//	robot_num_max = 17;
-				//	boat_num_max = 1;
-				//}
+				if (i == 101 && j == 38)
+				{
+					robot_num_max = 13;
+					boat_num_max = 2;
+				}
+				else if (i == 146 && j == 46)
+				{
+					robot_num_max = 13;
+					boat_num_max = 1;
+				}
+				else if(robot_num_max == 0){
+					robot_num_max = 13;
+					boat_num_max = 1;
+				}
 			}
 				
 			else if (grid[i][j] == 'S')
