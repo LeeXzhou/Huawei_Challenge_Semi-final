@@ -6,7 +6,7 @@ vector<string> boat_option, robot_option;
 int frame_id;
 int money, boat_capacity, all_num;
 int max_dis;
-int land_dis[200][200][15], delivery_dis[200][200][5], berth_dis[200][200][10];
+int land_dis[200][200][15], delivery_dis[200][200][5], berth_dis[200][200][10], delivery_dis_four[200][200][5][4];
 char grid[N][N];
 MyPair goods_map[N][N];
 vector<MyPair> robot_purchase_point, boat_purchase_point, delivery_point;
@@ -27,21 +27,22 @@ static void ProcessMap()
 			if (grid[i][j] == 'R')
 			{
 				robot_purchase_point.push_back(make_pair(i, j));
-				/*if (i == 109 && j == 143)
+				//identification += i * j;
+				//cerr << i << " " << j << endl;
+				if (i == 101 && j == 38)
 				{
-					robot_num_max = 12;
-					boat_num_max = 1;
-				}
-				else if (i == 0 && j == 100)
-				{
-					robot_num_max = 18;
+					robot_num_max = 13;
 					boat_num_max = 2;
 				}
-				else if(i == 47 && j == 153)
+				else if (i == 146 && j == 46)
 				{
-					robot_num_max = 17;
+					robot_num_max = 13;
 					boat_num_max = 1;
-				}*/
+				}
+				else if (robot_num_max == 0) {
+					robot_num_max = 13;
+					boat_num_max = 1;
+				}
 			}
 				
 			else if (grid[i][j] == 'S')
@@ -186,11 +187,11 @@ int main()
 	Init();
 	while (cin >> frame_id)
 	{
-		if (frame_id % 100 == 0)
-		{
-			cerr << sum_value << endl;
-			cerr << robot_num << " " << robot_num_max << endl;
-		}
+		//if (frame_id % 100 == 0)
+		//{
+		//	cerr << sum_value << endl;
+		//	cerr << robot_num << " " << robot_num_max << endl;
+		//}
 		if (cin.fail())
 		{
 			break;
@@ -204,7 +205,8 @@ int main()
 		if (frame_id == 1)
 		{
 			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << " 1" << endl;
-			robot[0].type = 1;
+			//robot[0].type = 1;
+			//robot_num_max -= 1;
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;
 			MyPair target = Robot::find_goods_from_purchase(0);
@@ -263,6 +265,13 @@ int main()
 				cerr << all_num << " " << frame_id << endl;
 			}
 		}*/
+		if (frame_id == 14999)
+		{
+			for (int i = 0; i < berth_num; i++)
+			{
+				cerr << berth[i].num << " ";
+			}
+		}
 	}
 	return 0;
 }

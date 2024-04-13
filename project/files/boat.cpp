@@ -39,7 +39,7 @@ void Boat::Boat_control()
 			aim_delivery = target_delivery;
 
 			dept_flag = true;
-			
+
 			string tmp = "dept " + to_string(boat_id);
 			boat_option.push_back(tmp);
 			//cerr << "dept " << boat_id << endl;
@@ -48,7 +48,7 @@ void Boat::Boat_control()
 	}
 
 	// 行驶状态
-	
+
 	if (target_x == -1)
 	{
 		// 最初始状态
@@ -56,82 +56,82 @@ void Boat::Boat_control()
 		find_road2();
 		return;
 	}
-		// 到达指定地点
-		if (target_x == x && target_y == y)
+	// 到达指定地点
+	if (target_x == x && target_y == y)
+	{
+		if (x == berth[aim_berth].x && y == berth[aim_berth].y)
 		{
-			if (x == berth[aim_berth].x && y == berth[aim_berth].y)
-			{
-				// 到了港口
-				string tmp = "berth " + to_string(boat_id);
-				boat_option.push_back(tmp);
-			}
-			else
-			{
-				// 到了交货点
-				choose_berth();
-				find_road2();
-			}
-			return;
+			// 到了港口
+			string tmp = "berth " + to_string(boat_id);
+			boat_option.push_back(tmp);
 		}
-		if (dept_flag == true)
+		else
 		{
-			int min_dis = 300000, target_delivery = 0;
-			for (int i = 0; i < delivery_num; i++)
-			{
-				if (delivery_dis[x][y][i] < min_dis)
-				{
-					min_dis = delivery_dis[x][y][i];
-					target_delivery = i;
-				}
-			}
-			if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 10)	//解决尾杀
-			{
-				choose_berth();
-			}
-			else
-			{
-				target_x = delivery_point[target_delivery].first;
-				target_y = delivery_point[target_delivery].second;
-				aim_delivery = target_delivery;
-				aim_berth = -1;
-			}
+			// 到了交货点
+			choose_berth();
 			find_road2();
-			dept_flag = false;
+		}
+		return;
+	}
+	if (dept_flag == true)
+	{
+		int min_dis = 300000, target_delivery = 0;
+		for (int i = 0; i < delivery_num; i++)
+		{
+			if (delivery_dis[x][y][i] < min_dis)
+			{
+				min_dis = delivery_dis[x][y][i];
+				target_delivery = i;
+			}
+		}
+		if (goods_num < boat_capacity && 15000 - frame_id > min_dis + 10)	//解决尾杀
+		{
+			choose_berth();
+		}
+		else
+		{
+			target_x = delivery_point[target_delivery].first;
+			target_y = delivery_point[target_delivery].second;
+			aim_delivery = target_delivery;
+			aim_berth = -1;
+		}
+		find_road2();
+		dept_flag = false;
+		return;
+	}
+	if (aim_berth != -1 && goods_num > 0) {
+		int mi = 300000, tmp = -1;
+		for (int i = 0; i < delivery_num; i++)
+		{
+			if (mi > delivery_dis[x][y][i]) {
+				mi = delivery_dis[x][y][i];
+				tmp = i;
+			}
+		}
+		//cerr << aim_berth << " " << (delivery_dis[x][y][tmp] < 5 && goods_num > 20) << endl;
+		if (mi + frame_id + 20 > 15000 || (delivery_dis[x][y][tmp] < 5 && goods_num > 10))
+		{
+			target_x = delivery_point[tmp].first;
+			target_y = delivery_point[tmp].second;
+
+			aim_berth = -1;
+			aim_delivery = tmp;
+			find_road2();
 			return;
 		}
-		if (aim_berth != -1 && goods_num > 0) {
-			int mi = 300000, tmp = -1;
-			for (int i = 0; i < delivery_num; i++)
-			{
-				if (mi > delivery_dis[x][y][i]) {
-					mi = delivery_dis[x][y][i];
-					tmp = i;
-				}
-			}
-			//cerr << aim_berth << " " << (delivery_dis[x][y][tmp] < 5 && goods_num > 20) << endl;
-			if (mi + frame_id + 20 > 15000 || (delivery_dis[x][y][tmp] < 5 && goods_num > 10))
-			{
-				target_x = delivery_point[tmp].first;
-				target_y = delivery_point[tmp].second;
+	}
+	for (int j = 0; j <= 2; j++)
+	{
+		MyTuple tmp = MyTuple(x, y, dir);
+		if (operate(tmp, j)) {
+			if (tmp == nxt[x][y][dir]) {
+				clash_solve(j, tmp);
 
-				aim_berth = -1;
-				aim_delivery = tmp;
-				find_road2();
-				return;
+				//cerr << aim_berth << endl;
+
 			}
 		}
-		for (int j = 0; j <= 2; j++)
-		{
-			MyTuple tmp = MyTuple(x, y, dir);
-			if (operate(tmp, j)) {
-				if (tmp == nxt[x][y][dir]) {
-					clash_solve(j, tmp);
-					
-					//cerr << aim_berth << endl;
-
-				}
-			}
-		}
+	}
 }
 // repeat this function check before and after move, which can be improved
 bool Boat::slow_or_not(const MyPair& t) {
@@ -268,9 +268,9 @@ void Boat::find_road()
 	//cerr << "out" << endl;
 }
 
-#if(0)
+#if(1)
 void Boat::find_road2() {	//启发式搜索，降低复杂度
-	cerr << "in\n";
+	//cerr << "in\n";
 	if (x == target_x && y == target_y) {
 		return;
 	}
@@ -329,7 +329,6 @@ void Boat::find_road2() {	//启发式搜索，降低复杂度
 					nxt[tmp.x][tmp.y][tmp.status] = now;
 					now = tmp;
 				}
-				cerr << "out\n";
 				return;
 			}
 			if (vis[tp.x][tp.y][tp.dir]) continue;
@@ -353,7 +352,6 @@ void Boat::find_road2() {	//启发式搜索，降低复杂度
 }
 #else 
 void Boat::find_road2() {	//启发式搜索，降低复杂度
-	//cerr << "in\n";
 	if (x == target_x && y == target_y) {
 		return;
 	}
@@ -402,7 +400,7 @@ void Boat::find_road2() {	//启发式搜索，降低复杂度
 
 bool Boat::two_boat_clash(MyTuple a, MyTuple b)
 {
-	unordered_map<int,int>mp;
+	unordered_map<int, int>mp;
 	if (a.status == 2) {
 		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -430,7 +428,7 @@ bool Boat::two_boat_clash(MyTuple a, MyTuple b)
 	else {
 		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < 3; j++) {
-				int tp = (a.x +i) * 1000 + a.y + j;
+				int tp = (a.x + i) * 1000 + a.y + j;
 				mp[tp] += 1;
 			}
 		}
@@ -484,12 +482,12 @@ bool Boat::two_boat_clash(MyTuple a, MyTuple b)
 
 }
 
-void Boat::clash_solve(int op , MyTuple boat_a)
-{   
+void Boat::clash_solve(int op, MyTuple boat_a)
+{
 	for (int i = boat_id + 1; i < boat_num; i++)
 	{
 		MyTuple boat_b = MyTuple(boat[i].x, boat[i].y, boat[i].dir);
-		if (Boat::two_boat_clash(boat_a,boat_b))
+		if (Boat::two_boat_clash(boat_a, boat_b))
 		{
 			string tmp = "dept " + to_string(boat_id);
 			boat_option.push_back(tmp);

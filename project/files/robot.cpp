@@ -100,7 +100,7 @@ void Robot::robot_control()
 					robot_option.push_back(tmp);
 					//cout << "pull " << robot_id << endl;
 					goods_num = 0;
-					berth[i].num += 1;
+					berth[i].num += 1 + type;
 					all_num += 1;
 					MyPair target = berth[i].find_goods_from_berth();
 
