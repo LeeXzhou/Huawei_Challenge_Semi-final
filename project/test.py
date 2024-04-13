@@ -1,7 +1,7 @@
 import subprocess
 
 # 地图文件路径
-maps = ['1','2','3']
+maps = ['1','2']
 # maps = ['1']
 # 要分析的程序路径
 projects = ['x64\Debug\project.exe']
@@ -10,7 +10,7 @@ for project in projects:
     print(project)
     for map in maps:
         map_file_path = fr"maps\map{map}.txt"
-        command = [r"../windows/SemiFinalJudge.exe", "-m", map_file_path, project, '-s','45']#
+        command = [r"../windows/SemiFinalJudge.exe", "-m", map_file_path, project, '-l' 'NONE', '-s','45']
 
         result = subprocess.run(command, check=True)
         if result.returncode == 0:

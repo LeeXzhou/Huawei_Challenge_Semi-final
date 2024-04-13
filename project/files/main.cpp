@@ -17,7 +17,7 @@ Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
 const int tg = 1; // 1 is from lizhou, 0 is from lsh
-int robot_num_max = 30, boat_num_max = 0;
+int robot_num_max = 15, boat_num_max = 2;
 static bool division = false;
 static int identification = 0;
 static void ProcessMap()
@@ -27,9 +27,7 @@ static void ProcessMap()
 			if (grid[i][j] == 'R')
 			{
 				robot_purchase_point.push_back(make_pair(i, j));
-				//identification += i * j;
-				//cerr << i << " " << j << endl;
-				if (i == 109 && j == 143)
+				/*if (i == 109 && j == 143)
 				{
 					robot_num_max = 12;
 					boat_num_max = 1;
@@ -43,7 +41,7 @@ static void ProcessMap()
 				{
 					robot_num_max = 17;
 					boat_num_max = 1;
-				}
+				}*/
 			}
 				
 			else if (grid[i][j] == 'S')
@@ -56,18 +54,10 @@ static void ProcessMap()
 
 		}
 	}
-	/*if (identification == 1111)
-	{
-		robot_num = 15;
-	}
-	else if (identification == 2222)
-	{
-		robot_num = 15;
-	}*/
 }
 
 
-static void Init()
+void Init()
 {
 	for (int i = 0; i < N; i++) {
 		cin >> grid[i];
@@ -150,20 +140,24 @@ void Input()
 	{
 		int x, y, val;
 		cin >> x >> y >> val;
-		for (int j = 0; j < berth_num; j++)
+		if (val > 0)
 		{
-			if (land_dis[x][y][j] != -1)
+			for (int j = 0; j < berth_num; j++)
 			{
-				berth[j].goods_info.insert(MyTuple(x, y, frame_id + 1000 - land_dis[x][y][j]));
+				if (land_dis[x][y][j] != -1)
+				{
+					berth[j].goods_info.insert(MyTuple(x, y, frame_id + 1000 - land_dis[x][y][j]));
+				}
+			}
+			for (int j = 0; j < robot_purchase_point.size(); j++)
+			{
+				if (land_dis[x][y][j + berth_num] != -1)
+				{
+					lbot_goods_info[j].insert(MyTuple(x, y, frame_id + 1000 - land_dis[x][y][j + berth_num]));
+				}
 			}
 		}
-		for (int j = 0; j < robot_purchase_point.size(); j++)
-		{
-			if (land_dis[x][y][j + berth_num] != -1)
-			{
-				lbot_goods_info[j].insert(MyTuple(x, y, frame_id + 1000 - land_dis[x][y][j + berth_num]));
-			}
-		}
+		
 		goods_map[x][y] = { val, frame_id + 1000 };
 	}
 
@@ -203,7 +197,7 @@ int main()
 		if (frame_id >= 2)my_alg::test_robot();
 		if (frame_id == 1)
 		{
-			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
+			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << " 0" << endl;
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;
 			MyPair target = Robot::find_goods_from_purchase(0);

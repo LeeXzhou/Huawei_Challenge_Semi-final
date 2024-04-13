@@ -285,7 +285,7 @@ namespace my_alg {
 		robot_option.clear();
 		if (money >= 2000 && robot_num < robot_num_max)
 		{
-			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << endl;
+			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << " 0" << endl;
 			start_record[robot_num + 1] = { frame_id, all_num };
 			MyPair target = Robot::find_goods_from_purchase(robot_num % robot_purchase_point.size());
 			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;
