@@ -165,6 +165,7 @@ void Input()
 	for (int i = 0; i < robot_num; i++)
 	{
 		cin >> robot[i].robot_id >> robot[i].goods_num >> robot[i].x >> robot[i].y;
+		//cerr << robot[i].robot_id << " " << robot[i].goods_num << endl;
 		robot[i].move_or_not = false;
 	}
 
@@ -185,6 +186,11 @@ int main()
 	Init();
 	while (cin >> frame_id)
 	{
+		if (frame_id % 100 == 0)
+		{
+			cerr << sum_value << endl;
+			cerr << robot_num << " " << robot_num_max << endl;
+		}
 		if (cin.fail())
 		{
 			break;
@@ -197,7 +203,8 @@ int main()
 		if (frame_id >= 2)my_alg::test_robot();
 		if (frame_id == 1)
 		{
-			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << " 0" << endl;
+			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << " 1" << endl;
+			robot[0].type = 1;
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;
 			MyPair target = Robot::find_goods_from_purchase(0);

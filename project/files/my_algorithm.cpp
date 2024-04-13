@@ -7,19 +7,6 @@ namespace my_alg {
 		memset(delivery_dis, 0x3f, sizeof(delivery_dis));
 		memset(berth_dis, 0x3f, sizeof(berth_dis));
 		bool vis[200][200][10] = { false };
-		/*unique_ptr<unique_ptr<unique_ptr<bool[]>[]>[]> vis(new unique_ptr<unique_ptr<bool[]>[]>[200]);
-		for (int i = 0; i < 200; ++i)
-		{
-			vis[i].reset(new std::unique_ptr<bool[]>[200]);
-			for (int j = 0; j < 200; ++j)
-			{
-				vis[i][j].reset(new bool[berth_num]);
-				for (int k = 0; k < berth_num; ++k)
-				{
-					vis[i][j][k] = false;
-				}
-			}
-		}*/
 		queue<MyPair> q;
 		for (int k = 0; k < berth_num + robot_purchase_point.size(); k++)
 		{
@@ -68,7 +55,6 @@ namespace my_alg {
 			}
 			
 		}
-#if(1)
 		//priority_queue<Foursome, vector<Foursome>, greater<Foursome> >qq;
 		queue<Foursome> qq;
 		MyTuple tuple_tmp;
@@ -157,98 +143,6 @@ namespace my_alg {
 				}
 			}
 		}
-#else
-		priority_queue<Foursome, vector<Foursome>, greater<Foursome> >qq;
-		MyTuple tuple_tmp;
-		for (int k = 0; k < berth_num + delivery_num; k++) {
-			int i = (k >= berth_num ? k - berth_num : k);
-			memset(vis, false, sizeof(vis));
-			if (k >= berth_num) {
-
-				for (int j = 0; j < 4; j++)
-				{
-					Foursome tmp = Foursome(delivery_point[i].first, delivery_point[i].second, j, 0);
-					tuple_tmp = tmp.get_tuple();
-					if (Boat::check_valid(tuple_tmp))
-					{
-						qq.push(tmp);
-						cerr << tuple_tmp.x << " " << tuple_tmp.y << endl;
-					}
-				}
-				cerr << "----------------------------------\n";
-				delivery_dis[delivery_point[i].first][delivery_point[i].second][i] = 0;
-				while (!qq.empty())
-				{
-					Foursome u = qq.top();
-					qq.pop();
-					tuple_tmp = u.get_tuple();
-					if (vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status]) continue;
-					vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status] = 1;
-					cerr << tuple_tmp.x << " " << tuple_tmp.y << endl;
-					for (int j = 0; j <= 2; j++)
-					{
-						tuple_tmp = u.get_tuple();
-						if (Boat::operate(tuple_tmp, j))
-						{
-							Foursome foursome_tmp;
-							if (delivery_dis[tuple_tmp.x][tuple_tmp.y][i] > u.flag + Boat::slow_or_not(tuple_tmp) + 1) {
-								delivery_dis[tuple_tmp.x][tuple_tmp.y][i] = u.flag + Boat::slow_or_not(tuple_tmp) + 1;
-								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + Boat::slow_or_not(tuple_tmp) + 1);
-								qq.push(foursome_tmp);
-							}
-						}
-
-					}
-				}
-			}
-			else {
-				for (int j = 0; j < 4; j++)
-				{
-					Foursome tmp = Foursome(berth[i].x, berth[i].y, j, 0);
-					tuple_tmp = tmp.get_tuple();
-					if (Boat::check_valid(tuple_tmp))
-					{
-						qq.push(tmp);
-					}
-				}
-
-				berth_dis[berth[i].x][berth[i].y][i] = 0;
-				while (!qq.empty())
-				{
-					Foursome u = qq.top();
-					qq.pop();
-					tuple_tmp = u.get_tuple();
-					if (vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status]) continue;
-					vis[tuple_tmp.x][tuple_tmp.y][tuple_tmp.status] = 1;
-					for (int j = 0; j <= 2; j++)
-					{
-						tuple_tmp = u.get_tuple();
-						if (Boat::operate(tuple_tmp, j))
-						{
-							Foursome foursome_tmp;
-							if (berth_dis[tuple_tmp.x][tuple_tmp.y][i] > u.flag + Boat::slow_or_not(tuple_tmp) + 1) {
-								cerr << "update$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
-								berth_dis[tuple_tmp.x][tuple_tmp.y][i] = u.flag + Boat::slow_or_not(tuple_tmp) + 1;
-								foursome_tmp = Foursome(tuple_tmp.x, tuple_tmp.y, tuple_tmp.status, u.flag + Boat::slow_or_not(tuple_tmp) + 1);
-								qq.push(foursome_tmp);
-							}
-						}
-
-					}
-				}
-			}
-		}
-		////////////////////////////////////////////
-		for (int k = 0; k < 1; k++) {
-			for (int i = 0; i < 200; i++) {
-				for (int j = 0; j < 200; j++) {
-					if(berth_dis[i][j][k] != 1061109567)
-						cerr << i << " " << j << " " << berth_dis[i][j][k] << endl;
-						//cerr << i << " " << j << endl;
-				}
-			}
-		}
-#endif
 	}
 	void all_boat_control()
 	{
@@ -283,9 +177,11 @@ namespace my_alg {
 	{
 		boat_option.clear();
 		robot_option.clear();
-		if (money >= 2000 && robot_num < robot_num_max)
+		if (money >= 5000 && robot_num < robot_num_max)
 		{
-			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << " 0" << endl;
+			cout << "lbot " << robot_purchase_point[robot_num % robot_purchase_point.size()].first << " " << robot_purchase_point[robot_num % robot_purchase_point.size()].second << " 1" << endl;
+			robot[robot_num].type = 1;
+			robot_num_max -= 1;
 			start_record[robot_num + 1] = { frame_id, all_num };
 			MyPair target = Robot::find_goods_from_purchase(robot_num % robot_purchase_point.size());
 			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;

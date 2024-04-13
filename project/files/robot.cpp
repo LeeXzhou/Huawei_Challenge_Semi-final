@@ -30,7 +30,7 @@ void Robot::robot_control()
 	if (target_x == -1 && !no_goods)
 	{
 		//定个目标地，货物地
-		if (goods_num == 0)
+		if (goods_num <= type)
 		{
 			find_goods();
 		}
@@ -90,7 +90,7 @@ void Robot::robot_control()
 	if (target_x == x && target_y == y)
 	{
 		//修改目标地
-		if (goods_num == 1)	//身上有货物，判断当前位置是不是泊位
+		if (goods_num == type + 1)	//身上货物满了，判断当前位置是不是泊位
 		{
 			for (int i = 0; i < berth_num; i++)
 			{
@@ -138,8 +138,15 @@ void Robot::robot_control()
 			string tmp = "get " + to_string(robot_id);
 			sum_value -= goods_map[x][y].first;
 			robot_option.push_back(tmp);
-			//cout << "get " << robot_id << endl;	//拿货物
-			find_berth();	//找泊位
+			if (goods_num == type)
+			{
+				find_berth();	//找泊位
+			}
+			else
+			{
+				find_goods();
+			}
+			
 		}
 	}
 	if (target_berth != -1) {
@@ -217,11 +224,6 @@ void Robot::find_berth() //找最近泊位
 	int min_dis = 300000;
 	for (int i = 0; i < berth_num; i++)
 	{
-		//int mx = 0, mi = 300000;
-		//for (int j = 0; j < delivery_num; j++) {
-		//	mx = max(mx, delivery_dis[berth[i].x][berth[i].y][j]);
-		//	mi = min(mx, delivery_dis[berth[i].x][berth[i].y][j]);
-		//}
 
 		if (frame_id + land_dis[x][y][i] > berth[i].end_time) continue;
 		if (land_dis[x][y][i] > 0 && land_dis[x][y][i] < min_dis)
@@ -391,7 +393,7 @@ bool Robot::robot_dfs(const int& move_num, stack<MyPair>move_order)
 				robot[u_id].x += dx_dy[u_op].first;
 				robot[u_id].y += dx_dy[u_op].second;
 				robot[u_id].move_or_not = true;
-				if (robot[u_id].goods_num == 0)	//重新规划路线
+				if (robot[u_id].goods_num < type + 1)	//重新规划路线
 				{
 					robot[u_id].find_goods();
 				}
