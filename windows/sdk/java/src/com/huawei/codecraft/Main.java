@@ -88,6 +88,7 @@ public class Main {
             boat[i].num = scanf.nextInt();
             boat[i].x = scanf.nextInt();
             boat[i].y = scanf.nextInt();
+			boat[i].dir = scanf.nextInt();
             boat[i].status = scanf.nextInt();
         }
         String okk = scanf.nextLine();
@@ -101,7 +102,7 @@ public class Main {
             int id = mainInstance.input();
             Random rand = new Random();
             if(money >= robot_price && robot_num <= 1){
-                System.out.printf("lbot %d %d\n", robot_purchase_point.get(0)[0], robot_purchase_point.get(0)[1]);
+                System.out.printf("lbot %d %d 0\n", robot_purchase_point.get(0)[0], robot_purchase_point.get(0)[1]);
             }
 
             if(money >= boat_price && boat_num <= 1){

@@ -17,7 +17,7 @@ Boat boat[20];
 double sum_efficiency[30], predict_efficiency[30], sum_value;
 MyPair start_record[30];
 const int tg = 1; // 1 is from lizhou, 0 is from lsh
-int robot_num_max = 30, boat_num_max = 0;
+int robot_num_max = 15, boat_num_max = 2;
 static bool division = false;
 static int identification = 0;
 static void ProcessMap()
@@ -29,21 +29,21 @@ static void ProcessMap()
 				robot_purchase_point.push_back(make_pair(i, j));
 				//identification += i * j;
 				//cerr << i << " " << j << endl;
-				if (i == 109 && j == 143)
-				{
-					robot_num_max = 12;
-					boat_num_max = 1;
-				}
-				else if (i == 0 && j == 100)
-				{
-					robot_num_max = 18;
-					boat_num_max = 2;
-				}
-				else if(i == 47 && j == 153)
-				{
-					robot_num_max = 17;
-					boat_num_max = 1;
-				}
+				//if (i == 109 && j == 143)
+				//{
+				//	robot_num_max = 12;
+				//	boat_num_max = 1;
+				//}
+				//else if (i == 0 && j == 100)
+				//{
+				//	robot_num_max = 18;
+				//	boat_num_max = 2;
+				//}
+				//else if(i == 47 && j == 153)
+				//{
+				//	robot_num_max = 17;
+				//	boat_num_max = 1;
+				//}
 			}
 				
 			else if (grid[i][j] == 'S')
@@ -203,7 +203,7 @@ int main()
 		if (frame_id >= 2)my_alg::test_robot();
 		if (frame_id == 1)
 		{
-			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << endl;
+			cout << "lbot " << robot_purchase_point[0].first << " " << robot_purchase_point[0].second << " " << 0 << endl;
 			cout << "lboat " << boat_purchase_point[0].first << " " << boat_purchase_point[0].second << endl;
 			robot[robot_num].x = robot_purchase_point[robot_num % robot_purchase_point.size()].first, robot[robot_num].y = robot_purchase_point[robot_num % robot_purchase_point.size()].second;
 			MyPair target = Robot::find_goods_from_purchase(0);

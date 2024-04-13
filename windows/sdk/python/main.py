@@ -102,7 +102,7 @@ if __name__ == "__main__":
             Input()
             if robot_num <= 1:
                 sys.stderr.write(f"lbot ({robot_purchase_point[0][0]}, {robot_purchase_point[0][1]})!\n")
-                print("lbot", robot_purchase_point[0][0], robot_purchase_point[0][1])
+                print("lbot", robot_purchase_point[0][0], robot_purchase_point[0][1], 0)
 
             if boat_num <= 1:
                 print("lboat", boat_purchase_point[0][0], boat_purchase_point[0][1])

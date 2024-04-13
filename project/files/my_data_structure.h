@@ -1,6 +1,6 @@
 #ifndef my_data_structure_h
 #define my_data_structure_h
-#pragma GCC optimize(2)
+//#pragma GCC optimize(2)
 #include <utility>
 #include <iostream>
 #include <memory>

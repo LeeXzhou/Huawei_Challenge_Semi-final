@@ -128,7 +128,7 @@ int main()
     {
         Input();
         if(money >= robot_price && robot_num <= 1){
-            printf("lbot %d %d\n", robot_purchase_point[0].x, robot_purchase_point[0].y);
+            printf("lbot %d %d 0\n", robot_purchase_point[0].x, robot_purchase_point[0].y);
         }
 
         if(money >= boat_price && boat_num <= 1){
